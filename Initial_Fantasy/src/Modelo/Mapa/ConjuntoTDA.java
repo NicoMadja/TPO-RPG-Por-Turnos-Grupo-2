@@ -1,4 +1,4 @@
-package Modelo;
+package Modelo.Mapa;
 
 public interface ConjuntoTDA {
 

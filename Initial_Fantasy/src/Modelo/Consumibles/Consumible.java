@@ -9,4 +9,12 @@ public abstract class Consumible {
     public void aplicarEfecto(Entidad entidad){
 
     }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
 }
