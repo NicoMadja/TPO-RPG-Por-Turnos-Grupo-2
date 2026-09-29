@@ -1,4 +1,4 @@
-package Modelo.Habilidades;
+package modelo.Habilidades;
 
 public class HabilidadGuerrero extends Habilidad {
 

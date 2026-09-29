@@ -1,8 +1,8 @@
-package Modelo.Acciones;
+package modelo.Acciones;
 
-import Modelo.Habilidades.Habilidad;
-import Modelo.Entidades.Entidad;
-import Modelo.Consumibles.Consumible;
+import modelo.Habilidades.Habilidad;
+import modelo.Entidades.Entidad;
+import modelo.Consumibles.Consumible;
 
 public class ContextoAccion {
     private Entidad origen;

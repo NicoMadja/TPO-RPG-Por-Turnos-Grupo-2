@@ -1,7 +1,7 @@
-package Modelo.Entidades.Enemigos;
+package modelo.Entidades.Enemigos;
 
-import Modelo.Entidades.Entidad;
-import Modelo.Entidades.Personajes.Personaje;
+import modelo.Entidades.Entidad;
+import modelo.Entidades.Personajes.Personaje;
 
 import java.util.List;
 

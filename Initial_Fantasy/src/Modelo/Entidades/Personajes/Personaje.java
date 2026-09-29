@@ -1,6 +1,6 @@
-package Modelo.Entidades.Personajes;
+package modelo.Entidades.Personajes;
 
-import Modelo.Entidades.Entidad;
+import modelo.Entidades.Entidad;
 
 public abstract class Personaje extends Entidad {
     protected int vidaMaxima;

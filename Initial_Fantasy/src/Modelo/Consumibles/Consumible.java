@@ -1,6 +1,6 @@
-package Modelo.Consumibles;
+package modelo.Consumibles;
 
-import Modelo.Entidades.Entidad;
+import modelo.Entidades.Entidad;
 
 public abstract class Consumible {
     protected String nombre;

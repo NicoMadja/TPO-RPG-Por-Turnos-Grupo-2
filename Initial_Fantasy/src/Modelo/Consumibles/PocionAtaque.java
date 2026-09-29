@@ -1,6 +1,6 @@
-package Modelo.Consumibles;
+package modelo.Consumibles;
 
-import Modelo.Entidades.Entidad;
+import modelo.Entidades.Entidad;
 
 public class PocionAtaque extends Consumible {
     private int efectoAtaque;

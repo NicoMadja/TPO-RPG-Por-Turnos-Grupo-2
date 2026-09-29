@@ -1,8 +1,8 @@
-package Modelo.Mapa.Nodos;
+package modelo.Mapa.Nodos;
 
 import java.util.List;
-import Modelo.Entidades.Enemigos.Enemigo;
-import Modelo.Party.Party;
+import modelo.Entidades.Enemigos.Enemigo;
+import modelo.Party.Party;
 
 public class Batalla {
     public List<Enemigo> enemigos;

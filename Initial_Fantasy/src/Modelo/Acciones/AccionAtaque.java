@@ -1,4 +1,4 @@
-package Modelo.Acciones;
+package modelo.Acciones;
 
 public class AccionAtaque extends Accion {
 

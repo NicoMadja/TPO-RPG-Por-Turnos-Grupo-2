@@ -1,4 +1,4 @@
-package Modelo.Entidades.Personajes;
+package modelo.Entidades.Personajes;
 
 public class Guerrero extends Personaje {
 

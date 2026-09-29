@@ -1,6 +1,6 @@
-package Modelo.Entidades;
+package modelo.Entidades;
 
-import Modelo.Habilidades.Habilidad;
+import modelo.Habilidades.Habilidad;
 
 public abstract class Entidad {
     protected String nombre;

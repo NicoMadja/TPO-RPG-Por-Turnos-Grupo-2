@@ -1,6 +1,6 @@
-package Modelo.Mapa.Nodos;
+package modelo.Mapa.Nodos;
 
-import Modelo.Party.Party;
+import modelo.Party.Party;
 
 public class Campamento {
 

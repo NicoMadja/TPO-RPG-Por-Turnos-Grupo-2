@@ -1,6 +1,6 @@
-package Modelo.Mapa.Nodos;
+package modelo.Mapa.Nodos;
 
-import Modelo.Consumibles.Consumible;
+import modelo.Consumibles.Consumible;
 
 import java.util.List;
 

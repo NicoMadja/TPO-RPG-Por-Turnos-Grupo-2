@@ -1,6 +1,6 @@
-package Modelo.Habilidades;
+package modelo.Habilidades;
 
-import Modelo.Acciones.ContextoAccion;
+import modelo.Acciones.ContextoAccion;
 
 public abstract class Habilidad {
     private String nombre;

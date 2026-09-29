@@ -1,4 +1,4 @@
-package Modelo.Mapa;
+package modelo.Mapa;
 
 public class ConjuntoDinamico implements ConjuntoTDA {
     class Nodo {

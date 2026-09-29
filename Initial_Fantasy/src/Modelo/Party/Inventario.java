@@ -1,6 +1,6 @@
-package Modelo.Party;
+package modelo.Party;
 
-import Modelo.Consumibles.Consumible;
+import modelo.Consumibles.Consumible;
 import java.util.Map;
 
 public class Inventario {

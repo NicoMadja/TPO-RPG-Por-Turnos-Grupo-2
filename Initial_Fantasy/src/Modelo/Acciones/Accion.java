@@ -1,4 +1,4 @@
-package Modelo.Acciones;
+package modelo.Acciones;
 
 public abstract class Accion {
     protected String nombre;
