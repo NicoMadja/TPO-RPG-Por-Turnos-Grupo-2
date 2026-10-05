@@ -1,0 +1,20 @@
+package modelo.consumibles;
+
+import modelo.entidades.Entidad;
+
+public abstract class Consumible {
+    protected String nombre;
+    protected int precio;
+
+    public void aplicarEfecto(Entidad entidad){
+
+    }
+
+    public int getPrecio() {
+        return precio;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+}
