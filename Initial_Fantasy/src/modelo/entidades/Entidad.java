@@ -106,28 +106,16 @@ public abstract class Entidad {
 
     // --- GETTERS ---
     public String getNombre() {return nombre;}
-
     public int getNivel() {return nivel;}
-
     public int getVidaMaxima() {return vidaMaxima;}
-
     public int getVidaActual() {return vidaActual;}
-
     public int getManaMaximo() {return manaMaximo;}
-
     public int getManaActual() {return manaActual;}
-
     public int getAtaqueBase() {return ataqueBase;}
-
     public int getAtaqueActual() {return ataqueActual;}
-
     public int getDefensaBase() {return defensaBase;}
-
     public int getDefensaActual() {return defensaActual;}
-
     public int getVelocidadBase() {return velocidadBase;}
-
     public int getVelocidadActual() {return velocidadActual;}
-
     public Habilidad getHabilidad() {return habilidad;}
 }

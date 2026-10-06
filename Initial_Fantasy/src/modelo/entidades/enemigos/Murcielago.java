@@ -1,6 +1,6 @@
 package modelo.entidades.enemigos;
 
-import modelo.habilidades.HabilidadMurcielago;
+import modelo.habilidades.enemigas.HabilidadMurcielago;
 import modelo.acciones.Accion;
 import modelo.acciones.AccionAtaque;
 import modelo.party.Party;

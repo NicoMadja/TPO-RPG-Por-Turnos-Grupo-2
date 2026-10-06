@@ -1,6 +1,6 @@
 package modelo.entidades.personajes;
 
-import modelo.habilidades.HabilidadGuerrero;
+import modelo.habilidades.aliadas.HabilidadGuerrero;
 
 public class Guerrero extends Personaje {
 

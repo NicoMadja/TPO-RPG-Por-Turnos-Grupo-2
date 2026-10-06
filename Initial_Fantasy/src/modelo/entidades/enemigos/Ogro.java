@@ -1,6 +1,6 @@
 package modelo.entidades.enemigos;
 
-import modelo.habilidades.HabilidadOgro;
+import modelo.habilidades.enemigas.HabilidadOgro;
 import modelo.acciones.Accion;
 import modelo.acciones.AccionAtaque;
 import modelo.party.Party;

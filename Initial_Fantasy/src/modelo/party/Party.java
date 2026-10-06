@@ -4,33 +4,86 @@ import modelo.entidades.personajes.Personaje;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Party {
-    private List<Personaje> miembros;
-    private int monedero;
+    private List<Personaje> personajes;
     private Inventario inventario;
-    public boolean EquipoDerrotado; //??
+    private int monedero;
+    private Random random;
 
     public Party() {
-        this.miembros = new ArrayList<>();
+        this.personajes = new ArrayList<>();
+        this.inventario = new Inventario();
+        this.monedero = 0;
+        this.random = new Random();
     }
 
-    public void AgregarPersonaje(Personaje p){
-        if (miembros.size() < 3) {
-            miembros.add(p);
+
+    // --- CONSTRUCTOR ---
+    public void agregarPersonaje(Personaje p) {
+        if (personajes.size() < 3) {
+            personajes.add(p);
             System.out.println("Personaje agregado.");
             return;
         }
         System.out.println("El equipo ya tiene el límite máximo de 3 integrantes.");
     }
 
-    public void ObtenerRecompensas(int experiencia, int oro){
-        agregrarOro(oro);
-        // distribuir experiencia entre los personajes
+
+    // --- FLUJO DE BATALLA ---
+    public List<Personaje> getPersonajesVivos() {
+        List<Personaje> vivos = new ArrayList<>();
+        for (Personaje p : personajes) {
+            if (p.estaVivo()) {
+                vivos.add(p);
+            }
+        }
+        return vivos;
     }
 
-    public void agregrarOro(int cantidad){
-        monedero += cantidad;
+    public boolean estaDerrotada() {
+        // la lista vacía sería que perdimos el juego
+        return getPersonajesVivos().isEmpty();
+    }
+
+
+    // --- INTELIGENCIA PARA ENEMIGOS ---
+    public Personaje obtenerPersonajeVivoAlAzar() {
+        List<Personaje> vivos = getPersonajesVivos();
+        if (vivos.isEmpty()) return null;
+
+        return vivos.get(random.nextInt(vivos.size()));
+    }
+
+    public Personaje obtenerPersonajeConMenosVida() {
+        List<Personaje> vivos = getPersonajesVivos();
+        if (vivos.isEmpty()) return null;
+
+        Personaje masDebil = vivos.get(0);
+        for (Personaje p : vivos) {
+            if (p.getVidaActual() < masDebil.getVidaActual()) {
+                masDebil = p;
+            }
+        }
+        return masDebil;
+    }
+
+
+    // --- ORO Y EXPERIENCIA ---
+    public void distribuirExperiencia(int totalExp) {
+        List<Personaje> vivos = getPersonajesVivos();
+        if (vivos.isEmpty()) return;
+
+        // se divide equitativamente entre los personajes que sobrevivieron
+        int expPorPersonaje = totalExp / vivos.size();
+        for (Personaje p : vivos) {
+            p.ganarExperiencia(expPorPersonaje);
+        }
+    }
+
+    public void sumarOro(int oroTotal) {
+        monedero += oroTotal;
     }
 
     public void gastarOro(int cantidad){
@@ -41,6 +94,11 @@ public class Party {
     }
 
     private boolean puedeGastarOro(int cantidad){
-        return monedero > cantidad;
+        return monedero >= cantidad;
     }
+
+
+    // --- GETTERS ---
+    public List<Personaje> getPersonajes() {return personajes;}
+    public Inventario getInventario() {return inventario;}
 }

@@ -1,6 +1,6 @@
 package modelo.entidades.personajes;
 
-import modelo.habilidades.HabilidadMago;
+import modelo.habilidades.aliadas.HabilidadMago;
 
 public class Mago extends Personaje {
 

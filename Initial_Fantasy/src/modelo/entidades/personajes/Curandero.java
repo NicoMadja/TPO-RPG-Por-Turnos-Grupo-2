@@ -1,6 +1,6 @@
 package modelo.entidades.personajes;
 
-import modelo.habilidades.HabilidadCurandero;
+import modelo.habilidades.aliadas.HabilidadCurandero;
 
 public class Curandero extends Personaje {
 

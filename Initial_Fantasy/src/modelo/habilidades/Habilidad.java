@@ -1,11 +1,23 @@
 package modelo.habilidades;
 
-import modelo.acciones.ContextoAccion;
+import modelo.entidades.Entidad;
 
 public abstract class Habilidad {
-    private String nombre;
+    protected String nombre;
+    protected int costoMana;
 
-    public void aplicarHabilidad(ContextoAccion contecto){
-
+    public Habilidad(String nombre, int costoMana) {
+        this.nombre = nombre;
+        this.costoMana = costoMana;
     }
+
+
+    // ---  ---
+    public abstract void ejecutar(Entidad lanzador, Entidad objetivo);
+
+
+    // --- GETTERS ---
+    public String getNombre() {return nombre;}
+
+    public int getCostoMana() {return costoMana;}
 }

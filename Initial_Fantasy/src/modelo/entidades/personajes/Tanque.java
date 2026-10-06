@@ -1,6 +1,6 @@
 package modelo.entidades.personajes;
 
-import modelo.habilidades.HabilidadTanque;
+import modelo.habilidades.aliadas.HabilidadTanque;
 
 public class Tanque extends Personaje {
 

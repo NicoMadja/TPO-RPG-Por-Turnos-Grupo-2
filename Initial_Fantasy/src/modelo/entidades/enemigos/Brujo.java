@@ -1,6 +1,6 @@
 package modelo.entidades.enemigos;
 
-import modelo.habilidades.HabilidadBrujo;
+import modelo.habilidades.enemigas.HabilidadBrujo;
 import modelo.acciones.Accion;
 import modelo.acciones.AccionAtaque;
 import modelo.acciones.AccionHabilidad;
