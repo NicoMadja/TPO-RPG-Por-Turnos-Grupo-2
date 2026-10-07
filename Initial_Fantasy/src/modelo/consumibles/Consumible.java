@@ -4,17 +4,17 @@ import modelo.entidades.Entidad;
 
 public abstract class Consumible {
     protected String nombre;
-    protected int precio;
 
-    public void aplicarEfecto(Entidad entidad){
 
+    // --- CONSTRUCTOR ---
+    public Consumible(String nombre) {
+        this.nombre = nombre;
     }
 
-    public int getPrecio() {
-        return precio;
-    }
 
-    public String getNombre() {
-        return nombre;
-    }
+    // --- GETTERS ---
+    public String getNombre() {return nombre;}
+
+
+    public abstract void consumir(Entidad objetivo);
 }

@@ -25,6 +25,9 @@ public abstract class Entidad {
     // Habilidad
     protected Habilidad habilidad;
 
+    // Defendido
+    protected boolean defendiendo = false;
+
 
     // --- CONSTRUCTOR ---
     public Entidad(String nombre, int nivel, int vidaMaxima, int manaMaximo, int ataqueBase, int defensaBase, int velocidadBase, Habilidad habilidad) {
@@ -118,4 +121,9 @@ public abstract class Entidad {
     public int getVelocidadBase() {return velocidadBase;}
     public int getVelocidadActual() {return velocidadActual;}
     public Habilidad getHabilidad() {return habilidad;}
+    public boolean isDefendiendo() {return defendiendo;}
+
+
+    // --- SETTERS ---
+    public void setDefendiendo(boolean defendiendo) {this.defendiendo = defendiendo;}
 }

@@ -3,7 +3,5 @@ package modelo.acciones;
 public abstract class Accion {
     protected String nombre;
 
-    public void ejecutar(ContextoAccion contexto) {
-
-    }
+    public abstract void ejecutar(ContextoAccion contexto);
 }

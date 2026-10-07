@@ -1,21 +1,36 @@
 package modelo.party;
 
 import modelo.consumibles.Consumible;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Inventario {
-    private Map<Consumible, Integer> items;
+    private List<Consumible> items;
 
-                                               //cantidad?
-    public void agregarItem(Consumible item, int cantidad) {
-        items.merge(item, cantidad, Integer::sum);
+
+    // --- CONSTRUCTOR ---
+    public Inventario() {
+        this.items = new ArrayList<>();
     }
 
-    public void consumirItem(Consumible item) {
-        // restar 1 de cantidad
+
+    // --- GESTION ---
+    public void agregarItem(Consumible item) {
+        this.items.add(item);
     }
 
-    public boolean tieneItem(Consumible item) {
-        return items.containsKey(item);
+    public void usarItem(Consumible item, modelo.entidades.Entidad objetivo) {
+        if (this.items.contains(item)) {
+            item.consumir(objetivo); // efecto de la poción
+            this.items.remove(item); // lo borramos
+        }
     }
+
+    public boolean estaVacio() {
+        return items.isEmpty();
+    }
+
+
+    // --- GETTERS ---
+    public List<Consumible> getItems() {return items;}
 }
