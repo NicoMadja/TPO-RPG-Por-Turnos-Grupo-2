@@ -5,8 +5,12 @@ import modelo.habilidades.Habilidad;
 
 public class AccionHabilidad extends Accion {
 
+    public AccionHabilidad(ContextoAccion contexto) {
+        super(contexto);
+    }
+
     @Override
-    public void ejecutar(ContextoAccion contexto) {
+    public void ejecutar() {
         Entidad lanzador = contexto.getOrigen();
         Habilidad habilidadUsada = contexto.getHabilidad();
 

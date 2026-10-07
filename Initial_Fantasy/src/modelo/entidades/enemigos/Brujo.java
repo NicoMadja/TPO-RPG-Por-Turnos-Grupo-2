@@ -1,5 +1,6 @@
 package modelo.entidades.enemigos;
 
+import modelo.acciones.ContextoAccion;
 import modelo.habilidades.enemigas.HabilidadBrujo;
 import modelo.acciones.Accion;
 import modelo.acciones.AccionAtaque;
@@ -23,10 +24,12 @@ public class Brujo extends Enemigo {
 
         // si tiene suficiente maná, prioriza usar la habilidad
         if (this.manaActual >= 15) {
-            return new AccionHabilidad(this, objetivo, this.habilidad);
+            ContextoAccion contextoHabilidad = new ContextoAccion(this, objetivo, null, this.habilidad);
+            return new AccionHabilidad(contextoHabilidad);
         }
 
         // si se quedó sin maná, se ve obligado a hacer un ataque físico débil
-        return new AccionAtaque(this, objetivo);
+        ContextoAccion contexto = new ContextoAccion(this, objetivo, null, null);
+        return new AccionAtaque(contexto);
     }
 }

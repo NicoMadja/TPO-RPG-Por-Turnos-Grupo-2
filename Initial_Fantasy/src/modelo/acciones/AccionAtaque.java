@@ -4,8 +4,12 @@ import modelo.entidades.Entidad;
 
 public class AccionAtaque extends Accion {
 
+    public AccionAtaque(ContextoAccion contexto) {
+        super(contexto);
+    }
+
     @Override
-    public void ejecutar(ContextoAccion contexto) {
+    public void ejecutar() {
         Entidad atacante = contexto.getOrigen();
         // sacamos al unico objetivo de la lista
         Entidad objetivo = contexto.getObjetivos().get(0);

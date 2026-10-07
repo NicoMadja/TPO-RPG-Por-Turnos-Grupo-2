@@ -1,5 +1,6 @@
 package modelo.entidades.enemigos;
 
+import modelo.acciones.ContextoAccion;
 import modelo.habilidades.enemigas.HabilidadMurcielago;
 import modelo.acciones.Accion;
 import modelo.acciones.AccionAtaque;
@@ -21,7 +22,9 @@ public class Murcielago extends Enemigo {
         // ataca con ataques básicos a un objetivo aleatorio.
         Personaje objetivo = heroes.obtenerPersonajeVivoAlAzar();
 
+        ContextoAccion contexto = new ContextoAccion(this, objetivo, null, null);
+
         // retorna la acción empaquetada para que el Gestor de Turnos la ejecute
-        return new AccionAtaque(this, objetivo);
+        return new AccionAtaque(contexto);
     }
 }
