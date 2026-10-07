@@ -12,9 +12,10 @@ public abstract class Consumible {
     }
 
 
+    public abstract void consumir(Entidad objetivo);
+
+
     // --- GETTERS ---
     public String getNombre() {return nombre;}
 
-
-    public abstract void consumir(Entidad objetivo);
 }

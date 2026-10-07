@@ -12,6 +12,8 @@ public class Party {
     private int monedero;
     private Random random;
 
+
+    // --- CONSTRUCTOR ---
     public Party() {
         this.personajes = new ArrayList<>();
         this.inventario = new Inventario();
@@ -20,7 +22,7 @@ public class Party {
     }
 
 
-    // --- CONSTRUCTOR ---
+    // --- AGREGAR ---
     public void agregarPersonaje(Personaje p) {
         if (personajes.size() < 3) {
             personajes.add(p);
@@ -82,8 +84,8 @@ public class Party {
         }
     }
 
-    public void sumarOro(int oroTotal) {
-        monedero += oroTotal;
+    public void sumarOro(int totalOro) {
+        monedero += totalOro;
     }
 
     public void gastarOro(int cantidad){

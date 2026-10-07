@@ -24,6 +24,5 @@ public abstract class Enemigo extends Entidad {
 
     // --- GETTERS ---
     public int getExperienciaOtorgada() {return experienciaOtorgada;}
-
     public int getOroOtorgado() {return oroOtorgado;}
 }
