@@ -1,5 +1,6 @@
 package modelo.entidades.enemigos;
 
+import modelo.acciones.AccionHabilidad;
 import modelo.acciones.ContextoAccion;
 import modelo.habilidades.enemigas.HabilidadEsqueleto;
 import modelo.acciones.Accion;
@@ -19,12 +20,17 @@ public class Esqueleto extends Enemigo {
     // --- COMPORTAMIENTO ---
     @Override
     public Accion decidirAccion(Party heroes) {
-        // ataca con ataques básicos a un objetivo aleatorio
+        // ataca objetivo aleatorio
         Personaje objetivo = heroes.obtenerPersonajeVivoAlAzar();
 
-        ContextoAccion contexto = new ContextoAccion(this, objetivo, null, null);
-
-        // retorna la acción empaquetada para que el Gestor de Turnos la ejecute
-        return new AccionAtaque(contexto);
+        // 50% de posibilidad de ejecutar su habilidad
+        if (Math.random() < 0.5) {
+            ContextoAccion contextoHabilidad = new ContextoAccion(this, objetivo, null, this.habilidad);
+            return new AccionHabilidad(contextoHabilidad);
+        } else {
+            // el otro 50% es pegar un ataque basico
+            ContextoAccion contexto = new ContextoAccion(this, objetivo, null, null);
+            return new AccionAtaque(contexto);
+        }
     }
 }

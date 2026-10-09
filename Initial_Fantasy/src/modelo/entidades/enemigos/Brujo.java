@@ -20,16 +20,17 @@ public class Brujo extends Enemigo {
     // --- COMPORTAMIENTO ---
     @Override
     public Accion decidirAccion(Party heroes) {
+        // ataca objetivo aleatorio
         Personaje objetivo = heroes.obtenerPersonajeVivoAlAzar();
 
         // si tiene suficiente maná, prioriza usar la habilidad
-        if (this.manaActual >= 15) {
+        if (tieneSuficienteMana(this.habilidad.getCostoMana())) {
             ContextoAccion contextoHabilidad = new ContextoAccion(this, objetivo, null, this.habilidad);
             return new AccionHabilidad(contextoHabilidad);
+        } else {
+            // si se quedó sin maná, se ve obligado a hacer un ataque basico
+            ContextoAccion contexto = new ContextoAccion(this, objetivo, null, null);
+            return new AccionAtaque(contexto);
         }
-
-        // si se quedó sin maná, se ve obligado a hacer un ataque físico débil
-        ContextoAccion contexto = new ContextoAccion(this, objetivo, null, null);
-        return new AccionAtaque(contexto);
     }
 }

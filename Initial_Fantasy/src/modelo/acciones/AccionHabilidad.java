@@ -14,7 +14,8 @@ public class AccionHabilidad extends Accion {
         Entidad lanzador = contexto.getOrigen();
         Habilidad habilidadUsada = contexto.getHabilidad();
 
-        if (lanzador.getManaActual() >= habilidadUsada.getCostoMana()) {
+        // si tiene suficiente maná, se resta al lanzador
+        if (lanzador.tieneSuficienteMana(habilidadUsada.getCostoMana())) {
             lanzador.gastarMana(habilidadUsada.getCostoMana());
 
             for (Entidad objetivo : contexto.getObjetivos()) {

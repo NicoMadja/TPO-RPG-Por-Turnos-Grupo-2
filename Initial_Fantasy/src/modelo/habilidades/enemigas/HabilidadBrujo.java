@@ -6,7 +6,7 @@ import modelo.habilidades.Habilidad;
 public class HabilidadBrujo extends Habilidad {
 
     public HabilidadBrujo() {
-        super("Rayo Oscuro", 15);
+        super("Rayo Oscuro", 30);
     }
 
     @Override

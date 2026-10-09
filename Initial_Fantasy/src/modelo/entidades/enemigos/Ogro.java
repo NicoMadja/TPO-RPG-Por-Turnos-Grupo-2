@@ -1,5 +1,6 @@
 package modelo.entidades.enemigos;
 
+import modelo.acciones.AccionHabilidad;
 import modelo.acciones.ContextoAccion;
 import modelo.habilidades.enemigas.HabilidadOgro;
 import modelo.acciones.Accion;
@@ -19,12 +20,17 @@ public class Ogro extends Enemigo {
     // --- COMPORTAMIENTO ---
     @Override
     public Accion decidirAccion(Party heroes) {
-        // el ogro aplasta al personaje que tenga menos vida
+        // aplasta al personaje que tenga menos vida
         Personaje objetivo = heroes.obtenerPersonajeConMenosVida();
 
-        ContextoAccion contexto = new ContextoAccion(this, objetivo, null, null);
-
-        // retorna la acción empaquetada para que el Gestor de Turnos la ejecute
-        return new AccionAtaque(contexto);
+        // 25% de posibilidad de ejecutar su habilidad
+        if (Math.random() < 0.25) {
+            ContextoAccion contextoHabilidad = new ContextoAccion(this, objetivo, null, this.habilidad);
+            return new AccionHabilidad(contextoHabilidad);
+        } else {
+            // el otro 75% es pegar un ataque basico
+            ContextoAccion contexto = new ContextoAccion(this, objetivo, null, null);
+            return new AccionAtaque(contexto);
+        }
     }
 }

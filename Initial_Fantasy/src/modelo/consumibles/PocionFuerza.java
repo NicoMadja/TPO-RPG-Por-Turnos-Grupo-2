@@ -5,7 +5,7 @@ import modelo.entidades.Entidad;
 public class PocionFuerza extends Consumible {
 
     public PocionFuerza() {
-        super("Poción de Fuerza");
+        super("Poción de Fuerza", 600);
     }
 
     @Override

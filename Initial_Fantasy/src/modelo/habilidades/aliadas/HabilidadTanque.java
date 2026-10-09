@@ -6,7 +6,7 @@ import modelo.habilidades.Habilidad;
 public class HabilidadTanque extends Habilidad {
 
     public HabilidadTanque() {
-        super("Muro Inquebrantable", 10);
+        super("Muro Inquebrantable", 15);
     }
 
     @Override

@@ -2,10 +2,10 @@ package modelo.consumibles;
 
 import modelo.entidades.Entidad;
 
-public class PocionVida extends Consumible {
+public class PocionSalud extends Consumible {
 
-    public PocionVida() {
-        super("Poción de Vida");
+    public PocionSalud() {
+        super("Poción de Vida", 550);
     }
 
     @Override

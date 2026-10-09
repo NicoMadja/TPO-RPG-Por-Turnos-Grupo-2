@@ -4,11 +4,13 @@ import modelo.entidades.Entidad;
 
 public abstract class Consumible {
     protected String nombre;
+    protected int precio;
 
 
     // --- CONSTRUCTOR ---
-    public Consumible(String nombre) {
+    public Consumible(String nombre, int precio) {
         this.nombre = nombre;
+        this.precio = precio;
     }
 
 
@@ -17,5 +19,5 @@ public abstract class Consumible {
 
     // --- GETTERS ---
     public String getNombre() {return nombre;}
-
+    public int getPrecio() {return precio;}
 }

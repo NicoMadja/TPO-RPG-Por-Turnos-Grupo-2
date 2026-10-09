@@ -18,15 +18,14 @@ public abstract class Entidad {
 
     protected int defensaBase;
     protected int defensaActual;
+    // Defendiendo como acción (no pasiva)
+    protected boolean defendiendo;
 
     protected int velocidadBase;
     protected int velocidadActual;
 
     // Habilidad
     protected Habilidad habilidad;
-
-    // Defendido
-    protected boolean defendiendo = false;
 
 
     // --- CONSTRUCTOR ---
@@ -39,6 +38,7 @@ public abstract class Entidad {
         this.defensaBase = defensaBase;
         this.velocidadBase = velocidadBase;
         this.habilidad = habilidad;
+        this.defendiendo = false;
 
         // una entidad empieza con los valores actuales como máximos
         this.vidaActual = this.vidaMaxima;
@@ -98,12 +98,24 @@ public abstract class Entidad {
         this.ataqueActual = this.ataqueBase;
         this.defensaActual = this.defensaBase;
         this.velocidadActual = this.velocidadBase;
+        this.defendiendo = false;
     }
 
 
-    // --- ESTADO ---
+    // --- ESTADOS ---
     public boolean estaVivo() {
         return this.vidaActual > 0;
+    }
+
+    public void revivir() {
+        if (!estaVivo()) {
+            this.recibirCura(Math.max(1, vidaMaxima / 2)); // para que reviva con mínimo 1 de vida
+            this.defendiendo = false;
+        }
+    }
+
+    public boolean tieneSuficienteMana(int cantidad) {
+        return this.manaActual >= cantidad;
     }
 
 

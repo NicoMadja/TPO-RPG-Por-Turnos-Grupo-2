@@ -13,12 +13,12 @@ public class Arquero extends Personaje {
     // --- PROGRESIÓN ESPECÍFICA ---
     @Override
     protected void incrementarEstadisticas() {
-        // el arquero escala moderado maná y ataque, con un poco de velocidad
+        // el arquero escala moderado maná y ataque
         this.vidaMaxima += 10;
         this.manaMaximo += 10;
         this.ataqueBase += 10;
         this.defensaBase += 5;
-        this.velocidadBase += 4;
+        this.velocidadBase += 3;
 
         this.vidaActual = this.vidaMaxima;
         this.manaActual = this.manaMaximo;
