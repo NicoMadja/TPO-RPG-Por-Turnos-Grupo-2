@@ -2,6 +2,7 @@ package modelo.habilidades.aliadas;
 
 import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
+import modelo.acciones.ContextoAccion;
 
 public class HabilidadCurandero extends Habilidad {
 
@@ -10,10 +11,13 @@ public class HabilidadCurandero extends Habilidad {
     }
 
     @Override
-    public void ejecutar(Entidad lanzador, Entidad objetivo) {
-        // cura a un aliado el triple del daño del curandero
-        int cantidadCuracion = lanzador.getAtaqueActual() * 3;
+    public void ejecutar(ContextoAccion contexto) {
+        Entidad lanzador = contexto.getOrigen();
 
-        objetivo.recibirCura(cantidadCuracion);
+        // cura a un aliado el triple del ataque del curandero
+        int cantidadCuracion = lanzador.getAtaqueActual() * 3;
+        for (Entidad objetivo : contexto.getObjetivos()) {
+            if (objetivo.estaVivo()) objetivo.recibirCura(cantidadCuracion);
+        }
     }
 }

@@ -2,6 +2,7 @@ package modelo.habilidades.aliadas;
 
 import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
+import modelo.acciones.ContextoAccion;
 
 public class HabilidadArquero extends Habilidad {
 
@@ -10,14 +11,19 @@ public class HabilidadArquero extends Habilidad {
     }
 
     @Override
-    public void ejecutar(Entidad lanzador, Entidad objetivo) {
-        // tira un flechazo que baja la velocidad y defensa del enemigo
-        int danioFinal = lanzador.getAtaqueActual() - objetivo.getDefensaActual();
-        if (danioFinal < 0) {danioFinal = 0;}
+    public void ejecutar(ContextoAccion contexto) {
+        Entidad lanzador = contexto.getOrigen();
 
-        // aplicamos el daño y los debuffs
-        objetivo.recibirDanio(danioFinal);
-        objetivo.modificarVelocidad(-1);
-        objetivo.modificarDefensa(-5);
+        // flechazo que baja la velocidad y la defensa del enemigo
+        for (Entidad objetivo : contexto.getObjetivos()) {
+            if (!objetivo.estaVivo()) continue;
+
+            int danioFinal = lanzador.getAtaqueActual() - objetivo.getDefensaActual();
+            if (danioFinal < 0) danioFinal = 0;
+
+            objetivo.recibirDanio(danioFinal);
+            objetivo.modificarVelocidad(-1);
+            objetivo.modificarDefensa(-5);
+        }
     }
 }

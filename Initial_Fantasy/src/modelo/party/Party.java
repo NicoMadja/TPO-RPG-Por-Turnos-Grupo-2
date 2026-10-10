@@ -88,14 +88,17 @@ public class Party {
         monedero += totalOro;
     }
 
-    public void gastarOro(int cantidad){
-        if (puedeGastarOro(cantidad))
+    public boolean gastarOro(int cantidad){
+        if (puedeGastarOro(cantidad)) {
             monedero -= cantidad;
-        else
+            return true;
+        } else {
             System.out.println("No tiene suficiente oro.");
+            return false;
+        }
     }
 
-    private boolean puedeGastarOro(int cantidad){
+    public boolean puedeGastarOro(int cantidad){
         return monedero >= cantidad;
     }
 

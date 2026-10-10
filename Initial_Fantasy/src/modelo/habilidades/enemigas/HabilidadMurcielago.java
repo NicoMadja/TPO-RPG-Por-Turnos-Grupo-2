@@ -2,6 +2,7 @@ package modelo.habilidades.enemigas;
 
 import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
+import modelo.acciones.ContextoAccion;
 
 public class HabilidadMurcielago extends Habilidad {
 
@@ -10,12 +11,16 @@ public class HabilidadMurcielago extends Habilidad {
     }
 
     @Override
-    public void ejecutar(Entidad lanzador, Entidad objetivo) {
-        // daña poco ignorando la defensa del héro y se cura a sí mismo
-        int danioFinal = lanzador.getAtaqueActual();
-        objetivo.recibirDanio(danioFinal);
+    public void ejecutar(ContextoAccion contexto) {
+        Entidad lanzador = contexto.getOrigen();
 
-        // se cura la misma cantidad de vida que quitó
-        lanzador.recibirCura(danioFinal);
+        // daña poco ignorando la defensa del héroe y se cura lo que quitó
+        for (Entidad objetivo : contexto.getObjetivos()) {
+            if (!objetivo.estaVivo()) continue;
+
+            int danioFinal = lanzador.getAtaqueActual();
+            objetivo.recibirDanio(danioFinal);
+            lanzador.recibirCura(danioFinal);
+        }
     }
 }

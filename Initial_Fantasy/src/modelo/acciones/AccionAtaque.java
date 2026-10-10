@@ -12,6 +12,7 @@ public class AccionAtaque extends Accion {
     public void ejecutar() {
         Entidad atacante = contexto.getOrigen();
         // sacamos al unico objetivo de la lista
+        if (contexto.getObjetivos().isEmpty()) return;
         Entidad objetivo = contexto.getObjetivos().get(0);
 
         // repele el ataque básico si está defendido (si usó AccionDefensa)

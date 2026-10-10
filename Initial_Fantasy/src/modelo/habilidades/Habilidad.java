@@ -1,6 +1,6 @@
 package modelo.habilidades;
 
-import modelo.entidades.Entidad;
+import modelo.acciones.ContextoAccion;
 
 public abstract class Habilidad {
     protected String nombre;
@@ -14,7 +14,7 @@ public abstract class Habilidad {
     }
 
 
-    public abstract void ejecutar(Entidad lanzador, Entidad objetivo);
+    public abstract void ejecutar(ContextoAccion contexto);
 
 
     // --- GETTERS ---

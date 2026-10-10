@@ -1,4 +1,3 @@
-module EjemploBatallaMVC {
+module Initial_Fantasy {
     requires java.desktop;
-    requires EjemploBatallaMVC;
 }

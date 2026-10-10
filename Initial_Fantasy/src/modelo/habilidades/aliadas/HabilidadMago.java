@@ -2,6 +2,7 @@ package modelo.habilidades.aliadas;
 
 import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
+import modelo.acciones.ContextoAccion;
 
 public class HabilidadMago extends Habilidad {
 
@@ -10,9 +11,13 @@ public class HabilidadMago extends Habilidad {
     }
 
     @Override
-    public void ejecutar(Entidad lanzador, Entidad objetivo) {
-        // daño masivo a todos los enemigos, ignorando defensa
+    public void ejecutar(ContextoAccion contexto) {
+        Entidad lanzador = contexto.getOrigen();
+
+        // daño masivo a todos los objetivos del contexto, ignorando defensa
         int danioMagico = lanzador.getAtaqueActual() * 2;
-        objetivo.recibirDanio(danioMagico);
+        for (Entidad objetivo : contexto.getObjetivos()) {
+            if (objetivo.estaVivo()) objetivo.recibirDanio(danioMagico);
+        }
     }
 }

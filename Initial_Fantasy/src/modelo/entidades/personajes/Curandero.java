@@ -6,7 +6,7 @@ public class Curandero extends Personaje {
 
     // --- CONSTRUCTOR ---
     public Curandero(String nombre) {
-        // tiene mucho maná y velocidad
+        // tiene mucho maná y bastante vida
         super(nombre, 1, 110, 120, 20, 10, 6, new HabilidadCurandero());
     }
 

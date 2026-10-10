@@ -12,9 +12,8 @@ public final class CargadorImagenes {
             String nombreArchivo) {
 
         String[] rutas = {
-            "src/recursos/sprites/" + nombreArchivo,
-            "EjemploBatallaMVC/src/recursos/sprites/" + nombreArchivo,
-            "clase8-9/EjemploBatallaMVC/src/recursos/sprites/" + nombreArchivo
+                "src/recursos/sprites/" + nombreArchivo,
+                "Initial_Fantasy/src/recursos/sprites/" + nombreArchivo
         };
 
         for (String ruta : rutas) {

@@ -2,6 +2,7 @@ package modelo.habilidades.aliadas;
 
 import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
+import modelo.acciones.ContextoAccion;
 
 public class HabilidadTanque extends Habilidad {
 
@@ -10,9 +11,13 @@ public class HabilidadTanque extends Habilidad {
     }
 
     @Override
-    public void ejecutar(Entidad lanzador, Entidad objetivo) {
-        // aumenta el doble la defensa del objetivo
+    public void ejecutar(ContextoAccion contexto) {
+        Entidad lanzador = contexto.getOrigen();
+
+        // aumenta la defensa de los objetivos según la defensa base del tanque
         int aumentoDefensa = lanzador.getDefensaBase() * 2;
-        objetivo.modificarDefensa(aumentoDefensa);
+        for (Entidad objetivo : contexto.getObjetivos()) {
+            if (objetivo.estaVivo()) objetivo.modificarDefensa(aumentoDefensa);
+        }
     }
 }
