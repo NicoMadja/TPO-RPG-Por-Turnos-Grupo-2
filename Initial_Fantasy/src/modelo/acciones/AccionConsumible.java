@@ -13,11 +13,11 @@ public class AccionConsumible extends Accion {
     public void ejecutar() {
         // sacamos el primer objetivo de la lista (el único)
         Entidad objetivo = contexto.getObjetivos().get(0);
-        Consumible pocion = contexto.getItem();
+        Consumible consumible = contexto.getItem();
 
-        // consumimos la pocion
-        if (pocion != null) {
-            pocion.consumir(objetivo);
+        // consumimos la consumible
+        if (consumible != null) {
+            consumible.consumir(objetivo);
         }
     }
 }
