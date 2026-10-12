@@ -6,11 +6,11 @@ import modelo.habilidades.Habilidad;
 import modelo.party.Party;
 
 public abstract class Enemigo extends Entidad {
-    protected int experienciaOtorgada;
+    protected double experienciaOtorgada;
     protected int oroOtorgado;
 
     // --- CONSTRUCTOR ---
-    public Enemigo(String nombre, int nivel, int vidaMaxima, int manaMaximo, int ataqueBase, int defensaBase, int velocidadBase, Habilidad habilidad, int experienciaOtorgada, int oroOtorgado) {
+    public Enemigo(String nombre, int nivel, int vidaMaxima, int manaMaximo, int ataqueBase, int defensaBase, int velocidadBase, Habilidad habilidad, double experienciaOtorgada, int oroOtorgado) {
         super(nombre, nivel, vidaMaxima, manaMaximo, ataqueBase, defensaBase, velocidadBase, habilidad);
         // recompensas
         this.experienciaOtorgada = experienciaOtorgada;
@@ -23,6 +23,6 @@ public abstract class Enemigo extends Entidad {
 
 
     // --- GETTERS ---
-    public int getExperienciaOtorgada() {return experienciaOtorgada;}
+    public double getExperienciaOtorgada() {return experienciaOtorgada;}
     public int getOroOtorgado() {return oroOtorgado;}
 }

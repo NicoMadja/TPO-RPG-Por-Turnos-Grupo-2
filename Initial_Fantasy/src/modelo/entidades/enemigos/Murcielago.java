@@ -13,7 +13,7 @@ public class Murcielago extends Enemigo {
     // --- CONSTRUCTOR ---
     public Murcielago(String nombre, int nivel) {
         // el murciélago se caracteriza es débil pero muy rápido.
-        super(nombre, nivel, 30 + (nivel * 5), 0, 8 + (nivel * 2), 3 + nivel,
+        super(nombre, nivel, 30 + (nivel * 5), 0, 16 + (nivel * 2), 3 + nivel,
                 18 + (nivel * 2), new HabilidadMurcielago(), 20 + (nivel * 10), 5 + (nivel * 2));
     }
 

@@ -4,8 +4,8 @@ import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
 
 public abstract class Personaje extends Entidad {
-    protected int experienciaActual;
-    protected int experienciaRequerida; // para subir de nivel
+    protected double experienciaActual;
+    protected double experienciaRequerida; // para subir de nivel
 
     // --- CONSTRUCTOR ---
     public Personaje(String nombre, int nivel, int vidaMaxima, int manaMaximo, int ataqueBase, int defensaBase, int velocidadBase, Habilidad habilidad) {
@@ -17,7 +17,7 @@ public abstract class Personaje extends Entidad {
 
 
     // --- EXPERIENCIA Y NIVEL ---
-    public void ganarExperiencia(int cantidad) {
+    public void ganarExperiencia(double cantidad) {
         this.experienciaActual += cantidad;
         // usamos while por si sube mas de un nivel de una sola adquisición de experiencia
         while (this.experienciaActual >= this.experienciaRequerida) subirNivel();
@@ -53,6 +53,6 @@ public abstract class Personaje extends Entidad {
 
 
     // --- GETTERS ---
-    public int getExperienciaActual() { return experienciaActual; }
-    public int getExperienciaRequerida() { return experienciaRequerida; }
+    public double getExperienciaActual() { return experienciaActual; }
+    public double getExperienciaRequerida() { return experienciaRequerida; }
 }

@@ -73,12 +73,12 @@ public class Party {
 
 
     // --- ORO Y EXPERIENCIA ---
-    public void distribuirExperiencia(int totalExp) {
+    public void distribuirExperiencia(double totalExp) {
         List<Personaje> vivos = getPersonajesVivos();
         if (vivos.isEmpty()) return;
 
         // se divide equitativamente entre los personajes que sobrevivieron
-        int expPorPersonaje = totalExp / vivos.size();
+        double expPorPersonaje = totalExp / vivos.size();
         for (Personaje p : vivos) {
             p.ganarExperiencia(expPorPersonaje);
         }

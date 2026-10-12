@@ -118,6 +118,11 @@ public abstract class Entidad {
         return this.manaActual >= cantidad;
     }
 
+    // limpia lo que dura hasta su siguiente turno
+    public void iniciarTurno() {
+        this.defendiendo = false;
+    }
+
 
     // --- GETTERS ---
     public String getNombre() {return nombre;}
