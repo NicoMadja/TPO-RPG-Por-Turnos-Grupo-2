@@ -92,4 +92,5 @@ public class Batalla {
         }
         return vivos;
     }
+    public List<Enemigo> getEnemigos() {return enemigos;}
 }
