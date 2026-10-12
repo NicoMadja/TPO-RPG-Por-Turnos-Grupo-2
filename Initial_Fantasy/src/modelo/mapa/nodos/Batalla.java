@@ -80,11 +80,15 @@ public class Batalla {
 
 
     // --- CONSULTAS ---
-    public Entidad getEntidadActual() {return gestor.obtenerEntidadActual();}
     public boolean esTurnoDeEnemigo() {return enemigos.contains(gestor.obtenerEntidadActual());}
     public boolean estaFinalizada() {return finalizada;}
     public boolean hayVictoria() {return finalizada && gestor.enemigosDerrotados();}
+
+
+    // --- GETTERS ---
+    public Entidad getEntidadActual() {return gestor.obtenerEntidadActual();}
     public Recompensa getRecompensa() {return recompensa;}
+    public List<Enemigo> getEnemigos() {return enemigos;}
     public List<Enemigo> getEnemigosVivos() {
         List<Enemigo> vivos = new ArrayList<>();
         for (Enemigo e : enemigos) {
@@ -92,5 +96,4 @@ public class Batalla {
         }
         return vivos;
     }
-    public List<Enemigo> getEnemigos() {return enemigos;}
 }
