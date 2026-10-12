@@ -66,7 +66,7 @@ public class GestorDeTurnos {
     }
 
 
-    // --- FIN DE BATALLA ---
+    // --- CONDICIONES FINALES DE BATALLA ---
     public boolean personajesDerrotados() {
         for (Personaje p : personajes) {
             if (p.estaVivo()) return false;
