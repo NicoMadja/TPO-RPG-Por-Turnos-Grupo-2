@@ -4,20 +4,23 @@ import java.util.List;
 
 // todo lo que la pantalla de batalla necesita para dibujarse
 public class EstadoBatallaDTO {
-    private final List<EntidadDTO> heroes;
-    private final List<EntidadDTO> enemigos;
-    private final List<ItemDTO> items;
+    private final List<PersonajeDTO> heroes;
+    private final List<EnemigoDTO> enemigos;
+    private final List<ConsumibleDTO> items;
     private final boolean turnoDeHeroe;
 
-    public EstadoBatallaDTO(List<EntidadDTO> heroes, List<EntidadDTO> enemigos, List<ItemDTO> items, boolean turnoDeHeroe) {
+
+    public EstadoBatallaDTO(List<PersonajeDTO> heroes, List<EnemigoDTO>  enemigos, List<ConsumibleDTO> items, boolean turnoDeHeroe) {
         this.heroes = heroes;
         this.enemigos = enemigos;
         this.items = items;
         this.turnoDeHeroe = turnoDeHeroe;
     }
 
-    public List<EntidadDTO> getHeroes() {return heroes;}
-    public List<EntidadDTO> getEnemigos() {return enemigos;}
-    public List<ItemDTO> getItems() {return items;}
+
+    // --- GETTERS ---
+    public List<PersonajeDTO> getHeroes() {return heroes;}
+    public List<EnemigoDTO>  getEnemigos() {return enemigos;}
+    public List<ConsumibleDTO> getItems() {return items;}
     public boolean esTurnoDeHeroe() {return turnoDeHeroe;}
 }

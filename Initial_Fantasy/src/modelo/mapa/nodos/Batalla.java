@@ -86,6 +86,7 @@ public class Batalla {
 
 
     // --- GETTERS ---
+    public Party getParty() {return party;}
     public Entidad getEntidadActual() {return gestor.obtenerEntidadActual();}
     public Recompensa getRecompensa() {return recompensa;}
     public List<Enemigo> getEnemigos() {return enemigos;}
