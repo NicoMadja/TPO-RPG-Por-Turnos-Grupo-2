@@ -3,11 +3,12 @@ package modelo.habilidades.aliadas;
 import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
 import modelo.acciones.ContextoAccion;
+import modelo.habilidades.TipoObjetivo;
 
 public class HabilidadMago extends Habilidad {
 
     public HabilidadMago() {
-        super("Bola de Fuego", 35);
+        super("Bola de Fuego", 35, TipoObjetivo.TODOS_LOS_ENEMIGOS);
     }
 
     @Override

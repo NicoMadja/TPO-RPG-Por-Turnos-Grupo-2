@@ -8,8 +8,8 @@ public abstract class Personaje extends Entidad {
     protected double experienciaRequerida; // para subir de nivel
 
     // --- CONSTRUCTOR ---
-    public Personaje(String nombre, int nivel, int vidaMaxima, int manaMaximo, int ataqueBase, int defensaBase, int velocidadBase, Habilidad habilidad) {
-        super(nombre, nivel, vidaMaxima, manaMaximo, ataqueBase, defensaBase, velocidadBase, habilidad);
+    public Personaje(String nombre, int nivel, int vidaMaxima, int manaMaximo, int ataqueBase, int defensaBase, int velocidadBase, Habilidad habilidad, String rutaSprite) {
+        super(nombre, nivel, vidaMaxima, manaMaximo, ataqueBase, defensaBase, velocidadBase, habilidad, rutaSprite);
         this.experienciaActual = 0;
         // para pasar a nivel 2 necesita 100, a nivel 3 necesita 200, y así sucesivamente
         this.experienciaRequerida = nivel * 100;

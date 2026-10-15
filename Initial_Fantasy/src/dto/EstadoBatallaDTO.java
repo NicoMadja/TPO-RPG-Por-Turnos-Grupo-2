@@ -7,20 +7,18 @@ public class EstadoBatallaDTO {
     private final List<PersonajeDTO> heroes;
     private final List<EnemigoDTO> enemigos;
     private final List<ConsumibleDTO> items;
-    private final boolean turnoDeHeroe;
+    private final FaseBatalla fase;
 
-
-    public EstadoBatallaDTO(List<PersonajeDTO> heroes, List<EnemigoDTO>  enemigos, List<ConsumibleDTO> items, boolean turnoDeHeroe) {
+    public EstadoBatallaDTO(List<PersonajeDTO> heroes, List<EnemigoDTO>  enemigos, List<ConsumibleDTO> items, FaseBatalla fase) {
         this.heroes = heroes;
         this.enemigos = enemigos;
         this.items = items;
-        this.turnoDeHeroe = turnoDeHeroe;
+        this.fase = fase;
     }
-
 
     // --- GETTERS ---
     public List<PersonajeDTO> getHeroes() {return heroes;}
     public List<EnemigoDTO>  getEnemigos() {return enemigos;}
     public List<ConsumibleDTO> getItems() {return items;}
-    public boolean esTurnoDeHeroe() {return turnoDeHeroe;}
+    public FaseBatalla getFase() {return fase;}
 }

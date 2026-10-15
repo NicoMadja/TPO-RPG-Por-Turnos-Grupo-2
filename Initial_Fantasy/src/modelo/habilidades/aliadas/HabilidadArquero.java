@@ -3,11 +3,12 @@ package modelo.habilidades.aliadas;
 import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
 import modelo.acciones.ContextoAccion;
+import modelo.habilidades.TipoObjetivo;
 
 public class HabilidadArquero extends Habilidad {
 
     public HabilidadArquero() {
-        super("Flechazo Preciso", 15);
+        super("Flechazo Preciso", 15, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override

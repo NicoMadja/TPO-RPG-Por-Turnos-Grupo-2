@@ -3,11 +3,12 @@ package modelo.habilidades.aliadas;
 import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
 import modelo.acciones.ContextoAccion;
+import modelo.habilidades.TipoObjetivo;
 
 public class HabilidadTanque extends Habilidad {
 
     public HabilidadTanque() {
-        super("Muro Inquebrantable", 15);
+        super("Muro Inquebrantable", 15, TipoObjetivo.TODOS_LOS_ALIADOS);
     }
 
     @Override

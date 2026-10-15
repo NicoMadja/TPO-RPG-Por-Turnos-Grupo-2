@@ -3,11 +3,12 @@ package modelo.habilidades.aliadas;
 import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
 import modelo.acciones.ContextoAccion;
+import modelo.habilidades.TipoObjetivo;
 
 public class HabilidadGuerrero extends Habilidad {
 
     public HabilidadGuerrero() {
-        super("Golpe Cruzado", 10);
+        super("Golpe Cruzado", 10, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override

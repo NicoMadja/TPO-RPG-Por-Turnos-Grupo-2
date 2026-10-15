@@ -7,7 +7,7 @@ public class Guerrero extends Personaje {
     // --- CONSTRUCTOR ---
     public Guerrero(String nombre) {
         // tiene mucha vida y ataque, pero poco maná
-        super(nombre, 1, 150, 20, 25, 15, 10, new HabilidadGuerrero());
+        super(nombre, 1, 150, 20, 25, 15, 10, new HabilidadGuerrero(), "/recursos/sprites/guerrero.jpg");
     }
 
     // --- PROGRESIÓN ESPECÍFICA ---

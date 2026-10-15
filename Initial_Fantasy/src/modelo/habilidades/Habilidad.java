@@ -5,12 +5,14 @@ import modelo.acciones.ContextoAccion;
 public abstract class Habilidad {
     protected String nombre;
     protected int costoMana;
+    protected TipoObjetivo tipoObjetivo;
 
 
     // --- CONSTRUCTOR ---
-    public Habilidad(String nombre, int costoMana) {
+    public Habilidad(String nombre, int costoMana, TipoObjetivo tipoObjetivo) {
         this.nombre = nombre;
         this.costoMana = costoMana;
+        this.tipoObjetivo = tipoObjetivo;
     }
 
 
@@ -20,4 +22,5 @@ public abstract class Habilidad {
     // --- GETTERS ---
     public String getNombre() {return nombre;}
     public int getCostoMana() {return costoMana;}
+    public TipoObjetivo getTipoObjetivo() {return tipoObjetivo;}
 }

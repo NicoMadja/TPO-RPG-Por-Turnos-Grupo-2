@@ -3,11 +3,12 @@ package modelo.habilidades.enemigas;
 import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
 import modelo.acciones.ContextoAccion;
+import modelo.habilidades.TipoObjetivo;
 
 public class HabilidadOgro extends Habilidad {
 
     public HabilidadOgro() {
-        super("Golpe Enfurecido", 0);
+        super("Golpe Enfurecido", 0, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override

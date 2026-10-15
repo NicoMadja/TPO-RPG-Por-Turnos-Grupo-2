@@ -3,11 +3,12 @@ package modelo.habilidades.enemigas;
 import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
 import modelo.acciones.ContextoAccion;
+import modelo.habilidades.TipoObjetivo;
 
 public class HabilidadMurcielago extends Habilidad {
 
     public HabilidadMurcielago() {
-        super("Mordida", 0);
+        super("Mordida", 0, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override

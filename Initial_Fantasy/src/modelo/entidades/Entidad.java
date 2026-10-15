@@ -27,9 +27,12 @@ public abstract class Entidad {
     // Habilidad
     protected Habilidad habilidad;
 
+    // Sprite
+    protected String rutaSprite;
+
 
     // --- CONSTRUCTOR ---
-    public Entidad(String nombre, int nivel, int vidaMaxima, int manaMaximo, int ataqueBase, int defensaBase, int velocidadBase, Habilidad habilidad) {
+    public Entidad(String nombre, int nivel, int vidaMaxima, int manaMaximo, int ataqueBase, int defensaBase, int velocidadBase, Habilidad habilidad, String rutaSprite) {
         this.nombre = nombre;
         this.nivel = nivel;
         this.vidaMaxima = vidaMaxima;
@@ -39,6 +42,7 @@ public abstract class Entidad {
         this.velocidadBase = velocidadBase;
         this.habilidad = habilidad;
         this.defendiendo = false;
+        this.rutaSprite = rutaSprite;
 
         // una entidad empieza con los valores actuales como máximos
         this.vidaActual = this.vidaMaxima;
@@ -138,6 +142,7 @@ public abstract class Entidad {
     public int getVelocidadBase() {return velocidadBase;}
     public int getVelocidadActual() {return velocidadActual;}
     public Habilidad getHabilidad() {return habilidad;}
+    public String getRutaSprite() {return rutaSprite;}
     public boolean isDefendiendo() {return defendiendo;}
 
 

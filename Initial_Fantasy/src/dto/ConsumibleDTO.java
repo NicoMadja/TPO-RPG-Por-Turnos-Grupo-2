@@ -1,18 +1,19 @@
 package dto;
 
-// un tipo de consumible del inventario con su cantidad
+// un tipo de consumible del inventario con su precio
 public class ConsumibleDTO {
     private final String nombre;
-    private final int cantidad;
+    private final int precio;
     private final String sprite;
 
-    public ConsumibleDTO(String nombre, int cantidad, String sprite) {
+    public ConsumibleDTO(String nombre, int precio, String sprite) {
         this.nombre = nombre;
-        this.cantidad = cantidad;
+        this.precio = precio;
         this.sprite = sprite;
     }
 
+    // --- GETTERS ---
     public String getNombre() {return nombre;}
-    public int getCantidad() {return cantidad;}
+    public int getCantidad() {return precio;}
     public String getSprite() {return sprite;}
 }

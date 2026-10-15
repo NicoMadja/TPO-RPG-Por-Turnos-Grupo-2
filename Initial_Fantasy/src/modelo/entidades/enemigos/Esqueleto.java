@@ -14,7 +14,7 @@ public class Esqueleto extends Enemigo {
     public Esqueleto(String nombre, int nivel) {
         // el esqueleto es un enemigo básico y balanceado. estadísticas intermedias
         super(nombre, nivel, 50 + (nivel * 8), 0, 18 + (nivel * 3), 5 + (nivel * 2),
-                10 + nivel, new HabilidadEsqueleto(), 25 + (nivel * 10), 10 + (nivel * 3));
+                10 + nivel, new HabilidadEsqueleto(), "/recursos/sprites/esqueleto.jpg", 25 + (nivel * 10), 10 + (nivel * 3));
     }
 
     // --- COMPORTAMIENTO ---

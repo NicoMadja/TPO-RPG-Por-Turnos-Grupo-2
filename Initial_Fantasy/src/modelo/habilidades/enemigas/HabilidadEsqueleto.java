@@ -3,11 +3,12 @@ package modelo.habilidades.enemigas;
 import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
 import modelo.acciones.ContextoAccion;
+import modelo.habilidades.TipoObjetivo;
 
 public class HabilidadEsqueleto extends Habilidad {
 
     public HabilidadEsqueleto() {
-        super("Tajo Rapido", 0);
+        super("Tajo Rapido", 0, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override

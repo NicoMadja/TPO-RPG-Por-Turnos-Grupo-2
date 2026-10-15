@@ -7,7 +7,7 @@ public class Curandero extends Personaje {
     // --- CONSTRUCTOR ---
     public Curandero(String nombre) {
         // tiene mucho maná y bastante vida
-        super(nombre, 1, 110, 120, 20, 10, 6, new HabilidadCurandero());
+        super(nombre, 1, 110, 120, 20, 10, 6, new HabilidadCurandero(), "/recursos/sprites/curandero.jpg");
     }
 
     // --- PROGRESIÓN ESPECÍFICA ---

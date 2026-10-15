@@ -3,11 +3,12 @@ package modelo.habilidades.enemigas;
 import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
 import modelo.acciones.ContextoAccion;
+import modelo.habilidades.TipoObjetivo;
 
 public class HabilidadBrujo extends Habilidad {
 
     public HabilidadBrujo() {
-        super("Rayo Oscuro", 30);
+        super("Rayo Oscuro", 30, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override

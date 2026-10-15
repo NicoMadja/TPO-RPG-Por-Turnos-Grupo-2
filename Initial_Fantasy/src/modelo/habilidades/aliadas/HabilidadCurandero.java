@@ -3,11 +3,12 @@ package modelo.habilidades.aliadas;
 import modelo.entidades.Entidad;
 import modelo.habilidades.Habilidad;
 import modelo.acciones.ContextoAccion;
+import modelo.habilidades.TipoObjetivo;
 
 public class HabilidadCurandero extends Habilidad {
 
     public HabilidadCurandero() {
-        super("Sanacion Localizada", 20);
+        super("Sanacion Localizada", 20, TipoObjetivo.UN_ALIADO);
     }
 
     @Override
