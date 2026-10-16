@@ -1,3 +1,4 @@
+/*
 package controlador;
 
 import dto.ConsumibleDTO;
@@ -232,3 +233,4 @@ public class ControladorBatalla {
         return consumiblesConvertidos;
     }
 }
+ */

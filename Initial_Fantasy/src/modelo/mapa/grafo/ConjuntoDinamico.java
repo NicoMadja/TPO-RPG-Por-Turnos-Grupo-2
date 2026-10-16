@@ -1,4 +1,4 @@
-package modelo.mapa;
+package modelo.mapa.grafo;
 
 public class ConjuntoDinamico implements ConjuntoTDA {
     class Nodo {

@@ -1,3 +1,4 @@
+/*
 package dto;
 
 import java.util.List;
@@ -22,3 +23,4 @@ public class EstadoBatallaDTO {
     public List<ConsumibleDTO> getItems() {return items;}
     public FaseBatalla getFase() {return fase;}
 }
+ */

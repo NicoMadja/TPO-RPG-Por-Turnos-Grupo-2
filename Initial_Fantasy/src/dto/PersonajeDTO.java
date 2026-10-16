@@ -1,3 +1,4 @@
+/*
 package dto;
 
 public class PersonajeDTO {
@@ -65,3 +66,4 @@ public class PersonajeDTO {
     public double getExperienciaRequerida() {return experienciaRequerida;}
     public String getSprite() {return sprite;}
 }
+ */

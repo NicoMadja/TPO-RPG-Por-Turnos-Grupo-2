@@ -1,3 +1,4 @@
+/*
 package dto;
 
 public class EnemigoDTO {
@@ -65,3 +66,4 @@ public class EnemigoDTO {
     public int getOroOtorgado() {return oroOtorgado;}
     public String getSprite() {return sprite;}
 }
+ */

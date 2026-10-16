@@ -1,3 +1,4 @@
+/*
 package dto;
 
 // un tipo de consumible del inventario con su precio
@@ -17,3 +18,4 @@ public class ConsumibleDTO {
     public int getCantidad() {return precio;}
     public String getSprite() {return sprite;}
 }
+ */

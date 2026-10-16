@@ -17,6 +17,7 @@ public abstract class Enemigo extends Entidad {
         this.oroOtorgado = oroOtorgado;
     }
 
+    
     // --- DECIDIR ACCION ---
     // el GestorDeTurnos llama a este método cuando le toque jugar al enemigo
     public abstract Accion decidirAccion(Party heroes);

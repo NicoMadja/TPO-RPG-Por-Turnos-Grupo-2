@@ -1,4 +1,4 @@
-package modelo.mapa;
+package modelo.mapa.grafo;
 
 public class GrafoDinamico implements GrafoTDA {
 

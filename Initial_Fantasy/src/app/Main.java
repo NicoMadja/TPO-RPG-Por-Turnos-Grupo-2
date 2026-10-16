@@ -1,7 +1,7 @@
+/*
 package app;
 
 import vista.pantallas.PantallaBatalla;
-
 import javax.swing.*;
 
 public class Main {
@@ -13,3 +13,4 @@ public class Main {
         });
     }
 }
+ */
