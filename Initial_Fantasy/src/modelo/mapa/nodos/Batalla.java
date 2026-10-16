@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import modelo.habilidades.TipoObjetivo;
 
-public class Batalla {
+public class Batalla extends Nodo {
     private Party party;
     private List<Enemigo> enemigos;
     private GestorDeTurnos gestor;
@@ -170,5 +170,12 @@ public class Batalla {
             if (e.estaVivo()) vivos.add(e);
         }
         return vivos;
+    }
+
+
+    // --- PROCESAR ---
+    @Override
+    public void procesarNodo() {
+
     }
 }

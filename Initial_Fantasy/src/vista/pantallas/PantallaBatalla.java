@@ -1,8 +1,8 @@
+/*
 package vista.pantallas;
 
 import dto.EstadoBatallaDTO;
 import javax.swing.JFrame;
-
 
 public class PantallaBatalla extends JFrame {
 
@@ -17,3 +17,4 @@ public class PantallaBatalla extends JFrame {
 
     }
 }
+ */

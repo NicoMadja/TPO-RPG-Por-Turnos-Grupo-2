@@ -1,3 +1,4 @@
+/*
 package vista.paneles;
 
 import controlador.ControladorBatalla;
@@ -43,3 +44,4 @@ public class PanelAcciones extends JPanel {
         btnConsumible.setEnabled(habilitado);
     }
 }
+*/
