@@ -111,13 +111,6 @@ public abstract class Entidad {
         return this.vidaActual > 0;
     }
 
-    public void revivir() {
-        if (!estaVivo()) {
-            this.recibirCura(Math.max(1, vidaMaxima / 2)); // para que reviva con mínimo 1 de vida
-            this.defendiendo = false;
-        }
-    }
-
     public boolean tieneSuficienteMana(int cantidad) {
         return this.manaActual >= cantidad;
     }

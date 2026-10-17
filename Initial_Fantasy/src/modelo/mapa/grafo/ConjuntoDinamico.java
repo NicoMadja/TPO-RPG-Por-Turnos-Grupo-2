@@ -1,11 +1,11 @@
 package modelo.mapa.grafo;
 
 public class ConjuntoDinamico implements ConjuntoTDA {
-    class Nodo {
+    class NodoConjunto {
         int info;
-        Nodo sig;
+        NodoConjunto sig;
     }
-    Nodo c;
+    NodoConjunto c;
 
     @Override
     public void InicializarConjunto() {
@@ -15,7 +15,7 @@ public class ConjuntoDinamico implements ConjuntoTDA {
     @Override
     public void Agregar(int valor) {
         if(!Pertenece(valor)){
-            Nodo nuevo = new Nodo();
+            NodoConjunto nuevo = new NodoConjunto();
             nuevo.info = valor;
             nuevo.sig = c;
             c = nuevo;
@@ -29,7 +29,7 @@ public class ConjuntoDinamico implements ConjuntoTDA {
                 c = c.sig;
             }
             else{
-                Nodo aux = c;
+                NodoConjunto aux = c;
                 while(aux.sig != null && aux.sig.info != valor){
                     aux = aux.sig;
                 }
@@ -47,7 +47,7 @@ public class ConjuntoDinamico implements ConjuntoTDA {
 
     @Override
     public boolean Pertenece(int valor) {
-         Nodo aux = c;
+         NodoConjunto aux = c;
          while(aux != null && aux.info != valor){
              aux = aux.sig;
          }

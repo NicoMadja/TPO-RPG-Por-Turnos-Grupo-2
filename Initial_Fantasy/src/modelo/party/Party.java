@@ -106,4 +106,5 @@ public class Party {
     // --- GETTERS ---
     public List<Personaje> getPersonajes() {return personajes;}
     public Inventario getInventario() {return inventario;}
+    public int getMonedero() {return monedero;}
 }
