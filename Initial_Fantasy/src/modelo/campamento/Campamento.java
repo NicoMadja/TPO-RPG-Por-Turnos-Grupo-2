@@ -1,6 +1,8 @@
-package modelo.mundo.nodos;
+package modelo.campamento;
 
 import modelo.entidades.personajes.Personaje;
+import modelo.mundo.EscenarioDeNodos;
+import modelo.mundo.Nodo;
 import modelo.party.Party;
 
 public class Campamento extends Nodo {

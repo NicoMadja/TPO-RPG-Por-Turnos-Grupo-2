@@ -1,4 +1,4 @@
-package modelo.mundo.nodos;
+package modelo.mundo;
 
 public abstract class Nodo {
 

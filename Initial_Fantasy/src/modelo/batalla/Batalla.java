@@ -1,4 +1,4 @@
-package modelo.mundo.nodos;
+package modelo.batalla;
 
 import modelo.acciones.Accion;
 import modelo.acciones.AccionAtaque;
@@ -7,11 +7,12 @@ import modelo.acciones.AccionDefensa;
 import modelo.acciones.AccionHabilidad;
 import modelo.acciones.ContextoAccion;
 import modelo.consumibles.Consumible;
-import modelo.batalla.GestorDeTurnos;
-import modelo.batalla.Recompensa;
+import modelo.gestores.GestorDeTurnos;
 import modelo.entidades.Entidad;
 import modelo.entidades.enemigos.Enemigo;
 import modelo.entidades.personajes.Personaje;
+import modelo.mundo.EscenarioDeNodos;
+import modelo.mundo.Nodo;
 import modelo.party.Party;
 import java.util.ArrayList;
 import java.util.Collections;

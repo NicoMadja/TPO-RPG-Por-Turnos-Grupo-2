@@ -1,4 +1,4 @@
-package modelo.batalla;
+package modelo.gestores;
 
 import modelo.entidades.Entidad;
 import modelo.entidades.enemigos.Enemigo;

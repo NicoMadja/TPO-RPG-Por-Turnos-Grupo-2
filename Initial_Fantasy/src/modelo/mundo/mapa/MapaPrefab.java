@@ -1,6 +1,5 @@
-package modelo.mundo.mapa.prefabs;
+package modelo.mundo.mapa;
 
-import modelo.mundo.mapa.Mapa;
 import modelo.party.Party;
 
 // receta para armar un mapa ya listo (con sus nodos y caminos)

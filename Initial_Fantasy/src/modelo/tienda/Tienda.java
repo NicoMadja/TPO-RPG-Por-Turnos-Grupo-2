@@ -1,6 +1,8 @@
-package modelo.mundo.nodos;
+package modelo.tienda;
 
 import modelo.consumibles.Consumible;
+import modelo.mundo.EscenarioDeNodos;
+import modelo.mundo.Nodo;
 import modelo.party.Party;
 import java.util.List;
 
