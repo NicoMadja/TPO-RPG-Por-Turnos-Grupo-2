@@ -1,4 +1,6 @@
 package vista.pantallas;
 
-public class PantallaTienda {
+import javax.swing.*;
+
+public class PantallaTienda extends JFrame {
 }

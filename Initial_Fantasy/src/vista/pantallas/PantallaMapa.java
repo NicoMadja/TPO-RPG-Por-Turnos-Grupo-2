@@ -1,4 +1,6 @@
 package vista.pantallas;
 
-public class PantallaMapa {
+import javax.swing.*;
+
+public class PantallaMapa extends JFrame {
 }

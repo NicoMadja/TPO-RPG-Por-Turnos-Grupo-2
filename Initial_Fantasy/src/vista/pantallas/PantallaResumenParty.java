@@ -1,4 +1,6 @@
 package vista.pantallas;
 
-public class PantallaResumenParty {
+import javax.swing.*;
+
+public class PantallaResumenParty extends JFrame {
 }

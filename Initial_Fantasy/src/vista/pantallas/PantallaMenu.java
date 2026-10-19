@@ -1,4 +1,6 @@
 package vista.pantallas;
 
-public class PantallaMenu {
+import javax.swing.*;
+
+public class PantallaMenu extends JFrame {
 }

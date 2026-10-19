@@ -1,4 +1,6 @@
 package vista.pantallas;
 
-public class PantallaResumenBatalla {
+import javax.swing.*;
+
+public class PantallaResumenBatalla extends JFrame {
 }
