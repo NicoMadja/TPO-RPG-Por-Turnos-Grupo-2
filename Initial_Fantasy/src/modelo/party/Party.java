@@ -98,7 +98,7 @@ public class Party {
         }
     }
 
-    public boolean puedeGastarOro(int cantidad){
+    private boolean puedeGastarOro(int cantidad){
         return monedero >= cantidad;
     }
 

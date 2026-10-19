@@ -1,30 +1,33 @@
 package modelo.mapa.nodos;
 
 import modelo.consumibles.Consumible;
-import modelo.party.Inventario;
 import modelo.party.Party;
 import java.util.List;
 
 public class Tienda extends Nodo {
     private List<Consumible> catalogo;
     private Party party;
-    private Inventario inventario;
 
 
     // --- CONSTRUCTOR ---
-    public Tienda(List<Consumible> catalogo) {
+    public Tienda(List<Consumible> catalogo, Party party) {
         this.catalogo = catalogo;
+        this.party= party;
     }
 
 
     // --- METODOS ---
     public void comprarObjeto(Consumible c) {
-        if (party.puedeGastarOro(c.getPrecio())) {
+        if (party.gastarOro(c.getPrecio()) && catalogoContieneElItem(c)) {
             party.gastarOro(c.getPrecio());
-            inventario.agregarItem(c);
-            catalogo.remove(c);
+            party.getInventario().agregarItem(c);
             System.out.println("Se compró " + c.getNombre() + " con éxito.");
+            catalogo.remove(c);
         }
+    }
+
+    private boolean catalogoContieneElItem(Consumible c) {
+        return catalogo.contains(c);
     }
 
 
