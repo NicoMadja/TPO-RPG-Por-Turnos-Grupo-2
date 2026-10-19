@@ -1,4 +1,4 @@
-package modelo.mapa.nodos;
+package modelo.mundo.nodos;
 
 import modelo.consumibles.Consumible;
 import modelo.party.Party;
@@ -18,10 +18,12 @@ public class Tienda extends Nodo {
 
     // --- METODOS ---
     public void comprarObjeto(Consumible c) {
-        if (party.gastarOro(c.getPrecio()) && catalogoContieneElItem(c)) {
-            party.gastarOro(c.getPrecio());
+        // primero se verifica que el ítem esté en venta y después se cobra
+        if (catalogoContieneElItem(c) && party.gastarOro(c.getPrecio())) {
+            // se agrega al inventario
             party.getInventario().agregarItem(c);
             System.out.println("Se compró " + c.getNombre() + " con éxito.");
+            // se saca del catalogo
             catalogo.remove(c);
         }
     }
@@ -37,7 +39,7 @@ public class Tienda extends Nodo {
 
     // --- PROCESAR ---
     @Override
-    public void procesarNodo() {
-
+    public void procesarNodo(EscenarioDeNodos escenario) {
+        escenario.alEntrarEnTienda(this);
     }
 }

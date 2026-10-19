@@ -1,4 +1,4 @@
-package modelo.mapa.prefabs;
+package modelo.mundo.mapa.prefabs;
 
 import modelo.consumibles.*;
 import modelo.entidades.enemigos.Brujo;
@@ -6,11 +6,11 @@ import modelo.entidades.enemigos.Enemigo;
 import modelo.entidades.enemigos.Esqueleto;
 import modelo.entidades.enemigos.Murcielago;
 import modelo.entidades.enemigos.Ogro;
-import modelo.mapa.Mapa;
-import modelo.mapa.nodos.Batalla;
-import modelo.mapa.nodos.Campamento;
-import modelo.mapa.nodos.Nodo;
-import modelo.mapa.nodos.Tienda;
+import modelo.mundo.mapa.Mapa;
+import modelo.mundo.nodos.Batalla;
+import modelo.mundo.nodos.Campamento;
+import modelo.mundo.nodos.Nodo;
+import modelo.mundo.nodos.Tienda;
 import modelo.party.Party;
 import java.util.ArrayList;
 import java.util.Arrays;

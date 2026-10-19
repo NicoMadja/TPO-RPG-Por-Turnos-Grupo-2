@@ -1,4 +1,4 @@
-package modelo.mapa;
+package modelo.mundo;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

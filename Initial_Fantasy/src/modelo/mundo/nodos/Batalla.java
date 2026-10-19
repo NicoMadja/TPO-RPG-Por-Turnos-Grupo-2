@@ -1,4 +1,4 @@
-package modelo.mapa.nodos;
+package modelo.mundo.nodos;
 
 import modelo.acciones.Accion;
 import modelo.acciones.AccionAtaque;
@@ -175,7 +175,8 @@ public class Batalla extends Nodo {
 
     // --- PROCESAR ---
     @Override
-    public void procesarNodo() {
-
+    public void procesarNodo(EscenarioDeNodos escenario) {
+        iniciarBatalla();
+        escenario.alEntrarEnBatalla(this);
     }
 }

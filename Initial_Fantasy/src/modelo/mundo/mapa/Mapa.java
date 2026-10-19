@@ -1,6 +1,7 @@
-package modelo.mapa;
+package modelo.mundo.mapa;
 
-import modelo.mapa.nodos.Nodo;
+import modelo.mundo.Grafo;
+import modelo.mundo.nodos.Nodo;
 import java.util.List;
 
 // un nivel del juego: un grafo dirigido de nodos por el que se avanza solo hacia adelante, del inicio hasta el nodo final

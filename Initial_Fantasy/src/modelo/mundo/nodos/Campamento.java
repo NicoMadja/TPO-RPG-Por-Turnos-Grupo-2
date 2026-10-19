@@ -1,10 +1,11 @@
-package modelo.mapa.nodos;
+package modelo.mundo.nodos;
 
 import modelo.entidades.personajes.Personaje;
 import modelo.party.Party;
 
 public class Campamento extends Nodo {
     private Party party;
+
 
     // --- CONSTRUCTOR ---
     public Campamento(Party party) {
@@ -24,7 +25,8 @@ public class Campamento extends Nodo {
 
     // --- PROCESAR ---
     @Override
-    public void procesarNodo() {
-        descansar(); // ???
+    public void procesarNodo(EscenarioDeNodos escenario) {
+        descansar();
+        escenario.alEntrarEnCampamento(this);
     }
 }
