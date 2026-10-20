@@ -86,6 +86,10 @@ public class Batalla extends Nodo {
         return new Recompensa(oro, experiencia);
     }
 
+    public boolean permiteAvanzar() {
+        return hayVictoria();
+    }
+
 
     // --- ACCIONES JUGADOR ---
     public void atacar(Entidad objetivo) {
