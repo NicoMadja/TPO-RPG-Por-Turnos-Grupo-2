@@ -72,4 +72,9 @@ public class Mapa {
     public Nodo getNodoInicial() {return nodoInicial;}
     public Nodo getNodoFinal() {return nodoFinal;}
     public List<Nodo> getNodos() {return grafo.getVertices();}
+
+    // --- NUEVO MÉTODO PARA DIBUJAR LAS LÍNEAS EN LA VISTA ---
+    public List<Nodo> getSucesoresDe(Nodo nodo) {
+        return grafo.getSucesores(nodo);
+    }
 }

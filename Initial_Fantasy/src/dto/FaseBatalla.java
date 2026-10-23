@@ -1,4 +1,4 @@
-/*
+
 package dto;
 
 // en qué momento está la pantalla de batalla
@@ -10,4 +10,3 @@ public enum FaseBatalla {
     TURNO_ENEMIGO,         // juegan los enemigos, el jugador espera
     FINALIZADA             // terminó la batalla
 }
- */

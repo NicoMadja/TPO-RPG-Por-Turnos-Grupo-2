@@ -1,4 +1,4 @@
-/*
+
 package vista.paneles;
 
 import controlador.ControladorBatalla;
@@ -20,19 +20,19 @@ public class PanelAcciones extends JPanel {
 
         // BOTONES
         btnAtacar = new JButton("Atacar");
-        btnAtacar.addActionListener(e -> controlador.atacar());
+        btnAtacar.addActionListener(e -> controlador.elegirAtacar());
         add(btnAtacar);
 
         btnHabilidad = new JButton("Habilidad");
-        btnHabilidad.addActionListener(e -> controlador.usarHabilidad());
+        btnHabilidad.addActionListener(e -> controlador.elegirHabilidad());
         add(btnHabilidad);
 
         btnDefender = new JButton("Defender");
-        btnDefender.addActionListener(e -> controlador.defender());
+        btnDefender.addActionListener(e -> controlador.elegirDefender());
         add(btnDefender);
 
         btnConsumible = new JButton("Consumible");
-        btnConsumible.addActionListener(e -> controlador.usarConsumible());
+        btnConsumible.addActionListener(e -> controlador.elegirConsumible());
         add(btnConsumible);
     }
 
@@ -44,4 +44,4 @@ public class PanelAcciones extends JPanel {
         btnConsumible.setEnabled(habilitado);
     }
 }
-*/
+

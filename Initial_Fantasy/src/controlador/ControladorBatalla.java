@@ -1,15 +1,12 @@
-/*
+
 package controlador;
 
-import dto.ConsumibleDTO;
-import dto.EnemigoDTO;
-import dto.EstadoBatallaDTO;
-import dto.PersonajeDTO;
-import dto.FaseBatalla;
+import dto.*;
 import modelo.consumibles.Consumible;
+import modelo.entidades.Entidad;
 import modelo.entidades.enemigos.Enemigo;
 import modelo.entidades.personajes.Personaje;
-import modelo.mapa.nodos.Batalla;
+import modelo.batalla.Batalla;
 import vista.pantallas.PantallaBatalla;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +36,7 @@ public class ControladorBatalla {
     // --- INICIO ---
     // se llama una vez, con la batalla ya iniciada: si el primer turno es de un enemigo, juega antes que el jugador
     public void iniciar() {
+        batalla.iniciarBatalla();
         resolverTurno();
     }
 
@@ -194,7 +192,40 @@ public class ControladorBatalla {
         List<Enemigo> enemigos = batalla.getEnemigos();
         List<Consumible> consumibles = batalla.getParty().getInventario().getItems();
 
-        return new EstadoBatallaDTO(convertirPersonajes(equipo), convertirEnemigos(enemigos), convertirConsumibles(consumibles), fase);
+        Entidad entidadActual = (batalla.getEntidadActual() != null)
+                ? batalla.getGestor().obtenerEntidadActual()
+                : null;
+
+        return new EstadoBatallaDTO(
+                convertirPersonajes(equipo),
+                convertirEnemigos(enemigos),
+                convertirConsumibles(consumibles),
+                fase,
+                convertirEntidad(entidadActual));
+    }
+
+    private EntidadDTO convertirEntidad(Entidad entidad){
+        // GUARD CLAUSE: Si la entidad es null, retornamos null para evitar el crash
+        if (entidad == null) {
+            return null;
+        }
+
+        return new EntidadDTO(
+                entidad.getNombre(),
+                entidad.getNivel(),
+                entidad.getVidaMaxima(),
+                entidad.getVidaActual(),
+                entidad.getManaMaximo(),
+                entidad.getManaActual(),
+                entidad.getAtaqueBase(),
+                entidad.getAtaqueActual(),
+                entidad.getDefensaBase(),
+                entidad.getDefensaActual(),
+                entidad.isDefendiendo(),
+                entidad.getVelocidadBase(),
+                entidad.getVelocidadActual(),
+                entidad.getRutaSprite()
+        );
     }
 
     private List<PersonajeDTO> convertirPersonajes(List<Personaje> personajes) {
@@ -204,7 +235,7 @@ public class ControladorBatalla {
                     p.getNombre(), p.getNivel(), p.getVidaMaxima(), p.getVidaActual(),
                     p.getManaMaximo(), p.getManaActual(), p.getAtaqueBase(), p.getAtaqueActual(), p.getDefensaBase(),
                     p.getDefensaActual(), p.isDefendiendo(), p.getVelocidadBase(), p.getVelocidadActual(),
-                    p.getExperienciaActual(), p.getExperienciaRequerida(), p.getRutaSprite()
+                    p.getRutaSprite(), p.getExperienciaRequerida(), p.getExperienciaActual()
             ));
         }
         return personajesConvertidos;
@@ -217,7 +248,7 @@ public class ControladorBatalla {
                     e.getNombre(), e.getNivel(), e.getVidaMaxima(), e.getVidaActual(),
                     e.getManaMaximo(), e.getManaActual(), e.getAtaqueBase(), e.getAtaqueActual(), e.getDefensaBase(),
                     e.getDefensaActual(), e.isDefendiendo(), e.getVelocidadBase(), e.getVelocidadActual(),
-                    e.getExperienciaOtorgada(), e.getOroOtorgado(), e.getRutaSprite()
+                    e.getRutaSprite(), e.getOroOtorgado(), e.getExperienciaOtorgada()
             ));
         }
         return enemigosConvertidos;
@@ -233,4 +264,4 @@ public class ControladorBatalla {
         return consumiblesConvertidos;
     }
 }
- */
+

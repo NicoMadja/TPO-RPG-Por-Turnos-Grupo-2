@@ -177,6 +177,9 @@ public class Batalla extends Nodo {
         return vivos;
     }
 
+    public GestorDeTurnos getGestor() {
+        return gestor;
+    }
 
     // --- PROCESAR ---
     @Override

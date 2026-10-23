@@ -1,6 +1,6 @@
 package utils;
 
-import java.io.File;
+import java.net.URL;
 import javax.swing.ImageIcon;
 
 public final class CargadorImagenes {
@@ -8,24 +8,15 @@ public final class CargadorImagenes {
     private CargadorImagenes() {
     }
 
-    public static ImageIcon cargar(
-            String nombreArchivo) {
+    public static ImageIcon cargar(String rutaCompleta) {
+        // Busca el recurso directamente en el classpath usando la ruta exacta que ya trae el DTO
+        URL url = CargadorImagenes.class.getResource(rutaCompleta);
 
-        String[] rutas = {
-                "src/recursos/sprites/" + nombreArchivo,
-                "Initial_Fantasy/src/recursos/sprites/" + nombreArchivo
-        };
-
-        for (String ruta : rutas) {
-
-            File archivo =
-                new File(ruta);
-
-            if (archivo.exists()) {
-                return new ImageIcon(ruta);
-            }
+        if (url != null) {
+            return new ImageIcon(url);
         }
 
+        System.err.println("Error: No se encontró la imagen en -> " + rutaCompleta);
         return null;
     }
 }

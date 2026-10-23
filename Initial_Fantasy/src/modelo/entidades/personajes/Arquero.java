@@ -7,7 +7,7 @@ public class Arquero extends Personaje {
     // --- CONSTRUCTOR ---
     public Arquero(String nombre) {
         // tiene mucho ataque y maná, pero poca vida
-        super(nombre, 1, 80, 100, 30, 10, 10, new HabilidadArquero(), "/recursos/sprites/arquero.jpg");
+        super(nombre, 1, 80, 100, 30, 10, 10, new HabilidadArquero(), "/recursos/sprites/arquero.png");
     }
 
     // --- PROGRESIÓN ESPECÍFICA ---
