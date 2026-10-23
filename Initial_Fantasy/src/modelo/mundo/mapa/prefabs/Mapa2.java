@@ -13,9 +13,12 @@ import modelo.mundo.Nodo;
 import modelo.mundo.mapa.MapaPrefab;
 import modelo.tienda.Tienda;
 import modelo.party.Party;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 //   inicio ───> batalla1 ─┬─> batalla2 ───> tienda ──────┐
 //                         │                              ┼─> batalla4 ───> jefe final
@@ -51,6 +54,13 @@ public class Mapa2 implements MapaPrefab {
         mapa.conectar(batalla4, jefeFinal);
         return mapa;
     }
+
+    @Override
+    public Map<Nodo, Point> getCoordenadasVisuales() {
+        return Map.of();
+    }
+
+
 
     private List<Enemigo> enemigos(Enemigo... enemigos) {
         return new ArrayList<>(Arrays.asList(enemigos));

@@ -88,16 +88,16 @@ public class PantallaBatalla extends JFrame {
         panelEscena.actualizar(estado, this.controladorBatalla);
 
         // --- ACTUALIZAR MESAJE DE TURNO Y REGISTRO ---
-        String mensajeTurno = construirMensajeTurno(estado);
-        lblTurno.setText(mensajeTurno);
-        panelRegistro.actualizar(mensajeTurno);
+        //String mensajeTurno = construirMensajeTurno(estado);
+        //lblTurno.setText(mensajeTurno);
+        panelRegistro.actualizar(utils.BitacoraBatalla.getUltimoMensaje());
 
         if(panelAcciones != null){
             panelAcciones.setHabilitado(estado.getFase() != FaseBatalla.FINALIZADA);
         }
     }
 
-    // Método auxiliar actualizado en PantallaBatalla.java
+    /* Método auxiliar actualizado en PantallaBatalla.java
     private String construirMensajeTurno(EstadoBatallaDTO estado) {
         EntidadDTO actual = estado.getEntidadActual();
         FaseBatalla fase = estado.getFase();
@@ -129,5 +129,5 @@ public class PantallaBatalla extends JFrame {
             default:
                 return "";
         }
-    }
+    }*/
 }

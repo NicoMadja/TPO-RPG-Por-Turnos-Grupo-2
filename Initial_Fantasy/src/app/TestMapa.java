@@ -1,4 +1,4 @@
-/*package app;
+package app;
  // o ponlo en el paquete que prefieras
 
 import controlador.ControladorMapa;
@@ -63,10 +63,10 @@ public class TestMapa {
             };
 
             // 5. Conectar todo usando el Controlador
-            ControladorMapa controlador = new ControladorMapa(mapaGenerado, vistaMapa, escenarioPrueba);
+            ControladorMapa controlador = new ControladorMapa(mapaGenerado, prefab.getCoordenadasVisuales(), vistaMapa, escenarioPrueba);
 
             // 6. Mostrar la ventana
             ventana.setVisible(true);
         });
     }
-}**/
+}

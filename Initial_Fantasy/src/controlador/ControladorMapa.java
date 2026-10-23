@@ -1,4 +1,4 @@
-/**package controlador;
+package controlador;
 
 import dto.ConexionDTO;
 import dto.NodoDTO;
@@ -6,17 +6,22 @@ import modelo.mundo.mapa.Mapa;
 import modelo.mundo.Nodo;
 import modelo.mundo.EscenarioDeNodos;
 import vista.pantallas.PantallaMapa;
+
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.util.*;
 
 public class ControladorMapa {
     private Mapa modeloMapa;
+    private Map<Nodo, Point> coordenadasMapa; // Guardamos el diseño visual
     private PantallaMapa vistaMapa;
     private EscenarioDeNodos escenario;
     private Map<Integer, Nodo> diccionarioNodos;
 
-    public ControladorMapa(Mapa modeloMapa, PantallaMapa vistaMapa, EscenarioDeNodos escenario) {
+    // Modificamos el constructor para recibir las coordenadas
+    public ControladorMapa(Mapa modeloMapa, Map<Nodo, Point> coordenadasMapa, PantallaMapa vistaMapa, EscenarioDeNodos escenario) {
         this.modeloMapa = modeloMapa;
+        this.coordenadasMapa = coordenadasMapa;
         this.vistaMapa = vistaMapa;
         this.escenario = escenario;
         this.diccionarioNodos = new HashMap<>();
@@ -33,39 +38,19 @@ public class ControladorMapa {
         Map<Nodo, NodoDTO> mapaAuxiliar = new HashMap<>();
         int idVisual = 0;
 
-        // 1. Convertir los Nodos de tu modelo a DTOs para la pantalla
+        // 1. Convertir los Nodos a DTOs
         for (Nodo nodo : modeloMapa.getNodos()) {
             NodoDTO dto = new NodoDTO();
             dto.setId(idVisual);
             dto.setTipo(nodo.getClass().getSimpleName().toUpperCase());
+            dto.setEsActual(nodo == modeloMapa.getNodoActual());
+            // Leemos la posición exacta que definió el Prefab para este nodo
+            Point pos = coordenadasMapa.get(nodo);
+            if (pos != null) {
+                dto.setX(pos.x);
+                dto.setY(pos.y);
+            }
 
-            // --- ASIGNACIÓN DE COORDENADAS EXACTAS ---
-            if (nodo == modeloMapa.getNodoInicial()) {
-                // NODO INICIAL (Círculo morado abajo)
-                dto.setX(890); dto.setY(900);
-            }
-            else if (nodo == modeloMapa.getNodoFinal()) {
-                // JEFE FINAL (Castillo arriba)
-                dto.setX(890); dto.setY(150);
-            }
-            else if (dto.getTipo().equals("BATALLA")) {
-                if (idVisual == 1) { // Batalla 1 (Izquierda abajo)
-                    dto.setX(620); dto.setY(780);
-                } else if (idVisual == 2) { // Batalla 2 (Centro intersección)
-                    dto.setX(890); dto.setY(630);
-                } else { // Batalla 3 (Izquierda arriba)
-                    dto.setX(680); dto.setY(320);
-                }
-            }
-            else if (dto.getTipo().equals("TIENDA")) {
-                // Tienda (Izquierda medio del lago)
-                dto.setX(520); dto.setY(500);
-            }
-            else if (dto.getTipo().equals("CAMPAMENTO")) {
-                // Campamento (Derecha medio del lago)
-                dto.setX(1250); dto.setY(500);
-            }
-            // Habilita el botón SOLO si el nodo está en la lista de caminos disponibles
             dto.setHabilitado(caminosDisponibles.contains(nodo));
 
             nodosDTO.add(dto);
@@ -75,7 +60,7 @@ public class ControladorMapa {
             idVisual++;
         }
 
-        // 2. Trazar las líneas (conexiones) entre los nodos
+        // 2. Trazar las líneas (conexiones)
         for (Nodo origen : modeloMapa.getNodos()) {
             for (Nodo destino : modeloMapa.getSucesoresDe(origen)) {
                 ConexionDTO conexion = new ConexionDTO();
@@ -87,7 +72,6 @@ public class ControladorMapa {
             }
         }
 
-        // 3. Finalmente, le pasamos los datos listos a la vista para que los pinte
         vistaMapa.cargarMapa(nodosDTO, conexionesDTO, e -> alHacerClicNodo(e));
     }
 
@@ -99,4 +83,4 @@ public class ControladorMapa {
         actualizarVista();
         nodoDestino.procesarNodo(escenario);
     }
-}*/
+}

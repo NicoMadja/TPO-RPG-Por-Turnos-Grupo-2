@@ -6,6 +6,7 @@ public class NodoDTO {
     private int x; // Posición X en la pantalla
     private int y; // Posición Y en la pantalla
     private boolean habilitado; // Si el jugador puede hacer clic aquí ahora mismo
+    private boolean esActual;
 
     // Constructor, getters y setters...
 
@@ -23,6 +24,10 @@ public class NodoDTO {
 
     public int getY() {
         return y;
+    }
+
+    public boolean isEsActual(){
+        return esActual;
     }
 
     public boolean isHabilitado() {
@@ -47,5 +52,9 @@ public class NodoDTO {
 
     public void setHabilitado(boolean habilitado) {
         this.habilitado = habilitado;
+    }
+
+    public void setEsActual(boolean esActual){
+        this.esActual = esActual;
     }
 }

@@ -26,6 +26,6 @@ public class AccionAtaque extends Accion {
         if (danioFinal < 0) danioFinal = 0;
 
         objetivo.recibirDanio(danioFinal);
-        System.out.println(atacante.getNombre() + " atacó a " + objetivo.getNombre() + " causando " + danioFinal + " de daño.");
+        utils.BitacoraBatalla.registrar(atacante.getNombre() + " atacó a " + objetivo.getNombre() + " causando " + danioFinal + " de daño.");
     }
 }

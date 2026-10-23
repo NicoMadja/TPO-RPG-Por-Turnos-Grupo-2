@@ -13,15 +13,22 @@ import modelo.mundo.Nodo;
 import modelo.mundo.mapa.MapaPrefab;
 import modelo.tienda.Tienda;
 import modelo.party.Party;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 //   inicio ─┬─> batalla1 ─┬─> tienda ───────┐
 //           │             └─> batalla3 ─────┼─> jefe final
 //           └─> batalla2 ─┬─> batalla3      │
 //                         └─> campamento ───┘
 public class Mapa1 implements MapaPrefab {
+
+    // Declaramos el mapa de coordenadas para guardar la posición visual
+    private Map<Nodo, Point> coordenadas = new HashMap<>();
 
     @Override
     public Mapa crear(Party party) {
@@ -40,17 +47,44 @@ public class Mapa1 implements MapaPrefab {
         mapa.agregarNodo(tienda);
         mapa.agregarNodo(campamento);
 
+        // --- CONEXIONES LÓGICAS ---
         mapa.conectar(inicio, batalla1);
         mapa.conectar(inicio, batalla2);
+
         mapa.conectar(batalla1, tienda);
         mapa.conectar(batalla1, batalla3);
+
         mapa.conectar(batalla2, batalla3);
         mapa.conectar(batalla2, campamento);
+
         mapa.conectar(tienda, jefeFinal);
         mapa.conectar(batalla3, jefeFinal);
+
+        // Es vital descomentar esta conexión, sino el jugador se quedaría atascado en el campamento
         mapa.conectar(campamento, jefeFinal);
+
+
+        // --- MAPEO DE COORDENADAS VISUALES PARA EL CONTROLADOR ---
+        // Genera un rombo amplio y equilibrado en pantalla (basado en centro X=890)
+        coordenadas.put(inicio, new Point(890, 850));       // Centro abajo
+
+        coordenadas.put(batalla1, new Point(650, 650));     // Medio-Bajo Izquierda
+        coordenadas.put(batalla2, new Point(1130, 650));    // Medio-Bajo Derecha
+
+        coordenadas.put(tienda, new Point(450, 400));       // Alto Izquierda
+        coordenadas.put(batalla3, new Point(890, 400));     // Alto Centro (Bifurcación que une batallas)
+        coordenadas.put(campamento, new Point(1330, 400));  // Alto Derecha
+
+        coordenadas.put(jefeFinal, new Point(890, 150));    // Centro arriba (Castillo)
+
         return mapa;
     }
+
+    @Override
+    public Map<Nodo, Point> getCoordenadasVisuales() {
+        return coordenadas;
+    }
+
 
     private List<Enemigo> enemigos(Enemigo... enemigos) {
         return new ArrayList<>(Arrays.asList(enemigos));

@@ -43,6 +43,15 @@ public class PantallaMapa extends JPanel {
             }
             botonesNodos.add(btnNodo);
             add(btnNodo);
+            if (nodo.isEsActual()) {
+                JLabel lblTu = new JLabel("▼ TÚ ▼", SwingConstants.CENTER);
+                lblTu.setForeground(Color.WHITE);
+                lblTu.setFont(new Font("SansSerif", Font.BOLD, 16));
+
+                // Lo posicionamos justo arriba del botón (ajusta la Y restando píxeles)
+                lblTu.setBounds(nodo.getX() -50, nodo.getY() - 50, 100, 20);
+                add(lblTu);
+            }
         }
 
         revalidate();

@@ -51,7 +51,7 @@ public class ControladorBatalla {
     public void elegirDefender() {
         if (fase != FaseBatalla.ELIGIENDO_ACCION) return;
         batalla.defender();
-        resolverTurno();
+        pausarYResolver();
     }
 
     public void elegirHabilidad() {
@@ -68,7 +68,7 @@ public class ControladorBatalla {
                 break;
             default: // habilidad de grupo: no hay nada que elegir
                 batalla.usarHabilidad();
-                resolverTurno();
+                pausarYResolver();;
         }
     }
 
@@ -97,7 +97,7 @@ public class ControladorBatalla {
         } else {
             batalla.usarHabilidad(enemigo(indiceEnemigo));
         }
-        resolverTurno();
+        pausarYResolver();
     }
 
     public void elegirAliado(int indiceAliado) {
@@ -108,7 +108,7 @@ public class ControladorBatalla {
         } else {
             batalla.usarHabilidad(aliado(indiceAliado));
         }
-        resolverTurno();
+        pausarYResolver();
     }
 
 
@@ -148,7 +148,7 @@ public class ControladorBatalla {
     private void programarTurnoEnemigo() {
         Timer pausa = new Timer(PAUSA_TURNO_ENEMIGO_MS, e -> {
             batalla.ejecutarTurnoEnemigo();
-            resolverTurno();
+            pausarYResolver();
         });
         pausa.setRepeats(false);
         pausa.start();
@@ -262,6 +262,18 @@ public class ControladorBatalla {
             ));
         }
         return consumiblesConvertidos;
+    }
+
+    private void pausarYResolver() {
+        limpiarSeleccion();
+        cambiarFase(FaseBatalla.MOSTRANDO_RESULTADO); // Refresca la vista y bloquea botones
+
+        // Pausamos 1.5 segundos (1500 ms) para que el jugador lea el mensaje
+        Timer pausa = new Timer(2000, e -> {
+            resolverTurno();
+        });
+        pausa.setRepeats(false);
+        pausa.start();
     }
 }
 
