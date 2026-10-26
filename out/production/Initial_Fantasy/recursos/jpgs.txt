@@ -1,0 +1,17 @@
+esqueleto.jpg
+murcielago.jpg
+ogro.jpg
+brujo.jpg
+minijefe.jpg
+jefefinal.jpg
+
+guerrero.jpg
+arquero.jpg
+tanque.jpg
+mago.jpg
+curandero.jpg
+
+pocionsalud.jpg
+pocionmana.jpg
+pocionfuerza.jpg
+pociondefensa.jpg
