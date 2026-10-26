@@ -61,7 +61,7 @@ public class PantallaMapa extends JPanel {
         repaint();
     }
 
-    // Este método nativo se ejecuta automáticamente al redimensionar la ventana
+    // Este metodo nativo se ejecuta automáticamente al redimensionar la ventana
     @Override
     public void doLayout() {
         super.doLayout();

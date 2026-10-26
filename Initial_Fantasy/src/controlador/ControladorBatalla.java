@@ -223,7 +223,7 @@ public class ControladorBatalla {
                 convertirEntidad(entidadActual));
     }
 
-    // Llama a este método cuando detectes que la batalla se ganó
+    // Llama a este metodo cuando detectes que la batalla se ganó
     private void procesarVictoria() {
         // 1. Guardamos los niveles ANTES de repartir la experiencia para poder compararlos
         Map<String, Integer> nivelesAnteriores = new HashMap<>();
@@ -235,7 +235,7 @@ public class ControladorBatalla {
         int oroGanado = batalla.getRecompensa().getOro();
         double xpGanada = batalla.getRecompensa().getExperiencia();
 
-        // (Si tu clase Batalla no reparte el botín automáticamente en su método finalizarCombate,
+        // (Si tu clase Batalla no reparte el botín automáticamente en su metodo finalizarCombate,
         // debes hacerlo aquí manualmente: party.sumarOro(oroGanado), etc.)
 
         // 3. Comparamos los niveles nuevos vs los viejos para armar el texto

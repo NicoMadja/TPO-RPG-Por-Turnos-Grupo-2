@@ -56,7 +56,7 @@ public class ControladorTienda {
         vistaTienda.actualizarDatos(oroActual, catalogoDTO, inventarioDTO);
     }
 
-    // Método auxiliar para traducir el modelo a DTO
+    // Metodo auxiliar para traducir el modelo a DTO
     private List<ConsumibleDTO> armarDTOs(List<Consumible> itemsModelo) {
         List<ConsumibleDTO> dtos = new ArrayList<>();
         for (Consumible c : itemsModelo) {

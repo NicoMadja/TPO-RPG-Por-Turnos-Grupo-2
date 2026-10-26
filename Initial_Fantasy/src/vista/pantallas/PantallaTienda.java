@@ -93,7 +93,7 @@ public class PantallaTienda extends JPanel {
         envoltorioSur.add(panelInventario, BorderLayout.CENTER);
 
 
-        // Ensamblar todo
+        // Ensamblar
         add(panelNorte, BorderLayout.NORTH);
         add(panelCentro, BorderLayout.CENTER);
         add(envoltorioSur, BorderLayout.SOUTH);
@@ -103,7 +103,7 @@ public class PantallaTienda extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (imagenFondo != null) {
-            // Dibuja la imagen cubriendo todo el JFrame, adaptable a la pantalla
+            // Dibuja la imagen cubriendo el JFrame, adaptable a la pantalla
             g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
         }
     }

@@ -179,7 +179,7 @@ public class ControladorJuego implements EscenarioDeNodos {
         PantallaCampamento modal = new PantallaCampamento(ventanaPrincipal, () -> {
             // Esta lógica se ejecuta al presionar "Descansar"
 
-            // Si el método está en Party (Recomendado por GRASP)
+            // Si el metodo está en Party (Recomendado por GRASP)
             campamento.descansar();
 
             // O si lo dejaste en la clase Campamento:
@@ -192,7 +192,7 @@ public class ControladorJuego implements EscenarioDeNodos {
         modal.setVisible(true);
     }
 
-    // Método para intercambiar los paneles sin abrir ventanas nuevas (el que faltaba)
+    // Metodo para intercambiar los paneles sin abrir ventanas nuevas (el que faltaba)
     private void cambiarPantalla(JPanel nuevaPantalla) {
         ventanaPrincipal.setContentPane(nuevaPantalla);
         ventanaPrincipal.revalidate();
