@@ -2,13 +2,11 @@
 package controlador;
 
 import dto.*;
-import modelo.batalla.Recompensa;
 import modelo.consumibles.Consumible;
 import modelo.entidades.Entidad;
 import modelo.entidades.enemigos.Enemigo;
 import modelo.entidades.personajes.Personaje;
 import modelo.batalla.Batalla;
-import modelo.party.Party;
 import vista.pantallas.PantallaBatalla;
 import vista.pantallas.PantallaDerrota;
 import vista.pantallas.PantallaRecompensa;
