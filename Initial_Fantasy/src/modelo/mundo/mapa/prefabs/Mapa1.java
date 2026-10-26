@@ -1,11 +1,7 @@
 package modelo.mundo.mapa.prefabs;
 
 import modelo.consumibles.*;
-import modelo.entidades.enemigos.Brujo;
-import modelo.entidades.enemigos.Enemigo;
-import modelo.entidades.enemigos.Esqueleto;
-import modelo.entidades.enemigos.Murcielago;
-import modelo.entidades.enemigos.Ogro;
+import modelo.entidades.enemigos.*;
 import modelo.mundo.mapa.Mapa;
 import modelo.batalla.Batalla;
 import modelo.campamento.Campamento;
@@ -33,12 +29,12 @@ public class Mapa1 implements MapaPrefab {
     @Override
     public Mapa crear(Party party) {
         Nodo inicio = new Campamento(party);
-        Nodo batalla1 = new Batalla(party, enemigos(new Esqueleto("Esqueleto A", 1), new Esqueleto("Esqueleto B", 1)));
-        Nodo batalla2 = new Batalla(party, enemigos(new Murcielago("Murcielago A", 1), new Murcielago("Murcielago B", 1)));
-        Nodo batalla3 = new Batalla(party, enemigos(new Brujo("Brujo", 2)));
+        Nodo batalla1 = new Batalla(party, enemigos(new Esqueleto("Esqueleto A", 2), new Esqueleto("Esqueleto B", 1), new Murcielago("Murcielago",1)));
+        Nodo batalla2 = new Batalla(party, enemigos(new Murcielago("Murcielago A", 2), new Murcielago("Murcielago B", 1)));
+        Nodo batalla3 = new Batalla(party, enemigos(new Brujo("Brujo", 2), new Murcielago("Muercilago",2), new Esqueleto("Esqueleto",3)));
         Nodo tienda = new Tienda(catalogo(), party);
         Nodo campamento = new Campamento(party);
-        Nodo jefeFinal = new Batalla(party, enemigos(new Ogro("Ogro Jefe", 5))); // provisorio, hasta que exista JefeFinal
+        Nodo jefeFinal = new Batalla(party, enemigos(new MiniJefe("Demonio", 3),new Ogro("Ogro", 2), new Brujo("Brujo", 3))); // provisorio, hasta que exista JefeFinal
 
         Mapa mapa = new Mapa(inicio, jefeFinal);
         mapa.agregarNodo(batalla1);

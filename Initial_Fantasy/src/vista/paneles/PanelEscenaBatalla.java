@@ -83,9 +83,9 @@ public class PanelEscenaBatalla extends JPanel {
 
             sprite.actualizar(
                     enemigo.getSprite(), enemigo.getNombre(), enemigo.getVidaActual(), enemigo.getVidaMaxima(),
-                    0, 0, 1,
+                    enemigo.getManaActual(), enemigo.getManaMaximo(), enemigo.getNivel(), // <--- CONECTADO AL DTO
                     indiceActual,
-                    e -> controlador.elegirEnemigo(indiceActual) // <--- ACÁ CONECTAMOS
+                    e -> controlador.elegirEnemigo(indiceActual)
             );
 
             contenedorEnemigos.add(sprite);

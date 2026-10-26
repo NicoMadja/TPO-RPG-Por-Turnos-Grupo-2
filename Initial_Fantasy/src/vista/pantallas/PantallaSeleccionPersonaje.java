@@ -10,7 +10,8 @@ import javax.swing.*;
 public class PantallaSeleccionPersonaje extends JPanel {
     private static final long serialVersionUID = 1L;
 
-    private List<String> personajesSeleccionados; // Aquí guardarías los DTOs o IDs en realidad
+    private List<PersonajeDTO> personajesSeleccionados;
+    private List<String> personajeSeleccionado;
     private JButton btnContinuar;
     private JPanel panelCuadricula;
 
@@ -19,6 +20,7 @@ public class PantallaSeleccionPersonaje extends JPanel {
         setBackground(new Color(30, 30, 40));
 
         personajesSeleccionados = new ArrayList<>();
+        personajeSeleccionado = new ArrayList<>();
 
         // --- TÍTULO ---
         JLabel lblTitulo = new JLabel("ELIGE A 3 HÉROES PARA TU AVENTURA", SwingConstants.CENTER);
@@ -48,31 +50,49 @@ public class PantallaSeleccionPersonaje extends JPanel {
         add(panelSur, BorderLayout.SOUTH);
     }
 
-    private List<PersonajeDTO> personajesSeleccionado = new ArrayList<>();
+
 
     // El método recibe DTOs
     public void cargarPersonajes(List<PersonajeDTO> heroesDisponibles) {
         panelCuadricula.removeAll();
+        personajeSeleccionado.clear();
         personajesSeleccionados.clear();
         btnContinuar.setEnabled(false);
 
         for (PersonajeDTO dto : heroesDisponibles) {
             JToggleButton btnPersonaje = new JToggleButton(dto.getNombre());
-            // ... (resto de configuración visual) ...
+            btnPersonaje.setFont(new Font("SansSerif", Font.BOLD, 16));
+            btnPersonaje.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+            // 1. Cargar el sprite desde el DTO
+            String rutaSprite = dto.getSprite(); // Verifica si en tu DTO se llama getSprite() o getRutaSprite()
+            if (rutaSprite != null && !rutaSprite.isEmpty()) {
+                java.net.URL imgUrl = getClass().getResource(rutaSprite);
+                if (imgUrl != null) {
+                    btnPersonaje.setIcon(new ImageIcon(imgUrl));
+                }
+            }
+
+            // 2. Posicionar el texto arriba de la imagen (Como en el boceto)
+            btnPersonaje.setVerticalTextPosition(SwingConstants.TOP);
+            btnPersonaje.setHorizontalTextPosition(SwingConstants.CENTER);
+            btnPersonaje.setIconTextGap(15); // Espacio en píxeles entre el nombre y el dibujo
 
             btnPersonaje.addActionListener(e -> {
                 if (btnPersonaje.isSelected()) {
-                    if (personajesSeleccionados.size() < 3) {
-                        personajesSeleccionados.add(dto.getNombre()); // Guardas el DTO
+                    if (personajeSeleccionado.size() < 3) {
+                        personajeSeleccionado.add(dto.getNombre()); // Guardas el ID o Nombre
+                        personajesSeleccionados.add(dto);
                         btnPersonaje.setBackground(new Color(100, 255, 100));
                     } else {
                         btnPersonaje.setSelected(false);
                     }
                 } else {
-                    personajesSeleccionados.remove(dto.getNombre()); // Remueves el DTO
+                    personajeSeleccionado.remove(dto.getNombre());
+                    personajesSeleccionados.remove(dto);
                     btnPersonaje.setBackground(null);
                 }
-                btnContinuar.setEnabled(personajesSeleccionados.size() == 3);
+                btnContinuar.setEnabled(personajeSeleccionado.size() == 3);
             });
             panelCuadricula.add(btnPersonaje);
         }
@@ -82,7 +102,7 @@ public class PantallaSeleccionPersonaje extends JPanel {
 
     // Devuelve los DTOs elegidos
     public List<PersonajeDTO> getPersonajesSeleccionados() {
-        return personajesSeleccionado;
+        return personajesSeleccionados;
     }
     public JButton getBtnContinuar() {
         return btnContinuar;

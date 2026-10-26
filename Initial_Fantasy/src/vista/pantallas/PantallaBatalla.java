@@ -2,15 +2,12 @@ package vista.pantallas;
 
 import controlador.ControladorBatalla;
 import dto.*;
-import vista.paneles.PanelAcciones;
-import vista.paneles.PanelEscenaBatalla;
-import vista.paneles.PanelEstadoEntidad;
-import vista.paneles.PanelRegistro;
+import vista.paneles.*;
 
 import java.awt.*;
 import javax.swing.*;
 
-public class PantallaBatalla extends JFrame {
+public class PantallaBatalla extends JPanel {
     private static final long serialVersionUID = 1L;
 
     // --- VARIABLES DE LA VISTA ---
@@ -20,21 +17,16 @@ public class PantallaBatalla extends JFrame {
     private PanelRegistro panelRegistro;
     private PanelAcciones panelAcciones;
     private JPanel panelInferior;
+    private PanelInfoInventario panelInfo;
 
-    // --- NUEVO: ETIQUETA DE TURNO Y CONTROLADOR ---
     private JLabel lblTurno;
     private ControladorBatalla controladorBatalla;
 
     public PantallaBatalla(){
-        setTitle("Batalla");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1100,700);
-        setMinimumSize(new Dimension(900,600));
-        setLocationRelativeTo(null);
-
-        JPanel contenido = new JPanel(new BorderLayout(12,12));
-        contenido.setBorder(BorderFactory.createEmptyBorder(12,12,12,12));
-        contenido.setBackground(new Color(22,26,38));
+        // 1. Configuramos directamente este JPanel en lugar de un "contenido" extra
+        setLayout(new BorderLayout(12, 12));
+        setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
+        setBackground(new Color(22, 26, 38));
 
         // --- CABECERA DE LA PANTALLA ---
         JPanel panelNorte = new JPanel(new GridLayout(2, 1, 0, 4));
@@ -51,28 +43,31 @@ public class PantallaBatalla extends JFrame {
         panelNorte.add(titulo);
         panelNorte.add(lblTurno);
 
+        // --- INICIALIZACIÓN DE PANELES ---
         panelJugador = new PanelEstadoEntidad("Jugador");
         panelEnemigo = new PanelEstadoEntidad("Enemigo");
         panelEscena = new PanelEscenaBatalla();
         panelRegistro = new PanelRegistro();
+        panelInfo = new PanelInfoInventario();
 
-        panelInferior = new JPanel(new BorderLayout(12,0));
-
-        JPanel centro = new JPanel(new BorderLayout(12,12));
-        centro.setOpaque(false);
-        centro.add(panelEscena, BorderLayout.CENTER);
-
+        panelInferior = new JPanel(new BorderLayout(12, 0));
         panelInferior.setOpaque(false);
         panelInferior.add(panelRegistro, BorderLayout.CENTER);
 
-        contenido.add(panelNorte, BorderLayout.NORTH); // <--- AGREGAMOS EL PANEL NORTE CON TITULO Y TURNO
-        contenido.add(centro, BorderLayout.CENTER);
-        contenido.add(panelInferior, BorderLayout.SOUTH);
-        setContentPane(contenido);
+        JPanel centro = new JPanel(new BorderLayout(12, 12));
+        centro.setOpaque(false);
+        centro.add(panelEscena, BorderLayout.CENTER);
+        centro.add(panelInfo, BorderLayout.WEST);
+
+        // 2. Agregamos las partes directamente a la clase (this)
+        add(panelNorte, BorderLayout.NORTH);
+        add(centro, BorderLayout.CENTER);
+        add(panelInferior, BorderLayout.SOUTH);
     }
 
     public void setControlador(ControladorBatalla controlador){
         this.controladorBatalla = controlador;
+        panelInfo.setControlador(controlador);
         panelAcciones = new PanelAcciones(controlador);
         panelInferior.add(panelAcciones, BorderLayout.EAST);
     }
@@ -86,18 +81,19 @@ public class PantallaBatalla extends JFrame {
         }
 
         panelEscena.actualizar(estado, this.controladorBatalla);
+        panelInfo.actualizar(estado);
 
-        // --- ACTUALIZAR MESAJE DE TURNO Y REGISTRO ---
-        //String mensajeTurno = construirMensajeTurno(estado);
-        //lblTurno.setText(mensajeTurno);
+        // --- ACTUALIZAR MENSAJE DE TURNO Y REGISTRO ---
+        String mensajeTurno = construirMensajeTurno(estado);
+        lblTurno.setText(mensajeTurno);
         panelRegistro.actualizar(utils.BitacoraBatalla.getUltimoMensaje());
 
         if(panelAcciones != null){
             panelAcciones.setHabilitado(estado.getFase() != FaseBatalla.FINALIZADA);
+
         }
     }
 
-    /* Método auxiliar actualizado en PantallaBatalla.java
     private String construirMensajeTurno(EstadoBatallaDTO estado) {
         EntidadDTO actual = estado.getEntidadActual();
         FaseBatalla fase = estado.getFase();
@@ -110,7 +106,6 @@ public class PantallaBatalla extends JFrame {
             return "Iniciando batalla...";
         }
 
-        // Armamos un encabezado con datos detallados (Nombre, Nivel, Ataque y Defensa)
         String infoEntidad = actual.getNombre() + " [Lv." + actual.getNivel()
                 + " | ATQ: " + actual.getAtaqueActual()
                 + " | DEF: " + actual.getDefensaActual() + "]";
@@ -129,5 +124,5 @@ public class PantallaBatalla extends JFrame {
             default:
                 return "";
         }
-    }*/
+    }
 }

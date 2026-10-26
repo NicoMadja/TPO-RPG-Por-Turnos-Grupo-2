@@ -14,16 +14,16 @@ public class PantallaMenu extends JPanel {
     private Image imagenFondo;
 
     public PantallaMenu() {
-        // Layout nulo para posicionamiento absoluto de los botones
-        setLayout(null);
+        // 1. Usar GridBagLayout centra automáticamente los componentes en la pantalla
+        setLayout(new GridBagLayout());
 
-        // 1. Cargar la imagen de fondo
+        // 2. Cargar la imagen de fondo
         ImageIcon iconoFondo = CargadorImagenes.cargar("/recursos/sprites/menuFondo.jpg");
         if (iconoFondo != null) {
             imagenFondo = iconoFondo.getImage();
         }
 
-        // 2. Crear los botones con el estilo redondeado/blanco
+        // 3. Crear los botones
         btnNuevaPartida = crearBotonMenu("Nueva Partida");
         btnCargarPartida = crearBotonMenu("Cargar Partida");
         btnSalir = crearBotonMenu("Salir");
@@ -31,21 +31,20 @@ public class PantallaMenu extends JPanel {
         // Acción por defecto del botón Salir
         btnSalir.addActionListener(e -> System.exit(0));
 
-        // 3. Posicionar los botones manualmente (X, Y, Ancho, Alto)
-        // Basado en el ancho de 1024 que definimos en ControladorJuego
-        int ventanaAncho = 1024;
-        int botonAncho = 240;
-        int botonAlto = 50;
-        int posicionX = (ventanaAncho - botonAncho) / 2; // Centrado horizontal
+        // 4. Crear un contenedor transparente para apilar los botones verticalmente
+        JPanel panelBotones = new JPanel();
+        panelBotones.setLayout(new BoxLayout(panelBotones, BoxLayout.Y_AXIS));
+        panelBotones.setOpaque(false); // Transparente para no tapar el fondo
 
-        btnNuevaPartida.setBounds(posicionX, 320, botonAncho, botonAlto);
-        btnCargarPartida.setBounds(posicionX, 390, botonAncho, botonAlto);
-        btnSalir.setBounds(posicionX, 460, botonAncho, botonAlto);
+        // 5. Agregamos los botones al contenedor con separadores de 20 píxeles
+        panelBotones.add(btnNuevaPartida);
+        panelBotones.add(Box.createVerticalStrut(20)); // Espacio vacío
+        panelBotones.add(btnCargarPartida);
+        panelBotones.add(Box.createVerticalStrut(20)); // Espacio vacío
+        panelBotones.add(btnSalir);
 
-        // 4. Agregar los botones directamente a este panel
-        add(btnNuevaPartida);
-        add(btnCargarPartida);
-        add(btnSalir);
+        // 6. Agregamos el grupo de botones al panel principal (quedará centrado)
+        add(panelBotones);
     }
 
     // Dibujamos la imagen de fondo directamente sobre el panel del menú
@@ -71,6 +70,13 @@ public class PantallaMenu extends JPanel {
         boton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
         boton.setFocusPainted(false);
         boton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        // NUEVO: Le fijamos el tamaño exacto al botón para que el BoxLayout lo respete
+        Dimension dimensionBoton = new Dimension(240, 50);
+        boton.setPreferredSize(dimensionBoton);
+        boton.setMaximumSize(dimensionBoton);
+        boton.setAlignmentX(Component.CENTER_ALIGNMENT); // Centra el botón dentro de su propia columna
+
         return boton;
     }
 

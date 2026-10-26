@@ -2,15 +2,22 @@
 package controlador;
 
 import dto.*;
+import modelo.batalla.Recompensa;
 import modelo.consumibles.Consumible;
 import modelo.entidades.Entidad;
 import modelo.entidades.enemigos.Enemigo;
 import modelo.entidades.personajes.Personaje;
 import modelo.batalla.Batalla;
+import modelo.party.Party;
 import vista.pantallas.PantallaBatalla;
+import vista.pantallas.PantallaDerrota;
+import vista.pantallas.PantallaRecompensa;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import javax.swing.Timer;
+import java.util.Map;
+import javax.swing.*;
 
 public class ControladorBatalla {
     // qué acción eligió el jugador y está esperando que le elijan objetivo
@@ -18,6 +25,8 @@ public class ControladorBatalla {
 
     private final Batalla batalla;
     private final PantallaBatalla vista;
+    private Runnable alVolverAlMapa;
+    private Runnable alReiniciarJuego;
 
     // tiempo de espera entre turnos enemigos
     private static final int PAUSA_TURNO_ENEMIGO_MS = 900;
@@ -27,9 +36,11 @@ public class ControladorBatalla {
     private AccionPendiente accionPendiente;
     private String consumiblePendiente;
 
-    public ControladorBatalla(Batalla batalla, PantallaBatalla vista) {
+    public ControladorBatalla(Batalla batalla, PantallaBatalla vista, Runnable alVolverAlMapa, Runnable alReiniciarJuego) {
         this.batalla = batalla;
         this.vista = vista;
+        this.alVolverAlMapa = alVolverAlMapa;
+        this.alReiniciarJuego = alReiniciarJuego;
     }
 
 
@@ -136,6 +147,14 @@ public class ControladorBatalla {
 
         if (batalla.estaFinalizada()) {
             cambiarFase(FaseBatalla.FINALIZADA);
+
+            // Preguntamos a la Batalla/Gestor quién fue aniquilado
+            if (batalla.hayVictoria()) {
+                procesarVictoria(); // Ganaron los héroes
+            } else {
+                procesarDerrota(); // ¡GAME OVER!
+            }
+
         } else if (batalla.esTurnoDeEnemigo()) {
             cambiarFase(FaseBatalla.TURNO_ENEMIGO);
             programarTurnoEnemigo();
@@ -202,6 +221,54 @@ public class ControladorBatalla {
                 convertirConsumibles(consumibles),
                 fase,
                 convertirEntidad(entidadActual));
+    }
+
+    // Llama a este método cuando detectes que la batalla se ganó
+    private void procesarVictoria() {
+        // 1. Guardamos los niveles ANTES de repartir la experiencia para poder compararlos
+        Map<String, Integer> nivelesAnteriores = new HashMap<>();
+        for (Personaje p : batalla.getParty().getPersonajesVivos()) {
+            nivelesAnteriores.put(p.getNombre(), p.getNivel());
+        }
+
+        // 2. Extraemos el botín de la lógica del modelo
+        int oroGanado = batalla.getRecompensa().getOro();
+        double xpGanada = batalla.getRecompensa().getExperiencia();
+
+        // (Si tu clase Batalla no reparte el botín automáticamente en su método finalizarCombate,
+        // debes hacerlo aquí manualmente: party.sumarOro(oroGanado), etc.)
+
+        // 3. Comparamos los niveles nuevos vs los viejos para armar el texto
+        List<String> mensajesLevelUp = new ArrayList<>();
+        for (Personaje p : batalla.getParty().getPersonajesVivos()) {
+            int nivelViejo = nivelesAnteriores.getOrDefault(p.getNombre(), p.getNivel());
+            if (p.getNivel() > nivelViejo) {
+                mensajesLevelUp.add(p.getNombre() + " subió a nivel " + p.getNivel());
+            }
+        }
+
+        // 4. Instanciamos y mostramos el Modal sobre la ventana actual
+        JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vista);
+        PantallaRecompensa modal = new PantallaRecompensa(
+                ventanaPadre,
+                xpGanada,
+                oroGanado,
+                mensajesLevelUp,
+                alVolverAlMapa // Al presionar Continuar, se ejecutará cambiarPantalla(panelMapa)
+        );
+
+        modal.setVisible(true);
+    }
+
+    private void procesarDerrota() {
+        if (alReiniciarJuego == null) return;
+
+        JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vista);
+
+        PantallaDerrota modal = new PantallaDerrota(ventanaPadre, () -> {
+            alReiniciarJuego.run();
+        });
+        modal.setVisible(true);
     }
 
     private EntidadDTO convertirEntidad(Entidad entidad){

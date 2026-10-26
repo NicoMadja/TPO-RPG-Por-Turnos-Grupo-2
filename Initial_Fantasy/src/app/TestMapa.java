@@ -40,7 +40,6 @@ public class TestMapa {
             EscenarioDeNodos escenarioPrueba = new EscenarioDeNodos() {
                 @Override
                 public void alEntrarEnBatalla(Batalla batalla) {
-                    System.out.println("¡Has entrado a un nodo de Batalla!");
                 }
 
                 @Override

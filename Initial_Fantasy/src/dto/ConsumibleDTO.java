@@ -16,7 +16,7 @@ public class ConsumibleDTO {
 
     // --- GETTERS ---
     public String getNombre() {return nombre;}
-    public int getCantidad() {return precio;}
+    public int getPrecio() {return precio;}
     public String getSprite() {return sprite;}
 }
 

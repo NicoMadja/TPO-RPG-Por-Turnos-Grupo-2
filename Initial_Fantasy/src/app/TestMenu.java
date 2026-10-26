@@ -1,6 +1,6 @@
 package app;
 
-import controlador.ControladorMenu;
+import controlador.ControladorJuego;
 import javax.swing.SwingUtilities;
 
 public class TestMenu {
@@ -12,7 +12,7 @@ public class TestMenu {
 
             // Al instanciar el controlador, mágicamente se crea la ventana
             // y se muestra el PantallaMenu inicial.
-            new ControladorMenu();
+            new ControladorJuego();
 
         });
     }

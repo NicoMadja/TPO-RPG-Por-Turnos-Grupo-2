@@ -12,10 +12,11 @@ import javax.swing.*;
 
 public class PantallaMapa extends JPanel {
     private static final long serialVersionUID = 1L;
-
+    private  JLabel lblParty;
     private List<ConexionDTO> conexiones;
     private List<JButton> botonesNodos;
     private Image imagenFondo; // <-- Aquí guardaremos tu Pixel Art
+    private List<NodoDTO> nodos;
 
     public PantallaMapa() {
         setLayout(null);
@@ -30,6 +31,7 @@ public class PantallaMapa extends JPanel {
     }
 
     public void cargarMapa(List<NodoDTO> nodos, List<ConexionDTO> conexiones, ActionListener listenerClicNodo) {
+        this.nodos = nodos;
         this.conexiones = conexiones;
         this.botonesNodos.clear();
         this.removeAll();
@@ -45,17 +47,47 @@ public class PantallaMapa extends JPanel {
             add(btnNodo);
             if (nodo.isEsActual()) {
                 JLabel lblTu = new JLabel("▼ TÚ ▼", SwingConstants.CENTER);
-                lblTu.setForeground(Color.WHITE);
+                lblTu.setForeground(Color.BLACK);
                 lblTu.setFont(new Font("SansSerif", Font.BOLD, 16));
 
                 // Lo posicionamos justo arriba del botón (ajusta la Y restando píxeles)
-                lblTu.setBounds(nodo.getX() -50, nodo.getY() - 50, 100, 20);
+                lblTu.setBounds(nodo.getX() -50, nodo.getY() - 65, 100, 20);
                 add(lblTu);
+                setComponentZOrder(lblTu,0);
             }
         }
 
         revalidate();
         repaint();
+    }
+
+    // Este método nativo se ejecuta automáticamente al redimensionar la ventana
+    @Override
+    public void doLayout() {
+        super.doLayout();
+        if (nodos == null || botonesNodos == null) return;
+
+        // Resolución base sobre la cual calculaste tus coordenadas exactas (Ej: 1920x1080)
+        double anchoBase = 1920.0;
+        double altoBase = 1080.0;
+
+        for (int i = 0; i < nodos.size(); i++) {
+            NodoDTO dto = nodos.get(i);
+            JButton btn = botonesNodos.get(i);
+
+            // Regla de tres simple para escalar la posición
+            int xDinamico = (int) ((dto.getX() * getWidth()) / anchoBase);
+            int yDinamico = (int) ((dto.getY() * getHeight()) / altoBase);
+
+            btn.setBounds(xDinamico - 25, yDinamico - 25, 50, 50);
+        }
+        if (lblParty != null) {
+            // Reemplaza 890 y 860 por las coordenadas X e Y originales que le pusiste a tu JLabel
+            int xDinamicoTu = (int) ((890 * getWidth()) / anchoBase);
+            int yDinamicoTu = (int) ((860 * getHeight()) / altoBase);
+
+            lblParty.setBounds(xDinamicoTu, yDinamicoTu, 50, 30);
+        }
     }
 
     private JButton crearBotonNodo(NodoDTO nodo) {
@@ -82,25 +114,26 @@ public class PantallaMapa extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // 1. Primero dibujamos el Pixel Art de fondo
+        // 1. Dibuja la imagen estirándola automáticamente al tamaño actual del contenedor
         if (imagenFondo != null) {
             g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
         } else {
-            // Fondo verde por si no carga la imagen
-            g.setColor(new Color(34, 139, 34));
+            g.setColor(new Color(34, 139, 34)); // Verde de respaldo
             g.fillRect(0, 0, getWidth(), getHeight());
         }
 
-        // 2. Luego dibujamos las líneas sobre el fondo
+        // 2. Traza los caminos
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(5));
-        g2.setColor(Color.BLACK); // Líneas negras como en tu boceto
+        g2.setColor(Color.BLACK);
 
         for (ConexionDTO conexion : conexiones) {
-            g2.drawLine(
-                    conexion.getOrigenX(), conexion.getOrigenY(),
-                    conexion.getDestinoX(), conexion.getDestinoY()
-            );
+            int origenX = (int) ((conexion.getOrigenX() * getWidth()) / 1920.0);
+            int origenY = (int) ((conexion.getOrigenY() * getHeight()) / 1080.0);
+            int destinoX = (int) ((conexion.getDestinoX() * getWidth()) / 1920.0);
+            int destinoY = (int) ((conexion.getDestinoY() * getHeight()) / 1080.0);
+
+            g2.drawLine(origenX, origenY, destinoX, destinoY);
         }
     }
 }

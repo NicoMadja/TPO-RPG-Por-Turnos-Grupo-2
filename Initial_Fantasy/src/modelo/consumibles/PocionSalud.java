@@ -5,7 +5,7 @@ import modelo.entidades.Entidad;
 public class PocionSalud extends Consumible {
 
     public PocionSalud() {
-        super("Poción de Vida", 550, "/recursos/sprites/pocionsalud.jpg");
+        super("Poción de Vida", 65, "/recursos/sprites/pocionsalud.png");
     }
 
     @Override

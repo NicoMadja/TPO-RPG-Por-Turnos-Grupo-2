@@ -53,6 +53,7 @@ public abstract class Entidad {
     }
 
 
+
     // --- COMBATE ---
     public void recibirDanio(int danio) {
         this.vidaActual -= danio;

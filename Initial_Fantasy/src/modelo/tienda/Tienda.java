@@ -44,4 +44,8 @@ public class Tienda extends Nodo {
     public void procesarNodo(EscenarioDeNodos escenario) {
         escenario.alEntrarEnTienda(this);
     }
+
+    public Party getParty() {
+        return party;
+    }
 }
