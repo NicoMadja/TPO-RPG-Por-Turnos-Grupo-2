@@ -1,7 +1,6 @@
 package app;
 
 import controlador.ControladorJuego;
-
 import javax.swing.*;
 
 public class Juego {

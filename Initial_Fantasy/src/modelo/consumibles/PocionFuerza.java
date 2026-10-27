@@ -5,7 +5,7 @@ import modelo.entidades.Entidad;
 public class PocionFuerza extends Consumible {
 
     public PocionFuerza() {
-        super("Poción de Fuerza", 100, "/recursos/sprites/pocionfuerza.png");
+        super("Poción de Fuerza", 35, "/recursos/sprites/pocionfuerza.png");
     }
 
     @Override
@@ -13,6 +13,6 @@ public class PocionFuerza extends Consumible {
         // duplica el daño hasta el final de la batalla
         int aumentoAtaque = objetivo.getAtaqueActual();
         objetivo.modificarAtaque(aumentoAtaque);
-        System.out.println(objetivo.getNombre() + " se duplicó el ataque.");
+        System.out.println(objetivo.getNombre() + " tomó una poción y duplicó su ataque.");
     }
 }

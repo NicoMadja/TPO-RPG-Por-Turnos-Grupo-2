@@ -7,17 +7,17 @@ public class Curandero extends Personaje {
     // --- CONSTRUCTOR ---
     public Curandero(String nombre) {
         // tiene mucho maná y bastante vida
-        super(nombre, 1, 110, 120, 20, 10, 6, new HabilidadCurandero(), "/recursos/sprites/curandero.png");
+        super(nombre, 1, 100, 70, 18, 6, 6, new HabilidadCurandero(), "/recursos/sprites/curandero.png");
     }
 
     // --- PROGRESIÓN ESPECÍFICA ---
     @Override
     protected void incrementarEstadisticas() {
         // el curandero escala mucho maná y moderado ataque, con poca velocidad
-        this.vidaMaxima += 10;
-        this.manaMaximo += 25;
-        this.ataqueBase += 8;
-        this.defensaBase += 6;
+        this.vidaMaxima += 18;
+        this.manaMaximo += 12;
+        this.ataqueBase += 4;
+        this.defensaBase += 3;
         this.velocidadBase += 2;
 
         this.vidaActual = this.vidaMaxima;

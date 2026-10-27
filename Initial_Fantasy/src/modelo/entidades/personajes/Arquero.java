@@ -7,17 +7,17 @@ public class Arquero extends Personaje {
     // --- CONSTRUCTOR ---
     public Arquero(String nombre) {
         // tiene mucho ataque y maná, pero poca vida
-        super(nombre, 1, 80, 100, 30, 10, 10, new HabilidadArquero(), "/recursos/sprites/arquero.png");
+        super(nombre, 1, 90, 40, 22, 8, 10, new HabilidadArquero(), "/recursos/sprites/arquero.png");
     }
 
     // --- PROGRESIÓN ESPECÍFICA ---
     @Override
     protected void incrementarEstadisticas() {
         // el arquero escala moderado maná y ataque
-        this.vidaMaxima += 10;
-        this.manaMaximo += 10;
-        this.ataqueBase += 10;
-        this.defensaBase += 5;
+        this.vidaMaxima += 18;
+        this.manaMaximo += 8;
+        this.ataqueBase += 6;
+        this.defensaBase += 2;
         this.velocidadBase += 3;
 
         this.vidaActual = this.vidaMaxima;

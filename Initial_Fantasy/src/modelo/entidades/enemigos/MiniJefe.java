@@ -10,18 +10,22 @@ import modelo.party.Party;
 
 public class MiniJefe extends Enemigo {
 
+    // --- CONSTRUCTOR ---
     public MiniJefe(String nombre, int nivel) {
-        super(nombre, nivel, 70 + (nivel * 5), 100, 20 + (nivel * 2), 5 + nivel, 9 + (nivel * 2), new HabilidadMiniJefe(), "/recursos/sprites/minijefe.png", 45 + (nivel * 10), 16 + (nivel * 2));
+        // el minijefe es un enemigo mas avanzado y fuerte que el resto
+        super(nombre, nivel, 180 + (nivel * 5), 100, 22 + (nivel * 2), 8 + nivel,
+                11 + (nivel * 2), new HabilidadMiniJefe(), "/recursos/sprites/minijefe.png",
+                160 + (nivel * 10), 120 + (nivel * 2));
     }
 
-
-
+    // --- COMPORTAMIENTO ---
     @Override
     public Accion decidirAccion(Party heroes) {
-
+        // ataca objetivo aleatorio
         Personaje objetivo = heroes.obtenerPersonajeVivoAlAzar();
 
-        if (Math.random() < 0.30) {
+        // 40% de usar su habilidad si tiene maná suficiente
+        if (tieneSuficienteMana(this.habilidad.getCostoMana()) && Math.random() < 0.40) {
             ContextoAccion contextoHabilidad = new ContextoAccion(this, objetivo, null, this.habilidad);
             return new AccionHabilidad(contextoHabilidad);
         } else {
@@ -29,6 +33,4 @@ public class MiniJefe extends Enemigo {
             return new AccionAtaque(contexto);
         }
     }
-
-
 }

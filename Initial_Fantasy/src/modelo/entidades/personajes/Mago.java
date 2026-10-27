@@ -7,7 +7,7 @@ public class Mago extends Personaje {
     // --- CONSTRUCTOR ---
     public Mago(String nombre) {
         // tiene mucho maná y velocidad
-        super(nombre, 1, 100, 120, 20, 10, 10, new HabilidadMago(), "/recursos/sprites/mago.png");
+        super(nombre, 1, 100, 80, 22, 5, 8, new HabilidadMago(), "/recursos/sprites/mago.png");
     }
 
     // --- PROGRESIÓN ESPECÍFICA ---
@@ -15,9 +15,9 @@ public class Mago extends Personaje {
     protected void incrementarEstadisticas() {
         // el mago escala maná
         this.vidaMaxima += 12;
-        this.manaMaximo += 10;
+        this.manaMaximo += 15;
         this.ataqueBase += 6;
-        this.defensaBase += 5;
+        this.defensaBase += 2;
         this.velocidadBase += 3;
 
         this.vidaActual = this.vidaMaxima;

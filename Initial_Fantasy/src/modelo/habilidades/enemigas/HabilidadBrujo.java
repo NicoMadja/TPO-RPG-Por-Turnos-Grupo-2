@@ -8,17 +8,17 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadBrujo extends Habilidad {
 
     public HabilidadBrujo() {
-        super("Rayo Oscuro", 30, TipoObjetivo.UN_ENEMIGO);
+        super("Rayo Oscuro", 30, TipoObjetivo.TODOS_LOS_ENEMIGOS);
     }
 
     @Override
     public void ejecutar(ContextoAccion contexto) {
-        // resta 8 de ataque y 8 de defensa al héroe
+        // resta 20% de defensa actual a todos los héroes hasta el final de la batalla
         for (Entidad objetivo : contexto.getObjetivos()) {
             if (!objetivo.estaVivo()) continue;
 
-            objetivo.modificarAtaque(-8);
-            objetivo.modificarDefensa(-8);
+            int debuffDefensa = -((objetivo.getDefensaActual() * 80) / 100);
+            objetivo.modificarDefensa(debuffDefensa);
         }
     }
 }

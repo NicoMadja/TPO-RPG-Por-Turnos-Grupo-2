@@ -13,12 +13,13 @@ public class HabilidadCurandero extends Habilidad {
 
     @Override
     public void ejecutar(ContextoAccion contexto) {
-        Entidad lanzador = contexto.getOrigen();
 
-        // cura a un aliado el triple del ataque del curandero
-        int cantidadCuracion = lanzador.getAtaqueActual() * 3;
+        // cura un 50% de vida de un aliado
         for (Entidad objetivo : contexto.getObjetivos()) {
-            if (objetivo.estaVivo()) objetivo.recibirCura(cantidadCuracion);
+            if (objetivo.estaVivo()) {
+                int cantidadCuracion = objetivo.getVidaMaxima() / 2;
+                objetivo.recibirCura(cantidadCuracion);
+            }
         }
     }
 }

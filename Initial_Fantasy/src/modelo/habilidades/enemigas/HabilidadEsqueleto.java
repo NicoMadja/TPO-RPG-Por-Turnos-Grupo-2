@@ -8,14 +8,14 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadEsqueleto extends Habilidad {
 
     public HabilidadEsqueleto() {
-        super("Tajo Rapido", 0, TipoObjetivo.UN_ENEMIGO);
+        super("Tajo Óseo", 0, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override
     public void ejecutar(ContextoAccion contexto) {
         Entidad lanzador = contexto.getOrigen();
 
-        // daña al héroe y aumenta levemente su velocidad y ataque
+        // daña al héroe y aumenta levemente su velocidad
         for (Entidad objetivo : contexto.getObjetivos()) {
             if (!objetivo.estaVivo()) continue;
 
@@ -24,7 +24,6 @@ public class HabilidadEsqueleto extends Habilidad {
             objetivo.recibirDanio(danioFinal);
 
             lanzador.modificarVelocidad(1);
-            lanzador.modificarAtaque(1);
         }
     }
 }
