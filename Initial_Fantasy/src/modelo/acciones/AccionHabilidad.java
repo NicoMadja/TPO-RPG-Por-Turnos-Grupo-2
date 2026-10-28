@@ -19,7 +19,7 @@ public class AccionHabilidad extends Accion {
             lanzador.gastarMana(habilidadUsada.getCostoMana());
             habilidadUsada.ejecutar(contexto);
 
-            utils.BitacoraBatalla.registrar(lanzador.getNombre() + " usó " + habilidadUsada.getNombre());
+            utils.BitacoraBatalla.registrar(lanzador.getNombre() + " usó " + habilidadUsada.getNombre() + ".");
 
         } else {
             utils.BitacoraBatalla.registrar(lanzador.getNombre() + " no tiene maná suficiente.");

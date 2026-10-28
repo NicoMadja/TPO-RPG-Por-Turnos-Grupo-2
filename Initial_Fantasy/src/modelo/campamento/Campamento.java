@@ -28,7 +28,6 @@ public class Campamento extends Nodo {
     // --- PROCESAR ---
     @Override
     public void procesarNodo(EscenarioDeNodos escenario) {
-        descansar();
         escenario.alEntrarEnCampamento(this);
     }
 }

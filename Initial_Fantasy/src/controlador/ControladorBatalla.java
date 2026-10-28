@@ -10,11 +10,8 @@ import modelo.batalla.Batalla;
 import vista.pantallas.PantallaBatalla;
 import vista.pantallas.PantallaDerrota;
 import vista.pantallas.PantallaRecompensa;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.swing.*;
 
 public class ControladorBatalla {
@@ -223,29 +220,14 @@ public class ControladorBatalla {
 
     // Llama a este metodo cuando detectes que la batalla se ganó
     private void procesarVictoria() {
-        // 1. Guardamos los niveles ANTES de repartir la experiencia para poder compararlos
-        Map<String, Integer> nivelesAnteriores = new HashMap<>();
-        for (Personaje p : batalla.getParty().getPersonajesVivos()) {
-            nivelesAnteriores.put(p.getNombre(), p.getNivel());
-        }
-
-        // 2. Extraemos el botín de la lógica del modelo
         int oroGanado = batalla.getRecompensa().getOro();
         double xpGanada = batalla.getRecompensa().getExperiencia();
-
-        // (Si tu clase Batalla no reparte el botín automáticamente en su metodo finalizarCombate,
-        // debes hacerlo aquí manualmente: party.sumarOro(oroGanado), etc.)
-
-        // 3. Comparamos los niveles nuevos vs los viejos para armar el texto
         List<String> mensajesLevelUp = new ArrayList<>();
-        for (Personaje p : batalla.getParty().getPersonajesVivos()) {
-            int nivelViejo = nivelesAnteriores.getOrDefault(p.getNombre(), p.getNivel());
-            if (p.getNivel() > nivelViejo) {
-                mensajesLevelUp.add(p.getNombre() + " subió a nivel " + p.getNivel());
-            }
+        for (Personaje p : batalla.getSubieronDeNivel()) {
+            mensajesLevelUp.add(p.getNombre() + " subió a nivel " + p.getNivel());
         }
 
-        // 4. Instanciamos y mostramos el Modal sobre la ventana actual
+        // Instanciamos y mostramos el Modal sobre la ventana actual
         JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vista);
         PantallaRecompensa modal = new PantallaRecompensa(
                 ventanaPadre,

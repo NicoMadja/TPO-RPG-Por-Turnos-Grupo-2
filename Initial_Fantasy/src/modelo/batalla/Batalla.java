@@ -25,6 +25,7 @@ public class Batalla extends Nodo {
     private GestorDeTurnos gestor;
     private Recompensa recompensa;
     private boolean finalizada;
+    private List<Personaje> subieronDeNivel;
 
 
     // --- CONSTRUCTOR ---
@@ -34,6 +35,7 @@ public class Batalla extends Nodo {
         this.gestor = new GestorDeTurnos();
         this.recompensa = calcularRecompensa();
         this.finalizada = false;
+        this.subieronDeNivel = new ArrayList<>();
     }
 
 
@@ -68,6 +70,7 @@ public class Batalla extends Nodo {
         }
 
         resetearEstadisticasParty();
+        subieronDeNivel = party.distribuirExperiencia(recompensa.getExperiencia());
     }
 
     private void resetearEstadisticasParty() {
@@ -169,6 +172,7 @@ public class Batalla extends Nodo {
     public Entidad getEntidadActual() {return gestor.obtenerEntidadActual();}
     public Recompensa getRecompensa() {return recompensa;}
     public List<Enemigo> getEnemigos() {return enemigos;}
+    public List<Personaje> getSubieronDeNivel() {return subieronDeNivel;}
     public List<Enemigo> getEnemigosVivos() {
         List<Enemigo> vivos = new ArrayList<>();
         for (Enemigo e : enemigos) {

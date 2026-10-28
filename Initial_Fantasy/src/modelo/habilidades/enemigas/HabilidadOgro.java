@@ -16,7 +16,7 @@ public class HabilidadOgro extends Habilidad {
         Entidad lanzador = contexto.getOrigen();
 
         // aumenta un 15% su ataque hasta que termine la batalla (una sola vez por uso)
-        int buffAtaque = (lanzador.getAtaqueActual() * 115) / 100;
+        int buffAtaque = (lanzador.getAtaqueActual() * 15) / 100;
         lanzador.modificarAtaque(buffAtaque);
 
         // y hace un ataque con 30% mas de daño

@@ -17,7 +17,7 @@ public class HabilidadTanque extends Habilidad {
         // aumenta un 30% la defensa de todos los aliados
         for (Entidad objetivo : contexto.getObjetivos()) {
             if (objetivo.estaVivo()) {
-                int aumentoDefensa = (objetivo.getDefensaActual() * 130) / 100;
+                int aumentoDefensa = (objetivo.getDefensaActual() * 30) / 100;
                 objetivo.modificarDefensa(aumentoDefensa);
             }
         }

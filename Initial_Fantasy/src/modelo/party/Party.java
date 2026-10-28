@@ -73,15 +73,18 @@ public class Party {
 
 
     // --- ORO Y EXPERIENCIA ---
-    public void distribuirExperiencia(double totalExp) {
+    public List<Personaje> distribuirExperiencia(double totalExp) {
+        List<Personaje> subieronDeNivel = new ArrayList<>();
         List<Personaje> vivos = getPersonajesVivos();
-        if (vivos.isEmpty()) return;
+        if (vivos.isEmpty()) return subieronDeNivel;
 
-        // se divide equitativamente entre los personajes que sobrevivieron
         double expPorPersonaje = totalExp / vivos.size();
         for (Personaje p : vivos) {
+            int nivelAntes = p.getNivel();
             p.ganarExperiencia(expPorPersonaje);
+            if (p.getNivel() > nivelAntes) subieronDeNivel.add(p);
         }
+        return subieronDeNivel;
     }
 
     public void sumarOro(int totalOro) {

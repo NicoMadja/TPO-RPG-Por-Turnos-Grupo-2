@@ -15,7 +15,7 @@ public class HabilidadMago extends Habilidad {
     public void ejecutar(ContextoAccion contexto) {
         Entidad lanzador = contexto.getOrigen();
 
-        // ataca con el doble de daño a todos los objetivos del contexto
+        // ataca a todos los objetivos del contexto ignorando defensa
         int danioMagico = lanzador.getAtaqueActual();
         for (Entidad objetivo : contexto.getObjetivos()) {
             if (objetivo.estaVivo()) objetivo.recibirDanio(danioMagico);

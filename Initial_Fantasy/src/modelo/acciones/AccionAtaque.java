@@ -2,7 +2,6 @@ package modelo.acciones;
 
 import modelo.entidades.Entidad;
 
-
 public class AccionAtaque extends Accion {
 
     public AccionAtaque(ContextoAccion contexto) {
@@ -19,14 +18,12 @@ public class AccionAtaque extends Accion {
         // repele el ataque básico si está defendido (si usó AccionDefensa)
         if (objetivo.isDefendiendo()) {
             System.out.println(objetivo.getNombre() + " está en postura defensiva y repelió completamente el ataque de " + atacante.getNombre() + "!");
-            return; // Cortamos la ejecución acá. No hay cálculo de daño.
+            return; // cortamos la ejecución acá, no hay cálculo de daño.
         }
 
         // si no está defendiendo
         int danioFinal = atacante.getAtaqueActual() - objetivo.getDefensaActual();
-        if(danioFinal <= 0){
-            danioFinal = -danioFinal;
-        }
+        if (danioFinal < 0) danioFinal = 0;
 
         objetivo.recibirDanio(danioFinal);
         utils.BitacoraBatalla.registrar(atacante.getNombre() + " atacó a " + objetivo.getNombre() + " causando " + danioFinal + " de daño.");
