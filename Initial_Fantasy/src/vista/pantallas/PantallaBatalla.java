@@ -72,7 +72,7 @@ public class PantallaBatalla extends JPanel {
         panelInferior.add(panelAcciones, BorderLayout.EAST);
     }
 
-    public void actualizar (EstadoBatallaDTO estado){
+    public void actualizar(EstadoBatallaDTO estado){
         for(PersonajeDTO heroe: estado.getHeroes()){
             panelJugador.actualizar(heroe);
         }
@@ -86,11 +86,12 @@ public class PantallaBatalla extends JPanel {
         // --- ACTUALIZAR MENSAJE DE TURNO Y REGISTRO ---
         String mensajeTurno = construirMensajeTurno(estado);
         lblTurno.setText(mensajeTurno);
-        panelRegistro.actualizar(utils.BitacoraBatalla.getUltimoMensaje());
+        for (String mensaje : utils.BitacoraBatalla.retirarPendientes()) {
+            panelRegistro.agregar(mensaje);
+        }
 
-        if(panelAcciones != null){
-            panelAcciones.setHabilitado(estado.getFase() != FaseBatalla.FINALIZADA);
-
+        if (panelAcciones != null) {
+            panelAcciones.actualizar(estado);
         }
     }
 

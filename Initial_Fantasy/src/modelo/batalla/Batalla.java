@@ -41,6 +41,8 @@ public class Batalla extends Nodo {
 
     // --- FLUJO ---
     public void iniciarBatalla() {
+        utils.BitacoraBatalla.limpiar();
+        utils.BitacoraBatalla.registrar("Iniciando batalla...");
         gestor.enlistarEntidades(party.getPersonajes(), enemigos);
     }
 
@@ -63,14 +65,18 @@ public class Batalla extends Nodo {
     private void finalizarCombate() {
         this.finalizada = true;
 
-        // solo hay recompensa si ganaron los héroes
+        // hay recompensa si ganaron los héroes
         if (gestor.enemigosDerrotados()) {
             party.sumarOro(recompensa.getOro());
-            party.distribuirExperiencia(recompensa.getExperiencia());
-        }
 
+            subieronDeNivel = party.distribuirExperiencia(recompensa.getExperiencia());
+
+            // avisamos en el registro quién subió de nivel
+            for (Personaje p : subieronDeNivel) {
+                utils.BitacoraBatalla.registrar(p.getNombre() + " subió a nivel " + p.getNivel() + "!");
+            }
+        }
         resetearEstadisticasParty();
-        subieronDeNivel = party.distribuirExperiencia(recompensa.getExperiencia());
     }
 
     private void resetearEstadisticasParty() {

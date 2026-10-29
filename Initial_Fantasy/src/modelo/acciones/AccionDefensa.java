@@ -14,6 +14,6 @@ public class AccionDefensa extends Accion {
 
         // postura defensiva
         defensor.setDefendiendo(true);
-        utils.BitacoraBatalla.registrar(defensor.getNombre() + " adopta una postura defensiva.");
+        utils.BitacoraBatalla.registrar(defensor.getNombre() + " adopta una postura defensiva. Repelerá todos los ataques básicos.");
     }
 }

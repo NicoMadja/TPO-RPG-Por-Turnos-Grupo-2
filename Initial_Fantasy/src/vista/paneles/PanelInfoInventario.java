@@ -51,10 +51,13 @@ public class PanelInfoInventario extends JPanel {
         panelBotonesItems.removeAll();
         FaseBatalla fase = estado.getFase();
 
-        if (fase == fase.ELIGIENDO_ENEMIGO) {
+        if (fase == FaseBatalla.ELIGIENDO_ENEMIGO) {
             lblTitulo.setText("ATAQUE/HABILIDAD");
             txtInfo.setText("Selecciona un objetivo enemigo.\n\nEl daño final dependerá de la defensa del objetivo.");
-        } else if (fase == fase.ELIGIENDO_CONSUMIBLE) {
+        } else if (fase == FaseBatalla.ELIGIENDO_ALIADO) {
+            lblTitulo.setText("ELEGIR ALIADO");
+            txtInfo.setText("Selecciona a qué héroe aplicarlo.");
+        } else if (fase == FaseBatalla.ELIGIENDO_CONSUMIBLE) {
             lblTitulo.setText("INVENTARIO");
             txtInfo.setText("Haz clic en un ítem para usarlo:");
 
@@ -69,6 +72,17 @@ public class PanelInfoInventario extends JPanel {
         } else {
             lblTitulo.setText("INFO");
             txtInfo.setText("Esperando acción...");
+        }
+
+        boolean eligiendo = fase == FaseBatalla.ELIGIENDO_ENEMIGO
+                || fase == FaseBatalla.ELIGIENDO_ALIADO
+                || fase == FaseBatalla.ELIGIENDO_CONSUMIBLE;
+        if (eligiendo) {
+            JButton btnCancelar = new JButton("Cancelar");
+            btnCancelar.setAlignmentX(Component.CENTER_ALIGNMENT);
+            btnCancelar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            btnCancelar.addActionListener(e -> controlador.cancelar());
+            panelBotonesItems.add(btnCancelar);
         }
 
         revalidate();

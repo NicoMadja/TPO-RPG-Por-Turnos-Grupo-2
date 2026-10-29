@@ -1,20 +1,24 @@
 package utils;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class BitacoraBatalla {
 
-    private static final List<String> mensajes = new ArrayList<>();
+    private static final List<String> pendientes = new ArrayList<>();
 
     public static void registrar(String mensaje) {
-        mensajes.add(mensaje);
-        if (mensajes.size() > 5) {
-            mensajes.remove(0);
-        }
+        pendientes.add(mensaje);
     }
 
-    public static String getUltimoMensaje() {
-        if (mensajes.isEmpty()) return "Iniciando batalla...";
-        return mensajes.get(mensajes.size() - 1);
+    // devuelve los mensajes nuevos desde la última vez y los saca de la cola
+    public static List<String> retirarPendientes() {
+        List<String> copia = new ArrayList<>(pendientes);
+        pendientes.clear();
+        return copia;
+    }
+
+    public static void limpiar() {
+        pendientes.clear();
     }
 }
