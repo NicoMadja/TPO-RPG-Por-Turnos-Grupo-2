@@ -1,10 +1,13 @@
 package modelo.party;
 
 import modelo.consumibles.Consumible;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Inventario {
+public class Inventario implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<Consumible> items;
 
 

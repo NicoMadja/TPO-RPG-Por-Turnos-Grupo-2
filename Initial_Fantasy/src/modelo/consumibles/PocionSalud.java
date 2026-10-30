@@ -10,7 +10,8 @@ public class PocionSalud extends Consumible {
 
     @Override
     public void consumir(Entidad objetivo) {
-        // cura toda la vida
+
+       // cura toda la vida
         objetivo.recibirCura(objetivo.getVidaMaxima());
         System.out.println(objetivo.getNombre() + " tomó una poción y recuperó toda su vida.");
     }

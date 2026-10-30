@@ -8,7 +8,7 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadMiniJefe extends Habilidad {
 
     public HabilidadMiniJefe() {
-        super("Sangre Caliente",50, TipoObjetivo.UN_ENEMIGO);
+        super("Sangre Caliente", "Pierde la paciencia, duplicando asi su defensa y ataque", 50, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override
@@ -21,4 +21,4 @@ public class HabilidadMiniJefe extends Habilidad {
         lanzador.modificarAtaque(aumentoAtaque);
         lanzador.modificarDefensa(aumentoDefensa);
         }
-    }
+}

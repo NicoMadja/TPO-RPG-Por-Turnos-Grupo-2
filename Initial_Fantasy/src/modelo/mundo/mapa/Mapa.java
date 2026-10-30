@@ -3,23 +3,28 @@ package modelo.mundo.mapa;
 import modelo.mundo.Grafo;
 import modelo.mundo.Nodo;
 
+import java.io.Serializable;
 import java.util.List;
 
 // un nivel del juego: un grafo dirigido de nodos por el que se avanza solo hacia adelante, del inicio hasta el nodo final
-public class Mapa {
+public class Mapa implements Serializable {
+    private static final long serialVersionUID = 1L;
     private final Grafo<Nodo> grafo;
     private final Nodo nodoInicial;
     private final Nodo nodoFinal;
     private Nodo nodoActual;
+    private String sprite;
+    private String idMapa;
 
 
     // --- CONSTRUCTOR ---
-    public Mapa(Nodo nodoInicial, Nodo nodoFinal) {
+    public Mapa(Nodo nodoInicial, Nodo nodoFinal,String sprite,String idMapa) {
         this.grafo = new Grafo<>();
         this.nodoInicial = nodoInicial;
         this.nodoFinal = nodoFinal;
         this.nodoActual = nodoInicial;
-
+        this.sprite = sprite;
+        this.idMapa = idMapa;
         grafo.agregarVertice(nodoInicial);
         grafo.agregarVertice(nodoFinal);
     }
@@ -66,15 +71,31 @@ public class Mapa {
         return nodoActual == nodoFinal;
     }
 
+    public void restaurarNodoActual(int idNodo) {
 
+        List<Nodo> nodos = getNodos();
+
+        if (idNodo < 0 || idNodo >= nodos.size()) {
+            throw new IllegalArgumentException(
+                    "El identificador del nodo guardado no es válido: "
+                            + idNodo
+            );
+        }
+
+        this.nodoActual = nodos.get(idNodo);
+    }
     // --- GETTERS ---
     public Nodo getNodoActual() {return nodoActual;}
     public Nodo getNodoInicial() {return nodoInicial;}
     public Nodo getNodoFinal() {return nodoFinal;}
     public List<Nodo> getNodos() {return grafo.getVertices();}
-
-    // --- NUEVO MÉTODO PARA DIBUJAR LAS LÍNEAS EN LA VISTA ---
+    public String getSprite() {
+        return sprite;
+    }
+    public String getIdMapa() {return idMapa;}
     public List<Nodo> getSucesoresDe(Nodo nodo) {
         return grafo.getSucesores(nodo);
     }
+
+    public void setIdMapa(String idMapa) {this.idMapa = idMapa;}
 }

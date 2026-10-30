@@ -9,3 +9,4 @@ public class Juego {
         SwingUtilities.invokeLater(() -> new ControladorJuego());
     }
 }
+

@@ -17,23 +17,28 @@ public class PantallaMapa extends JPanel {
     private List<JButton> botonesNodos;
     private Image imagenFondo; // <-- Aquí guardaremos tu Pixel Art
     private List<NodoDTO> nodos;
-
+    private JButton btnOpciones;
     public PantallaMapa() {
         setLayout(null);
         conexiones = new ArrayList<>();
         botonesNodos = new ArrayList<>();
 
-        // Cargar el pixel art del mapa (Asegúrate de que la ruta sea correcta)
-        ImageIcon iconoFondo = CargadorImagenes.cargar("/recursos/sprites/Mapa1.png");
-        if (iconoFondo != null) {
-            imagenFondo = iconoFondo.getImage();
-        }
+        btnOpciones = new JButton("⚙ Opciones"); // Usa un emoji o texto
+        btnOpciones.setFont(new Font("SansSerif", Font.BOLD, 14));
+        btnOpciones.setBounds(860, 20, 140, 40); // Ajusta la X según el ancho real de tu ventana (ej: 1024 - 160)
+        btnOpciones.setFocusPainted(false);
+        btnOpciones.setBackground(new Color(50, 50, 50));
+        btnOpciones.setForeground(Color.WHITE);
+        btnOpciones.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        add(btnOpciones);
     }
 
     public void cargarMapa(List<NodoDTO> nodos, List<ConexionDTO> conexiones, ActionListener listenerClicNodo) {
         this.nodos = nodos;
         this.conexiones = conexiones;
         this.botonesNodos.clear();
+
+        // Al hacer removeAll() borraste el botón de opciones
         this.removeAll();
 
         // Crear los botones (Nodos)
@@ -50,14 +55,33 @@ public class PantallaMapa extends JPanel {
                 lblTu.setForeground(Color.BLACK);
                 lblTu.setFont(new Font("SansSerif", Font.BOLD, 16));
 
-                // Lo posicionamos justo arriba del botón (ajusta la Y restando píxeles)
-                lblTu.setBounds(nodo.getX() -50, nodo.getY() - 65, 100, 20);
+                lblTu.setBounds(nodo.getX() - 50, nodo.getY() - 65, 100, 20);
                 add(lblTu);
-                setComponentZOrder(lblTu,0);
+                setComponentZOrder(lblTu, 0);
             }
         }
 
+        // --- SOLUCIÓN: VOLVER A AGREGAR EL BOTÓN DE OPCIONES ---
+        // Agregamos de nuevo el botón y lo ponemos al frente
+        if (btnOpciones != null) {
+            add(btnOpciones);
+            setComponentZOrder(btnOpciones, 0); // Para que ningún camino ni nodo lo tape
+        }
+
         revalidate();
+        repaint();
+    }
+
+    public void cambiarFondo(String rutaSprite) {
+        ImageIcon iconoFondo = CargadorImagenes.cargar(rutaSprite);
+
+        if (iconoFondo != null) {
+            imagenFondo = iconoFondo.getImage();
+        } else {
+            imagenFondo = null;
+            System.err.println("No se pudo cargar el fondo: " + rutaSprite);
+        }
+
         repaint();
     }
 
@@ -135,5 +159,9 @@ public class PantallaMapa extends JPanel {
 
             g2.drawLine(origenX, origenY, destinoX, destinoY);
         }
+    }
+
+    public JButton getBtnOpciones() {
+        return btnOpciones;
     }
 }

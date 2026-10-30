@@ -25,17 +25,16 @@ public class Batalla extends Nodo {
     private GestorDeTurnos gestor;
     private Recompensa recompensa;
     private boolean finalizada;
-    private List<Personaje> subieronDeNivel;
-
+    private boolean jefeFinal;
 
     // --- CONSTRUCTOR ---
-    public Batalla(Party party, List<Enemigo> enemigos) {
+    public Batalla(Party party, List<Enemigo> enemigos,boolean jefeFinal) {
         this.party = party;
         this.enemigos = enemigos;
         this.gestor = new GestorDeTurnos();
         this.recompensa = calcularRecompensa();
         this.finalizada = false;
-        this.subieronDeNivel = new ArrayList<>();
+        this.jefeFinal = jefeFinal;
     }
 
 
@@ -187,10 +186,17 @@ public class Batalla extends Nodo {
         return vivos;
     }
 
+    public boolean esJefeFinal() {
+        return jefeFinal;
+    }
+
     public GestorDeTurnos getGestor() {
         return gestor;
     }
 
+    public List<String> getOrdenTurnos() {
+        return gestor.getOrdenTurnos();
+    }
     // --- PROCESAR ---
     @Override
     public void procesarNodo(EscenarioDeNodos escenario) {

@@ -7,6 +7,7 @@ import modelo.entidades.Entidad;
 import modelo.entidades.enemigos.Enemigo;
 import modelo.entidades.personajes.Personaje;
 import modelo.batalla.Batalla;
+import modelo.habilidades.Habilidad;
 import vista.pantallas.PantallaBatalla;
 import vista.pantallas.PantallaDerrota;
 import vista.pantallas.PantallaRecompensa;
@@ -22,6 +23,7 @@ public class ControladorBatalla {
     private final PantallaBatalla vista;
     private Runnable alVolverAlMapa;
     private Runnable alReiniciarJuego;
+    private Runnable alGanarJuego;
 
     // tiempo de espera entre turnos enemigos
     private static final int PAUSA_TURNO_ENEMIGO_MS = 900;
@@ -30,12 +32,14 @@ public class ControladorBatalla {
     private FaseBatalla fase = FaseBatalla.ELIGIENDO_ACCION;
     private AccionPendiente accionPendiente;
     private String consumiblePendiente;
+    private String mensajeInfo = "Selecciona una accion.";
 
-    public ControladorBatalla(Batalla batalla, PantallaBatalla vista, Runnable alVolverAlMapa, Runnable alReiniciarJuego) {
+    public ControladorBatalla(Batalla batalla, PantallaBatalla vista, Runnable alVolverAlMapa, Runnable alReiniciarJuego,Runnable alGanarJuego) {
         this.batalla = batalla;
         this.vista = vista;
         this.alVolverAlMapa = alVolverAlMapa;
         this.alReiniciarJuego = alReiniciarJuego;
+        this.alGanarJuego = alGanarJuego;
     }
 
 
@@ -51,6 +55,7 @@ public class ControladorBatalla {
     public void elegirAtacar() {
         if (fase != FaseBatalla.ELIGIENDO_ACCION) return;
         accionPendiente = AccionPendiente.ATACAR;
+        mensajeInfo = "Selecciona un enemigo para atacar.";
         cambiarFase(FaseBatalla.ELIGIENDO_ENEMIGO);
     }
 
@@ -61,26 +66,54 @@ public class ControladorBatalla {
     }
 
     public void elegirHabilidad() {
-        if (fase != FaseBatalla.ELIGIENDO_ACCION || !batalla.puedeUsarHabilidad()) return;
+        if (fase != FaseBatalla.ELIGIENDO_ACCION
+                || !batalla.puedeUsarHabilidad()) {
+            return;
+        }
 
-        switch (batalla.getEntidadActual().getHabilidad().getTipoObjetivo()) {
+        Habilidad habilidad = batalla.getEntidadActual().getHabilidad();
+
+        switch (habilidad.getTipoObjetivo()) {
+
             case UN_ENEMIGO:
                 accionPendiente = AccionPendiente.HABILIDAD;
+
+                mensajeInfo = habilidad.getNombre()
+                        + "\n\n"
+                        + habilidad.getDescripcion()
+                        + "\n\nSelecciona un enemigo como objetivo."
+                        + "\nCosto de maná: " + habilidad.getCostoMana();
+
                 cambiarFase(FaseBatalla.ELIGIENDO_ENEMIGO);
                 break;
+
             case UN_ALIADO:
                 accionPendiente = AccionPendiente.HABILIDAD;
+
+                mensajeInfo = habilidad.getNombre()
+                        + "\n\n"
+                        + habilidad.getDescripcion()
+                        + "\n\nSelecciona un aliado como objetivo."
+                        + "\nCosto de maná: " + habilidad.getCostoMana();
+
                 cambiarFase(FaseBatalla.ELIGIENDO_ALIADO);
                 break;
-            default: // habilidad de grupo: no hay nada que elegir
+
+            default:
+                mensajeInfo = habilidad.getNombre()
+                        + "\n\n"
+                        + habilidad.getDescripcion();
+
                 batalla.usarHabilidad();
-                pausarYResolver();;
+                pausarYResolver();
+                break;
         }
     }
 
     public void elegirConsumible() {
         if (fase != FaseBatalla.ELIGIENDO_ACCION || batalla.getParty().getInventario().estaVacio()) return;
         accionPendiente = AccionPendiente.CONSUMIBLE;
+        mensajeInfo = "Selecciona un consumible para ver sus efectos y utilizarlo.";
         cambiarFase(FaseBatalla.ELIGIENDO_CONSUMIBLE);
     }
 
@@ -89,6 +122,9 @@ public class ControladorBatalla {
     public void elegirConsumible(String nombreConsumible) {
         if (fase != FaseBatalla.ELIGIENDO_CONSUMIBLE) return;
         consumiblePendiente = nombreConsumible;
+        mensajeInfo = "Consumible seleccionado: "
+                + nombreConsumible
+                + "\n\nSelecciona un aliado para utilizarlo.";
         cambiarFase(FaseBatalla.ELIGIENDO_ALIADO);
     }
 
@@ -99,21 +135,66 @@ public class ControladorBatalla {
         if (fase != FaseBatalla.ELIGIENDO_ENEMIGO || !enemigo(indiceEnemigo).estaVivo()) return;
 
         if (accionPendiente == AccionPendiente.ATACAR) {
+
+            Entidad atacante = batalla.getEntidadActual();
+
+            mensajeInfo = atacante.getNombre()
+                    + " ataca con "
+                    + atacante.getAtaqueActual()
+                    + " de ATQ.";
+
             batalla.atacar(enemigo(indiceEnemigo));
+
         } else {
+
+            Habilidad habilidad = batalla.getEntidadActual().getHabilidad();
+
+            mensajeInfo = habilidad.getNombre()
+                    + "\n"
+                    + habilidad.getDescripcion();
+
             batalla.usarHabilidad(enemigo(indiceEnemigo));
         }
+
         pausarYResolver();
     }
 
     public void elegirAliado(int indiceAliado) {
-        if (fase != FaseBatalla.ELIGIENDO_ALIADO || !aliado(indiceAliado).estaVivo()) return;
+        if (fase != FaseBatalla.ELIGIENDO_ALIADO
+                || !aliado(indiceAliado).estaVivo()) {
+            return;
+        }
+
+        Entidad objetivo = aliado(indiceAliado);
 
         if (accionPendiente == AccionPendiente.CONSUMIBLE) {
-            batalla.usarConsumible(buscarConsumible(consumiblePendiente), aliado(indiceAliado));
-        } else {
-            batalla.usarHabilidad(aliado(indiceAliado));
+
+            mensajeInfo = "Usas "
+                    + consumiblePendiente
+                    + " sobre "
+                    + objetivo.getNombre()
+                    + ".";
+
+            batalla.usarConsumible(
+                    buscarConsumible(consumiblePendiente),
+                    objetivo
+            );
+
+        } else if (accionPendiente == AccionPendiente.HABILIDAD) {
+
+            Habilidad habilidad = batalla.getEntidadActual().getHabilidad();
+
+            mensajeInfo = batalla.getEntidadActual().getNombre()
+                    + " utiliza "
+                    + habilidad.getNombre()
+                    + " sobre "
+                    + objetivo.getNombre()
+                    + ".\n\n"
+                    + habilidad.getDescripcion();
+
+            batalla.usarHabilidad(objetivo);
         }
+
         pausarYResolver();
     }
 
@@ -209,32 +290,45 @@ public class ControladorBatalla {
         Entidad entidadActual = (batalla.getEntidadActual() != null)
                 ? batalla.getGestor().obtenerEntidadActual()
                 : null;
+        String nombreActual = (batalla.getEntidadActual() != null) ? batalla.getEntidadActual().getNombre() : "";
+        List<String> ordenTurnos = batalla.getOrdenTurnos();
 
         return new EstadoBatallaDTO(
                 convertirPersonajes(equipo),
                 convertirEnemigos(enemigos),
                 convertirConsumibles(consumibles),
                 fase,
-                convertirEntidad(entidadActual));
+                convertirEntidad(entidadActual),
+                mensajeInfo,
+                ordenTurnos
+        );
     }
 
     // Llama a este metodo cuando detectes que la batalla se ganó
     private void procesarVictoria() {
+
+        // Si es el jefe final, termina el juego.
+        if (batalla.esJefeFinal()) {
+            if (alGanarJuego != null) {
+                alGanarJuego.run();
+            }
+            return;
+        }
+
+        // Si es una batalla normal, mostramos las recompensas.
         int oroGanado = batalla.getRecompensa().getOro();
         double xpGanada = batalla.getRecompensa().getExperiencia();
         List<String> mensajesLevelUp = new ArrayList<>();
-        for (Personaje p : batalla.getSubieronDeNivel()) {
-            mensajesLevelUp.add(p.getNombre() + " subió a nivel " + p.getNivel());
-        }
 
-        // Instanciamos y mostramos el Modal sobre la ventana actual
-        JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vista);
+        JFrame ventanaPadre =
+                (JFrame) SwingUtilities.getWindowAncestor(vista);
+
         PantallaRecompensa modal = new PantallaRecompensa(
                 ventanaPadre,
                 xpGanada,
                 oroGanado,
                 mensajesLevelUp,
-                alVolverAlMapa // Al presionar Continuar, se ejecutará cambiarPantalla(panelMapa)
+                alVolverAlMapa
         );
 
         modal.setVisible(true);

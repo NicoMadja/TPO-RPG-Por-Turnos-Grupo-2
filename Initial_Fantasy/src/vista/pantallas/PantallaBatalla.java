@@ -8,6 +8,7 @@ import java.awt.*;
 import javax.swing.*;
 
 public class PantallaBatalla extends JPanel {
+
     private static final long serialVersionUID = 1L;
 
     // --- VARIABLES DE LA VISTA ---
@@ -18,18 +19,18 @@ public class PantallaBatalla extends JPanel {
     private PanelAcciones panelAcciones;
     private JPanel panelInferior;
     private PanelInfoInventario panelInfo;
-
+    private JLabel lblOrdenTurnos;
     private JLabel lblTurno;
     private ControladorBatalla controladorBatalla;
 
-    public PantallaBatalla(){
-        // 1. Configuramos directamente este JPanel en lugar de un "contenido" extra
+    public PantallaBatalla() {
+
         setLayout(new BorderLayout(12, 12));
         setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
         setBackground(new Color(22, 26, 38));
 
         // --- CABECERA DE LA PANTALLA ---
-        JPanel panelNorte = new JPanel(new GridLayout(2, 1, 0, 4));
+        JPanel panelNorte = new JPanel(new GridLayout(3, 1, 0, 4));
         panelNorte.setOpaque(false);
 
         JLabel titulo = new JLabel("BATALLA", SwingConstants.CENTER);
@@ -37,8 +38,18 @@ public class PantallaBatalla extends JPanel {
         titulo.setFont(new Font("SansSerif", Font.BOLD, 24));
 
         lblTurno = new JLabel("Iniciando batalla...", SwingConstants.CENTER);
-        lblTurno.setForeground(new Color(255, 215, 0)); // Color dorado retro
+        lblTurno.setForeground(new Color(255, 215, 0));
         lblTurno.setFont(new Font("SansSerif", Font.BOLD, 18));
+
+        lblOrdenTurnos = new JLabel("", SwingConstants.CENTER);
+        lblOrdenTurnos.setForeground(Color.GREEN);
+        lblOrdenTurnos.setFont(new Font("SansSerif", Font.BOLD, 14));
+
+        panelNorte.add(titulo);
+        panelNorte.add(lblOrdenTurnos); // La barra de orden va al medio
+        panelNorte.add(lblTurno);
+
+
 
         panelNorte.add(titulo);
         panelNorte.add(lblTurno);
@@ -59,33 +70,41 @@ public class PantallaBatalla extends JPanel {
         centro.add(panelEscena, BorderLayout.CENTER);
         centro.add(panelInfo, BorderLayout.WEST);
 
-        // 2. Agregamos las partes directamente a la clase (this)
         add(panelNorte, BorderLayout.NORTH);
         add(centro, BorderLayout.CENTER);
         add(panelInferior, BorderLayout.SOUTH);
     }
 
-    public void setControlador(ControladorBatalla controlador){
+    public void setControlador(ControladorBatalla controlador) {
+
         this.controladorBatalla = controlador;
+
         panelInfo.setControlador(controlador);
+
         panelAcciones = new PanelAcciones(controlador);
         panelInferior.add(panelAcciones, BorderLayout.EAST);
+
+        revalidate();
+        repaint();
     }
 
-    public void actualizar(EstadoBatallaDTO estado){
-        for(PersonajeDTO heroe: estado.getHeroes()){
+    public void actualizar(EstadoBatallaDTO estado) {
+        for (PersonajeDTO heroe : estado.getHeroes()) {
             panelJugador.actualizar(heroe);
         }
-        for(EnemigoDTO enemigo: estado.getEnemigos()){
+
+        for (EnemigoDTO enemigo : estado.getEnemigos()) {
             panelEnemigo.actualizar(enemigo);
         }
-
+        String textoOrden = "Orden de Turnos: " + String.join(" ➔ ", estado.getOrdenTurnos());
+        lblOrdenTurnos.setText(textoOrden);
         panelEscena.actualizar(estado, this.controladorBatalla);
         panelInfo.actualizar(estado);
 
         // --- ACTUALIZAR MENSAJE DE TURNO Y REGISTRO ---
         String mensajeTurno = construirMensajeTurno(estado);
         lblTurno.setText(mensajeTurno);
+
         for (String mensaje : utils.BitacoraBatalla.retirarPendientes()) {
             panelRegistro.agregar(mensaje);
         }
@@ -93,9 +112,11 @@ public class PantallaBatalla extends JPanel {
         if (panelAcciones != null) {
             panelAcciones.actualizar(estado);
         }
+
     }
 
     private String construirMensajeTurno(EstadoBatallaDTO estado) {
+
         EntidadDTO actual = estado.getEntidadActual();
         FaseBatalla fase = estado.getFase();
 
@@ -107,21 +128,35 @@ public class PantallaBatalla extends JPanel {
             return "Iniciando batalla...";
         }
 
-        String infoEntidad = actual.getNombre() + " [Lv." + actual.getNivel()
+        String infoEntidad = actual.getNombre()
+                + " [Lv." + actual.getNivel()
                 + " | ATQ: " + actual.getAtaqueActual()
                 + " | DEF: " + actual.getDefensaActual() + "]";
 
         switch (fase) {
+
             case ELIGIENDO_ACCION:
-                return "TURNO DE: " + infoEntidad + " -> Elije una acción";
+                return "TURNO DE: " + infoEntidad
+                        + " -> Elige una acción";
+
             case ELIGIENDO_ENEMIGO:
-                return actual.getNombre() + ": Selecciona un enemigo para atacar";
+                return actual.getNombre()
+                        + ": Selecciona un enemigo para atacar";
+
             case ELIGIENDO_ALIADO:
-                return actual.getNombre() + ": Selecciona un aliado como objetivo";
+                return actual.getNombre()
+                        + ": Selecciona un aliado como objetivo";
+
             case ELIGIENDO_CONSUMIBLE:
-                return actual.getNombre() + ": Selecciona un consumible del inventario";
+                return actual.getNombre()
+                        + ": Selecciona un consumible del inventario";
+
+            case MOSTRANDO_RESULTADO:
+                return "Resolviendo acción...";
+
             case TURNO_ENEMIGO:
                 return "TURNO ENEMIGO: " + infoEntidad + " pensando...";
+
             default:
                 return "";
         }

@@ -48,44 +48,72 @@ public class PanelInfoInventario extends JPanel {
     }
 
     public void actualizar(EstadoBatallaDTO estado) {
+
+        actualizarInformacion(estado);
+        actualizarInventario(estado);
+
+        panelBotonesItems.revalidate();
+        panelBotonesItems.repaint();
+    }
+
+    private void actualizarInformacion(EstadoBatallaDTO estado) {
+
+        String mensaje = estado.getMensajeInfo();
+
+        if (mensaje == null || mensaje.isBlank()) {
+            mensaje = "Esperando acción...";
+        }
+
+        lblTitulo.setText(obtenerTitulo(estado.getFase()));
+        txtInfo.setText(mensaje);
+    }
+
+    private String obtenerTitulo(FaseBatalla fase) {
+
+        switch (fase) {
+            case ELIGIENDO_ACCION:
+                return "INFORMACIÓN";
+
+            case ELIGIENDO_ENEMIGO:
+                return "OBJETIVO ENEMIGO";
+
+            case ELIGIENDO_ALIADO:
+                return "OBJETIVO ALIADO";
+
+            case ELIGIENDO_CONSUMIBLE:
+                return "INVENTARIO";
+
+            case MOSTRANDO_RESULTADO:
+                return "RESULTADO";
+
+            case TURNO_ENEMIGO:
+                return "TURNO ENEMIGO";
+
+            case FINALIZADA:
+                return "BATALLA FINALIZADA";
+
+            default:
+                return "INFORMACIÓN";
+        }
+    }
+
+    private void actualizarInventario(EstadoBatallaDTO estado) {
+
         panelBotonesItems.removeAll();
-        FaseBatalla fase = estado.getFase();
 
-        if (fase == FaseBatalla.ELIGIENDO_ENEMIGO) {
-            lblTitulo.setText("ATAQUE/HABILIDAD");
-            txtInfo.setText("Selecciona un objetivo enemigo.\n\nEl daño final dependerá de la defensa del objetivo.");
-        } else if (fase == FaseBatalla.ELIGIENDO_ALIADO) {
-            lblTitulo.setText("ELEGIR ALIADO");
-            txtInfo.setText("Selecciona a qué héroe aplicarlo.");
-        } else if (fase == FaseBatalla.ELIGIENDO_CONSUMIBLE) {
-            lblTitulo.setText("INVENTARIO");
-            txtInfo.setText("Haz clic en un ítem para usarlo:");
-
-            for (ConsumibleDTO c : estado.getItems()) {
-                JButton btnItem = new JButton(c.getNombre());
-                btnItem.setAlignmentX(Component.CENTER_ALIGNMENT);
-                btnItem.setCursor(new Cursor(Cursor.HAND_CURSOR));
-                btnItem.addActionListener(e -> controlador.elegirConsumible(c.getNombre()));
-                panelBotonesItems.add(btnItem);
-                panelBotonesItems.add(Box.createVerticalStrut(5));
-            }
-        } else {
-            lblTitulo.setText("INFO");
-            txtInfo.setText("Esperando acción...");
+        if (estado.getFase() != FaseBatalla.ELIGIENDO_CONSUMIBLE) {
+            return;
         }
 
-        boolean eligiendo = fase == FaseBatalla.ELIGIENDO_ENEMIGO
-                || fase == FaseBatalla.ELIGIENDO_ALIADO
-                || fase == FaseBatalla.ELIGIENDO_CONSUMIBLE;
-        if (eligiendo) {
-            JButton btnCancelar = new JButton("Cancelar");
-            btnCancelar.setAlignmentX(Component.CENTER_ALIGNMENT);
-            btnCancelar.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            btnCancelar.addActionListener(e -> controlador.cancelar());
-            panelBotonesItems.add(btnCancelar);
-        }
+        for (ConsumibleDTO consumible : estado.getItems()) {
 
-        revalidate();
-        repaint();
+            JButton btn = new JButton(consumible.getNombre());
+
+            btn.addActionListener(e ->
+                    controlador.elegirConsumible(consumible.getNombre())
+            );
+
+            panelBotonesItems.add(btn);
+        }
     }
 }

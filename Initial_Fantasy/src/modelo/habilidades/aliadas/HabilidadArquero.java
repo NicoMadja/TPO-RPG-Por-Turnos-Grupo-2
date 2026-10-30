@@ -8,7 +8,7 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadArquero extends Habilidad {
 
     public HabilidadArquero() {
-        super("Flechazo Preciso", 15, TipoObjetivo.UN_ENEMIGO);
+        super("Flechazo Preciso","Flechazo que baja la velocidad y la defensa del enemigo", 15, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override

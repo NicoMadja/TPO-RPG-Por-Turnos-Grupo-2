@@ -2,7 +2,10 @@ package modelo.consumibles;
 
 import modelo.entidades.Entidad;
 
-public abstract class Consumible {
+import java.io.Serializable;
+
+public abstract class Consumible implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected String nombre;
     protected int precio;
     protected String rutaSprite;

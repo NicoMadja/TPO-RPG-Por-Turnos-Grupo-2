@@ -8,7 +8,7 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadCurandero extends Habilidad {
 
     public HabilidadCurandero() {
-        super("Sanacion Localizada", 20, TipoObjetivo.UN_ALIADO);
+        super("Sanacion Localizada", "Cura a un aliado el triple del ataque del curandero", 20, TipoObjetivo.UN_ALIADO);
     }
 
     @Override
@@ -16,10 +16,8 @@ public class HabilidadCurandero extends Habilidad {
 
         // cura un 50% de vida de un aliado
         for (Entidad objetivo : contexto.getObjetivos()) {
-            if (objetivo.estaVivo()) {
-                int cantidadCuracion = objetivo.getVidaMaxima() / 2;
-                objetivo.recibirCura(cantidadCuracion);
-            }
+            int cantidadCuracion = objetivo.getVidaMaxima() / 2;
+            if (objetivo.estaVivo()) objetivo.recibirCura(cantidadCuracion);
         }
     }
 }

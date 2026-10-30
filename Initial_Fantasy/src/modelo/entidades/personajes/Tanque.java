@@ -13,7 +13,8 @@ public class Tanque extends Personaje {
     // --- PROGRESIÓN ESPECÍFICA ---
     @Override
     protected void incrementarEstadisticas() {
-        // el tanque escala mucha defensa y vida moderada-alta, y poco ataque
+        
+        // el tanque escala mucha defensa y vida moderada-alta, y poco ataque y velocidad
         this.vidaMaxima += 25;
         this.manaMaximo += 5;
         this.ataqueBase += 3;

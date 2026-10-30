@@ -8,7 +8,7 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadMago extends Habilidad {
 
     public HabilidadMago() {
-        super("Bola de Fuego", 35, TipoObjetivo.TODOS_LOS_ENEMIGOS);
+        super("Bola de Fuego","Daño masivo a todos los objetivos del contexto, ignorando defensa", 35, TipoObjetivo.TODOS_LOS_ENEMIGOS);
     }
 
     @Override

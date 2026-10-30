@@ -51,6 +51,13 @@ public abstract class Personaje extends Entidad {
         this.resetearEstadisticas();
     }
 
+    public void restaurarExperiencia(
+            double experienciaActual,
+            double experienciaRequerida
+    ) {
+        this.experienciaActual = experienciaActual;
+        this.experienciaRequerida = experienciaRequerida;
+    }
 
     // --- GETTERS ---
     public double getExperienciaActual() { return experienciaActual; }

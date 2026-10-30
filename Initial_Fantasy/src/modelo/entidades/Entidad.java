@@ -2,7 +2,10 @@ package modelo.entidades;
 
 import modelo.habilidades.Habilidad;
 
-public abstract class Entidad {
+import java.io.Serializable;
+
+public abstract class Entidad implements Serializable {
+    private static final long serialVersionUID = 1L;
     protected String nombre;
     protected int nivel;
 
@@ -121,6 +124,33 @@ public abstract class Entidad {
         this.defendiendo = false;
     }
 
+    public void restaurarEstado(
+            int nivel,
+            int vidaMaxima,
+            int vidaActual,
+            int manaMaximo,
+            int manaActual,
+            int ataqueBase,
+            int ataqueActual,
+            int defensaBase,
+            int defensaActual,
+            boolean defendiendo,
+            int velocidadBase,
+            int velocidadActual
+    ) {
+        this.nivel = nivel;
+        this.vidaMaxima = vidaMaxima;
+        this.vidaActual = vidaActual;
+        this.manaMaximo = manaMaximo;
+        this.manaActual = manaActual;
+        this.ataqueBase = ataqueBase;
+        this.ataqueActual = ataqueActual;
+        this.defensaBase = defensaBase;
+        this.defensaActual = defensaActual;
+        this.defendiendo = defendiendo;
+        this.velocidadBase = velocidadBase;
+        this.velocidadActual = velocidadActual;
+    }
 
     // --- GETTERS ---
     public String getNombre() {return nombre;}

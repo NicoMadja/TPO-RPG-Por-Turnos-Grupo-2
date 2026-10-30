@@ -8,7 +8,7 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadOgro extends Habilidad {
 
     public HabilidadOgro() {
-        super("Golpe Enfurecido", 0, TipoObjetivo.UN_ENEMIGO);
+        super("Golpe Enfurecido", "aumenta un 15% su ataque hasta que termine la batalla ",0, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override
@@ -17,6 +17,7 @@ public class HabilidadOgro extends Habilidad {
 
         // aumenta un 15% su ataque hasta que termine la batalla (una sola vez por uso)
         int buffAtaque = (lanzador.getAtaqueActual() * 15) / 100;
+
         lanzador.modificarAtaque(buffAtaque);
 
         // y hace un ataque con 30% mas de daño

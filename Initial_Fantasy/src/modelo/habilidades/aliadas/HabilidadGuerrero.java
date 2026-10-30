@@ -8,12 +8,13 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadGuerrero extends Habilidad {
 
     public HabilidadGuerrero() {
-        super("Golpe Cruzado", 10, TipoObjetivo.UN_ENEMIGO);
+        super("Golpe Cruzado", "Hace un ataque debilitando la defensa del enemigo a la mitad", 10, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override
     public void ejecutar(ContextoAccion contexto) {
         Entidad lanzador = contexto.getOrigen();
+
 
         // hace un ataque debilitando la defensa del enemigo a la mitad
         for (Entidad objetivo : contexto.getObjetivos()) {

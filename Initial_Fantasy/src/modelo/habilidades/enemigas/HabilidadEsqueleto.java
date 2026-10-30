@@ -8,7 +8,7 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadEsqueleto extends Habilidad {
 
     public HabilidadEsqueleto() {
-        super("Tajo Óseo", 0, TipoObjetivo.UN_ENEMIGO);
+        super("Tajo Óseo", "Daña al héroe y aumenta levemente su velocidad y ataque",0, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override
@@ -21,8 +21,8 @@ public class HabilidadEsqueleto extends Habilidad {
 
             int danioFinal = lanzador.getAtaqueActual() - objetivo.getDefensaActual();
             if (danioFinal < 0) danioFinal = 0;
-            objetivo.recibirDanio(danioFinal);
 
+            objetivo.recibirDanio(danioFinal);
             lanzador.modificarVelocidad(1);
         }
     }
