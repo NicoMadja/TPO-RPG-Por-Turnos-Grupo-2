@@ -5,7 +5,7 @@ import modelo.entidades.Entidad;
 public class PocionDefensa extends Consumible {
 
     public PocionDefensa() {
-        super("Poción de Defensa", 50, "/recursos/sprites/pociondefensa.png");
+        super("Poción de Defensa", 25, "/recursos/sprites/pociondefensa.png");
     }
 
     @Override
@@ -13,6 +13,6 @@ public class PocionDefensa extends Consumible {
         // duplica la defensa hasta el final de la batalla
         int aumentoDefensa = objetivo.getDefensaActual();
         objetivo.modificarDefensa(aumentoDefensa);
-        System.out.println(objetivo.getNombre() + " se duplicó la defensa pasiva.");
+        System.out.println(objetivo.getNombre() + " tomó una poción y duplicó su defensa.");
     }
 }

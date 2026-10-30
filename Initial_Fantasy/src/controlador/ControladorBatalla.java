@@ -26,6 +26,7 @@ public class ControladorBatalla {
     private final PantallaBatalla vista;
     private Runnable alVolverAlMapa;
     private Runnable alReiniciarJuego;
+    private Runnable alGanarJuego;
 
     // tiempo de espera entre turnos enemigos
     private static final int PAUSA_TURNO_ENEMIGO_MS = 900;
@@ -36,11 +37,12 @@ public class ControladorBatalla {
     private String consumiblePendiente;
     private String mensajeInfo = "Selecciona una accion.";
 
-    public ControladorBatalla(Batalla batalla, PantallaBatalla vista, Runnable alVolverAlMapa, Runnable alReiniciarJuego) {
+    public ControladorBatalla(Batalla batalla, PantallaBatalla vista, Runnable alVolverAlMapa, Runnable alReiniciarJuego,Runnable alGanarJuego) {
         this.batalla = batalla;
         this.vista = vista;
         this.alVolverAlMapa = alVolverAlMapa;
         this.alReiniciarJuego = alReiniciarJuego;
+        this.alGanarJuego = alGanarJuego;
     }
 
 
@@ -304,36 +306,29 @@ public class ControladorBatalla {
 
     // Llama a este metodo cuando detectes que la batalla se ganó
     private void procesarVictoria() {
-        // 1. Guardamos los niveles ANTES de repartir la experiencia para poder compararlos
-        Map<String, Integer> nivelesAnteriores = new HashMap<>();
-        for (Personaje p : batalla.getParty().getPersonajesVivos()) {
-            nivelesAnteriores.put(p.getNombre(), p.getNivel());
+
+        // Si es el jefe final, termina el juego.
+        if (batalla.esJefeFinal()) {
+            if (alGanarJuego != null) {
+                alGanarJuego.run();
+            }
+            return;
         }
 
-        // 2. Extraemos el botín de la lógica del modelo
+        // Si es una batalla normal, mostramos las recompensas.
         int oroGanado = batalla.getRecompensa().getOro();
         double xpGanada = batalla.getRecompensa().getExperiencia();
-
-        // (Si tu clase Batalla no reparte el botín automáticamente en su metodo finalizarCombate,
-        // debes hacerlo aquí manualmente: party.sumarOro(oroGanado), etc.)
-
-        // 3. Comparamos los niveles nuevos vs los viejos para armar el texto
         List<String> mensajesLevelUp = new ArrayList<>();
-        for (Personaje p : batalla.getParty().getPersonajesVivos()) {
-            int nivelViejo = nivelesAnteriores.getOrDefault(p.getNombre(), p.getNivel());
-            if (p.getNivel() > nivelViejo) {
-                mensajesLevelUp.add(p.getNombre() + " subió a nivel " + p.getNivel());
-            }
-        }
 
-        // 4. Instanciamos y mostramos el Modal sobre la ventana actual
-        JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vista);
+        JFrame ventanaPadre =
+                (JFrame) SwingUtilities.getWindowAncestor(vista);
+
         PantallaRecompensa modal = new PantallaRecompensa(
                 ventanaPadre,
                 xpGanada,
                 oroGanado,
                 mensajesLevelUp,
-                alVolverAlMapa // Al presionar Continuar, se ejecutará cambiarPantalla(panelMapa)
+                alVolverAlMapa
         );
 
         modal.setVisible(true);

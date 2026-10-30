@@ -1,4 +1,4 @@
-package vista.paneles;
+package vista.pantallas;
 
 import utils.CargadorImagenes;
 
@@ -18,7 +18,7 @@ public class PantallaVictoria extends JPanel {
         setBackground(new Color(20, 20, 30)); // Fondo base por si falla la imagen
 
         // 1. (Opcional) Puedes cargar un fondo tipo "Castillo iluminado"
-        ImageIcon iconoFondo = CargadorImagenes.cargar("/recursos/sprites/fondo_victoria.png");
+        ImageIcon iconoFondo = CargadorImagenes.cargar("/recursos/sprites/victoria.png");
         if (iconoFondo != null) {
             imagenFondo = iconoFondo.getImage();
         }
@@ -88,17 +88,7 @@ public class PantallaVictoria extends JPanel {
      * El Controlador llama a este método justo antes de mostrar la pantalla
      * para pasarle el sprite exacto del jefe derrotado y la orden del botón.
      */
-    public void configurarVictoria(String rutaSpriteJefe, Runnable accionVolver) {
-        // 1. Cargar el sprite del Jefe y escalarlo para que se vea gigante y derrotado
-        ImageIcon imagen = CargadorImagenes.cargar(rutaSpriteJefe);
-        if (imagen != null) {
-            // Escala grande y definida (pixel art)
-            Image imgEscalada = imagen.getImage().getScaledInstance(200, 250, Image.SCALE_FAST);
-            lblSpriteJefe.setIcon(new ImageIcon(imgEscalada));
-        } else {
-            lblSpriteJefe.setText("[ Jefe Final ]");
-            lblSpriteJefe.setForeground(Color.RED);
-        }
+    public void configurarVictoria(Runnable accionVolver) {
 
         // 2. Limpiar listeners fantasmas y asignar la acción del menú
         for (ActionListener al : btnVolverMenu.getActionListeners()) {

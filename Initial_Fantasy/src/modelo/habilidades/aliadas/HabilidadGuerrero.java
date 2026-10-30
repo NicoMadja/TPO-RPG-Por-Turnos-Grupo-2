@@ -8,7 +8,7 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadGuerrero extends Habilidad {
 
     public HabilidadGuerrero() {
-        super("Golpe Cruzado", "Hace el doble de daño y la defensa del enemigo bloquea menos",10, TipoObjetivo.UN_ENEMIGO);
+        super("Golpe Cruzado", "Hace un ataque debilitando la defensa del enemigo a la mitad",10, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override
@@ -18,7 +18,7 @@ public class HabilidadGuerrero extends Habilidad {
         for (Entidad objetivo : contexto.getObjetivos()) {
             if (!objetivo.estaVivo()) continue;
 
-            int danioFinal = lanzador.getAtaqueActual() * 2 - objetivo.getDefensaActual() / 2;
+            int danioFinal = lanzador.getAtaqueActual() - (objetivo.getDefensaActual() / 2);
             if (danioFinal < 0) danioFinal = 0;
             objetivo.recibirDanio(danioFinal);
         }

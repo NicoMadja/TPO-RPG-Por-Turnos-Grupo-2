@@ -13,8 +13,9 @@ public class Murcielago extends Enemigo {
     // --- CONSTRUCTOR ---
     public Murcielago(String nombre, int nivel) {
         // el murciélago se caracteriza es débil pero muy rápido.
-        super(nombre, nivel, 30 + (nivel * 5), 0, 16 + (nivel * 2), 3 + nivel,
-                18 + (nivel * 2), new HabilidadMurcielago(), "/recursos/sprites/murcielago.png", 40 + (nivel * 10), 10 + (nivel * 2));
+        super(nombre, nivel, 35 + (nivel * 5), 0, 12 + (nivel * 2), 3 + nivel,
+                12, new HabilidadMurcielago(), "/recursos/sprites/murcielago.png",
+                25 + (nivel * 10), 15 + (nivel * 2));
     }
 
     // --- COMPORTAMIENTO ---
@@ -23,14 +24,8 @@ public class Murcielago extends Enemigo {
         // ataca a un objetivo aleatorio
         Personaje objetivo = heroes.obtenerPersonajeVivoAlAzar();
 
-        // 75% de posibilidad de ejecutar su habilidad
-        if (Math.random() < 0.75) {
-            ContextoAccion contextoHabilidad = new ContextoAccion(this, objetivo, null, this.habilidad);
-            return new AccionHabilidad(contextoHabilidad);
-        } else {
-            // el otro 25% es pegar un ataque basico
-            ContextoAccion contexto = new ContextoAccion(this, objetivo, null, null);
-            return new AccionAtaque(contexto);
-        }
+        // 100% de posibilidad de ejecutar su habilidad (ataca siempre con su habilidad)
+        ContextoAccion contextoHabilidad = new ContextoAccion(this, objetivo, null, this.habilidad);
+        return new AccionHabilidad(contextoHabilidad);
     }
 }

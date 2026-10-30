@@ -1,7 +1,6 @@
 package app;
 
 import controlador.ControladorJuego;
-
 import javax.swing.*;
 
 public class Juego {
@@ -10,3 +9,4 @@ public class Juego {
         SwingUtilities.invokeLater(() -> new ControladorJuego());
     }
 }
+

@@ -18,7 +18,7 @@ public class AccionAtaque extends Accion {
 
         // repele el ataque básico si está defendido (si usó AccionDefensa)
         if (objetivo.isDefendiendo()) {
-            System.out.println(objetivo.getNombre() + " está en postura defensiva y repelió completamente el ataque de " + atacante.getNombre() + "!");
+            utils.BitacoraBatalla.registrar(objetivo.getNombre() + " está en postura defensiva y repelió completamente el ataque de " + atacante.getNombre() + "!");
             return; // Cortamos la ejecución acá. No hay cálculo de daño.
         }
 

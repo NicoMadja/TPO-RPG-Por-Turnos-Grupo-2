@@ -95,35 +95,14 @@ public class PantallaBatalla extends JPanel {
         String mensajeTurno = construirMensajeTurno(estado);
         lblTurno.setText(mensajeTurno);
 
-        panelRegistro.actualizar(
-                utils.BitacoraBatalla.getUltimoMensaje()
-        );
-
-        // --- ACTUALIZAR BOTONES ---
-        if (panelAcciones != null) {
-
-            FaseBatalla fase = estado.getFase();
-
-            // Las acciones solo se habilitan al elegir una acción.
-            boolean puedeElegirAccion =
-                    fase == FaseBatalla.ELIGIENDO_ACCION;
-
-            panelAcciones.setHabilitado(puedeElegirAccion);
-
-            // Habilidad disponible según las reglas del combate.
-            panelAcciones.setHabilidadHabilitada(
-                    puedeElegirAccion
-                            && controladorBatalla.puedeUsarHabilidad()
-            );
-
-            // Cancelar solo está disponible cuando hay una selección pendiente.
-            boolean puedeCancelar =
-                    fase == FaseBatalla.ELIGIENDO_ENEMIGO
-                            || fase == FaseBatalla.ELIGIENDO_ALIADO
-                            || fase == FaseBatalla.ELIGIENDO_CONSUMIBLE;
-
-            panelAcciones.setCancelarHabilitado(puedeCancelar);
+        for (String mensaje : utils.BitacoraBatalla.retirarPendientes()) {
+            panelRegistro.agregar(mensaje);
         }
+
+        if (panelAcciones != null) {
+            panelAcciones.actualizar(estado);
+        }
+
     }
 
     private String construirMensajeTurno(EstadoBatallaDTO estado) {

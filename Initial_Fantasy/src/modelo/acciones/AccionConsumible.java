@@ -20,7 +20,7 @@ public class AccionConsumible extends Accion {
 
         // por si esta muerto, para no darle vida a un muerto
         if (!objetivo.estaVivo()) {
-            System.out.println(objetivo.getNombre() + " está derrotado: no se puede usar " + consumible.getNombre() + " sobre él.");
+            utils.BitacoraBatalla.registrar(objetivo.getNombre() + " está derrotado: no se puede usar " + consumible.getNombre() + " sobre él.");
             return;
         }
 

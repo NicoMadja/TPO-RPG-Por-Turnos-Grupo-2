@@ -15,11 +15,11 @@ public class HabilidadArquero extends Habilidad {
     public void ejecutar(ContextoAccion contexto) {
         Entidad lanzador = contexto.getOrigen();
 
-        // flechazo que baja la velocidad y la defensa del enemigo
+
         for (Entidad objetivo : contexto.getObjetivos()) {
             if (!objetivo.estaVivo()) continue;
 
-            int danioFinal = lanzador.getAtaqueActual() - objetivo.getDefensaActual();
+            int danioFinal = (lanzador.getAtaqueActual() * 2) - objetivo.getDefensaActual();
             if (danioFinal < 0) danioFinal = 0;
 
             objetivo.recibirDanio(danioFinal);

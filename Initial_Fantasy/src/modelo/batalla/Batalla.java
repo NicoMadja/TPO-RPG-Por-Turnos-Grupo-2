@@ -25,15 +25,16 @@ public class Batalla extends Nodo {
     private GestorDeTurnos gestor;
     private Recompensa recompensa;
     private boolean finalizada;
-
+    private boolean jefeFinal;
 
     // --- CONSTRUCTOR ---
-    public Batalla(Party party, List<Enemigo> enemigos) {
+    public Batalla(Party party, List<Enemigo> enemigos,boolean jefeFinal) {
         this.party = party;
         this.enemigos = enemigos;
         this.gestor = new GestorDeTurnos();
         this.recompensa = calcularRecompensa();
         this.finalizada = false;
+        this.jefeFinal = jefeFinal;
     }
 
 
@@ -175,6 +176,10 @@ public class Batalla extends Nodo {
             if (e.estaVivo()) vivos.add(e);
         }
         return vivos;
+    }
+
+    public boolean esJefeFinal() {
+        return jefeFinal;
     }
 
     public GestorDeTurnos getGestor() {

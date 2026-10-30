@@ -16,7 +16,7 @@ public class HabilidadMago extends Habilidad {
         Entidad lanzador = contexto.getOrigen();
 
 
-        int danioMagico = lanzador.getAtaqueActual() * 2;
+        int danioMagico = lanzador.getAtaqueActual();
         for (Entidad objetivo : contexto.getObjetivos()) {
             if (objetivo.estaVivo()) objetivo.recibirDanio(danioMagico);
         }

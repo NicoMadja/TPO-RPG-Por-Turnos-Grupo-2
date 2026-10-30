@@ -8,7 +8,7 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadTanque extends Habilidad {
 
     public HabilidadTanque() {
-        super("Muro Inquebrantable", "Aumenta la defensa de los objetivos según la defensa base del tanque", 15, TipoObjetivo.TODOS_LOS_ALIADOS);
+        super("Muro Inquebrantable", "Aumenta un 30% la defensa de todos los aliados", 15, TipoObjetivo.TODOS_LOS_ALIADOS);
     }
 
     @Override
@@ -16,8 +16,8 @@ public class HabilidadTanque extends Habilidad {
         Entidad lanzador = contexto.getOrigen();
 
 
-        int aumentoDefensa = lanzador.getDefensaBase() * 2;
         for (Entidad objetivo : contexto.getObjetivos()) {
+            int aumentoDefensa = (objetivo.getDefensaActual() * 130) / 100;
             if (objetivo.estaVivo()) objetivo.modificarDefensa(aumentoDefensa);
         }
     }

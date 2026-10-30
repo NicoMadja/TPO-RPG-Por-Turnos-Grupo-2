@@ -181,10 +181,12 @@ public class ControladorJuego implements EscenarioDeNodos {
 
                 Mapa mapaLogico = prefab.crear(partyJugador);
 
+// 4. Restaurar la posición guardada
                 mapaLogico.restaurarNodoActual(
                         estadoGuardado.getIdNodoActual()
                 );
 
+// 5. Crear el controlador una sola vez
                 controladorMapa = new ControladorMapa(
                         mapaLogico,
                         prefab.getCoordenadasVisuales(),
@@ -193,23 +195,7 @@ public class ControladorJuego implements EscenarioDeNodos {
                         partyJugador
                 );
 
-                cambiarPantalla(panelMapa);
-
-                // 4. Restaurar la posición guardada
-                mapaLogico.restaurarNodoActual(
-                        estadoGuardado.getIdNodoActual()
-                );
-
-                // 5. Conectar el controlador con el mapa restaurado
-                controladorMapa = new ControladorMapa(
-                        mapaLogico,
-                        prefab.getCoordenadasVisuales(),
-                        panelMapa,
-                        this,
-                        partyJugador
-                );
-
-                // 6. Mostrar la partida
+// 6. Mostrar la partida
                 cambiarPantalla(panelMapa);
 
                 JOptionPane.showMessageDialog(
@@ -273,6 +259,12 @@ public class ControladorJuego implements EscenarioDeNodos {
         return personajeBase;
     }
 
+    private void mostrarPantallaVictoria() {
+        PantallaVictoria pantallaVictoria = new PantallaVictoria();
+        pantallaVictoria.configurarVictoria(() -> alVolverAlMenu());
+        cambiarPantalla(pantallaVictoria);
+    }
+
 
     @Override
     public void alEntrarEnBatalla(Batalla batallaLogica) {
@@ -300,7 +292,7 @@ public class ControladorJuego implements EscenarioDeNodos {
                 }
             }// Volvemos a la pantalla de inicio
         };
-        controladorBatalla = new ControladorBatalla(batallaLogica, panelBatalla, volverAlMapa,reiniciarJuego);
+        controladorBatalla = new ControladorBatalla(batallaLogica, panelBatalla, volverAlMapa,reiniciarJuego, this::alGanarJuego);
         panelBatalla.setControlador(controladorBatalla);
         cambiarPantalla(panelBatalla);
         controladorBatalla.iniciar();
@@ -345,8 +337,11 @@ public class ControladorJuego implements EscenarioDeNodos {
 
     @Override
     public void alGanarJuego(){
-        System.out.println("¡Jefe Final derrotado! Mostrando pantalla de victoria.");
-        //cambiarPantalla(panelVictoria);
+        System.out.println(
+                "¡Jefe final derrotado! Mostrando pantalla de victoria."
+        );
+
+        mostrarPantallaVictoria();
     }
 
     @Override

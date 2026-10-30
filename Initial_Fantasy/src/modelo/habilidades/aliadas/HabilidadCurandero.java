@@ -16,8 +16,9 @@ public class HabilidadCurandero extends Habilidad {
         Entidad lanzador = contexto.getOrigen();
 
 
-        int cantidadCuracion = lanzador.getAtaqueActual() * 3;
+
         for (Entidad objetivo : contexto.getObjetivos()) {
+            int cantidadCuracion = objetivo.getVidaMaxima() / 2;
             if (objetivo.estaVivo()) objetivo.recibirCura(cantidadCuracion);
         }
     }

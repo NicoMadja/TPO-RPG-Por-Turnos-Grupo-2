@@ -13,8 +13,8 @@ public class Brujo extends Enemigo {
     // --- CONSTRUCTOR ---
     public Brujo(String nombre, int nivel) {
         // el brujo tiene muy poca vida y defensa física, pero es rápido y usa maná para su habilidad
-        super(nombre, nivel, 40 + (nivel * 5), 50 + (nivel * 10), 6 + nivel, 4 + nivel,
-                14 + (nivel * 2), new HabilidadBrujo(), "/recursos/sprites/brujo.png", 35 + (nivel * 12), 12 + (nivel * 4));
+        super(nombre, nivel, 50 + (nivel * 5), 50 + (nivel * 10), 16 + nivel, 4 + nivel,
+                9, new HabilidadBrujo(), "/recursos/sprites/brujo.png", 50 + (nivel * 12), 30 + (nivel * 4));
     }
 
     // --- COMPORTAMIENTO ---

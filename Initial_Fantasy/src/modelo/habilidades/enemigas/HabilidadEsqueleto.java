@@ -8,7 +8,7 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadEsqueleto extends Habilidad {
 
     public HabilidadEsqueleto() {
-        super("Tajo Rapido", "Daña al héroe y aumenta levemente su velocidad y ataque",0, TipoObjetivo.UN_ENEMIGO);
+        super("Tajo Óseo", "Daña al héroe y aumenta levemente su velocidad y ataque",0, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override
