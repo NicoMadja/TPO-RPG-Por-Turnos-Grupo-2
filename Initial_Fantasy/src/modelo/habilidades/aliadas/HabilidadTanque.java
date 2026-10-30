@@ -13,11 +13,14 @@ public class HabilidadTanque extends Habilidad {
 
     @Override
     public void ejecutar(ContextoAccion contexto) {
-
         // aumenta un 30% la defensa de todos los aliados
         for (Entidad objetivo : contexto.getObjetivos()) {
-            int aumentoDefensa = (objetivo.getDefensaActual() * 130) / 100;
-            if (objetivo.estaVivo()) objetivo.modificarDefensa(aumentoDefensa);
+            if (objetivo.estaVivo()) {
+
+                int aumentoDefensa = (objetivo.getDefensaActual() * 30) / 100;
+
+                objetivo.modificarDefensa(aumentoDefensa);
+            }
         }
     }
 }

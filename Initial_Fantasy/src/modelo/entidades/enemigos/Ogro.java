@@ -24,12 +24,12 @@ public class Ogro extends Enemigo {
         // aplasta al personaje que tenga menos vida
         Personaje objetivo = heroes.obtenerPersonajeConMenosVida();
 
-        // 25% de posibilidad de ejecutar su habilidad
-        if (Math.random() < 0.25) {
+        // 30% de posibilidad de ejecutar su habilidad
+        if (Math.random() < 0.30) {
             ContextoAccion contextoHabilidad = new ContextoAccion(this, objetivo, null, this.habilidad);
             return new AccionHabilidad(contextoHabilidad);
         } else {
-            // el otro 75% es pegar un ataque basico
+            // el otro 70% es pegar un ataque basico
             ContextoAccion contexto = new ContextoAccion(this, objetivo, null, null);
             return new AccionAtaque(contexto);
         }

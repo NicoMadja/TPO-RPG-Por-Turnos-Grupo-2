@@ -8,24 +8,24 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadOgro extends Habilidad {
 
     public HabilidadOgro() {
-        super("Golpe Enfurecido", "aumenta un 15% su ataque hasta que termine la batalla ",0, TipoObjetivo.UN_ENEMIGO);
+        super("Golpe Enfurecido", "Aumenta un 10% su ataque y ataca",0, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override
     public void ejecutar(ContextoAccion contexto) {
         Entidad lanzador = contexto.getOrigen();
-
-        // aumenta un 15% su ataque hasta que termine la batalla (una sola vez por uso)
-        int buffAtaque = (lanzador.getAtaqueActual() * 15) / 100;
+        // aumenta un 10% su ataque hasta que termine la batalla
+        int buffAtaque = (lanzador.getAtaqueActual() * 10) / 100;
 
         lanzador.modificarAtaque(buffAtaque);
 
-        // y hace un ataque con 30% mas de daño
+        // y ataca normalmente
         for (Entidad objetivo : contexto.getObjetivos()) {
             if (!objetivo.estaVivo()) continue;
 
-            int danioFinal = ((lanzador.getAtaqueActual() * 130) / 100) - objetivo.getDefensaActual();
+            int danioFinal = lanzador.getAtaqueActual() - objetivo.getDefensaActual();
             if (danioFinal < 0) danioFinal = 0;
+
             objetivo.recibirDanio(danioFinal);
         }
     }

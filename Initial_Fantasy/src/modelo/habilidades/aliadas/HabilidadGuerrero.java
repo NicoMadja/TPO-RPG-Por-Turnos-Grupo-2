@@ -8,20 +8,19 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadGuerrero extends Habilidad {
 
     public HabilidadGuerrero() {
-        super("Golpe Cruzado", "Hace un ataque debilitando la defensa del enemigo a la mitad", 10, TipoObjetivo.UN_ENEMIGO);
+        super("Golpe Cruzado", "Ataca ignorando la defensa del enemigo", 10, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override
     public void ejecutar(ContextoAccion contexto) {
         Entidad lanzador = contexto.getOrigen();
-
-
-        // hace un ataque debilitando la defensa del enemigo a la mitad
+        // ataca ignorando la defensa del enemigo
         for (Entidad objetivo : contexto.getObjetivos()) {
             if (!objetivo.estaVivo()) continue;
 
-            int danioFinal = lanzador.getAtaqueActual() - (objetivo.getDefensaActual() / 2);
+            int danioFinal = lanzador.getAtaqueActual();
             if (danioFinal < 0) danioFinal = 0;
+
             objetivo.recibirDanio(danioFinal);
         }
     }

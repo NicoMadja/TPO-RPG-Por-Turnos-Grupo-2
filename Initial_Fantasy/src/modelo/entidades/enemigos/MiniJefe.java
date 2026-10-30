@@ -12,7 +12,7 @@ public class MiniJefe extends Enemigo {
 
     // --- CONSTRUCTOR ---
     public MiniJefe(String nombre, int nivel) {
-        super(nombre, nivel, 180 + (nivel * 5), 100, 22 + (nivel * 2), 8 + nivel,
+        super(nombre, nivel, 180 + (nivel * 5), 50, 22 + (nivel * 2), 8 + nivel,
                 11 + (nivel * 2), new HabilidadMiniJefe(), "/recursos/sprites/minijefe.png",
                 160 + (nivel * 10), 120 + (nivel * 2));
     }
@@ -23,8 +23,8 @@ public class MiniJefe extends Enemigo {
         // ataca objetivo aleatorio
         Personaje objetivo = heroes.obtenerPersonajeVivoAlAzar();
 
-        // 40% de usar su habilidad si tiene maná suficiente
-        if (tieneSuficienteMana(this.habilidad.getCostoMana()) && Math.random() < 0.40) {
+        // si tiene 50% de vida o menos y tiene suficiente maná, usa su habilidad
+        if (((this.getVidaActual() * 2) <= this.getVidaMaxima()) && tieneSuficienteMana(this.habilidad.getCostoMana())) {
             ContextoAccion contextoHabilidad = new ContextoAccion(this, objetivo, null, this.habilidad);
             return new AccionHabilidad(contextoHabilidad);
         } else {
