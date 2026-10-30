@@ -57,10 +57,17 @@ public class PanelAcciones extends JPanel {
         boolean puedeHabilidad = eligiendoAccion && controlador.puedeUsarHabilidad();
         boolean hayItems = !estado.getItems().isEmpty();
 
+        // para poder cancelar
+        FaseBatalla fase = estado.getFase();
+        boolean eligiendoObjetivo = fase == FaseBatalla.ELIGIENDO_ENEMIGO
+                || fase == FaseBatalla.ELIGIENDO_ALIADO
+                || fase == FaseBatalla.ELIGIENDO_CONSUMIBLE;
+
         btnAtacar.setEnabled(eligiendoAccion);
         btnDefender.setEnabled(eligiendoAccion);
         btnHabilidad.setEnabled(puedeHabilidad);
         btnConsumible.setEnabled(eligiendoAccion && hayItems);
+        btnCancelar.setEnabled(eligiendoObjetivo);
 
         // si el botón está apagado por un motivo, se lo contamos al pasar el mouse
         btnHabilidad.setToolTipText(eligiendoAccion && !puedeHabilidad ? "Maná insuficiente" : null);

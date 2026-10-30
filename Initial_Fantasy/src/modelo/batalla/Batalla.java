@@ -25,6 +25,7 @@ public class Batalla extends Nodo {
     private GestorDeTurnos gestor;
     private Recompensa recompensa;
     private boolean finalizada;
+    private List<Personaje> subieronDeNivel = new ArrayList<>();
     private boolean jefeFinal;
 
     // --- CONSTRUCTOR ---
@@ -67,7 +68,7 @@ public class Batalla extends Nodo {
         // hay recompensa si ganaron los héroes
         if (gestor.enemigosDerrotados()) {
             party.sumarOro(recompensa.getOro());
-            party.distribuirExperiencia(recompensa.getExperiencia());
+            subieronDeNivel = party.distribuirExperiencia(recompensa.getExperiencia());
         }
         resetearEstadisticasParty();
     }
@@ -158,6 +159,9 @@ public class Batalla extends Nodo {
     public boolean esTurnoDeEnemigo() {return enemigos.contains(gestor.obtenerEntidadActual());}
     public boolean estaFinalizada() {return finalizada;}
     public boolean hayVictoria() {return finalizada && gestor.enemigosDerrotados();}
+    public boolean esJefeFinal() {
+        return jefeFinal;
+    }
 
     // para que el controlador habilite o no el botón de habilidad (si no alcanza el maná, la acción perdería el turno)
     public boolean puedeUsarHabilidad() {
@@ -166,34 +170,31 @@ public class Batalla extends Nodo {
     }
 
 
+    // --- PROCESAR ---
+    @Override
+    public void procesarNodo(EscenarioDeNodos escenario) {
+        iniciarBatalla();
+        escenario.alEntrarEnBatalla(this);
+    }
+
+
     // --- GETTERS ---
     public Party getParty() {return party;}
     public Entidad getEntidadActual() {return gestor.obtenerEntidadActual();}
     public Recompensa getRecompensa() {return recompensa;}
     public List<Enemigo> getEnemigos() {return enemigos;}
+    public List<Personaje> getSubieronDeNivel() {return subieronDeNivel;}
+    public GestorDeTurnos getGestor() {
+        return gestor;
+    }
+    public List<String> getOrdenTurnos() {
+        return gestor.getOrdenTurnos();
+    }
     public List<Enemigo> getEnemigosVivos() {
         List<Enemigo> vivos = new ArrayList<>();
         for (Enemigo e : enemigos) {
             if (e.estaVivo()) vivos.add(e);
         }
         return vivos;
-    }
-
-    public boolean esJefeFinal() {
-        return jefeFinal;
-    }
-
-    public GestorDeTurnos getGestor() {
-        return gestor;
-    }
-
-    public List<String> getOrdenTurnos() {
-        return gestor.getOrdenTurnos();
-    }
-    // --- PROCESAR ---
-    @Override
-    public void procesarNodo(EscenarioDeNodos escenario) {
-        iniciarBatalla();
-        escenario.alEntrarEnBatalla(this);
     }
 }

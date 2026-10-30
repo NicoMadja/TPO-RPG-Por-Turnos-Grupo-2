@@ -198,8 +198,7 @@ public class ControladorBatalla {
         pausarYResolver();
     }
 
-
-    // --- ARREPENTIRSE: vuelve al menú sin gastar el turno ---
+    // para cancelar la accion
     public void cancelar() {
         boolean eligiendo = fase == FaseBatalla.ELIGIENDO_ENEMIGO
                 || fase == FaseBatalla.ELIGIENDO_ALIADO
@@ -207,6 +206,7 @@ public class ControladorBatalla {
         if (!eligiendo) return;
 
         limpiarSeleccion();
+        mensajeInfo = "Selecciona una accion.";
         cambiarFase(FaseBatalla.ELIGIENDO_ACCION);
     }
 
@@ -319,6 +319,9 @@ public class ControladorBatalla {
         int oroGanado = batalla.getRecompensa().getOro();
         double xpGanada = batalla.getRecompensa().getExperiencia();
         List<String> mensajesLevelUp = new ArrayList<>();
+        for (Personaje p : batalla.getSubieronDeNivel()) {
+            mensajesLevelUp.add(p.getNombre() + " subió al nivel " + p.getNivel() + "!");
+        }
 
         JFrame ventanaPadre =
                 (JFrame) SwingUtilities.getWindowAncestor(vista);
@@ -376,7 +379,7 @@ public class ControladorBatalla {
                     p.getNombre(), p.getNivel(), p.getVidaMaxima(), p.getVidaActual(),
                     p.getManaMaximo(), p.getManaActual(), p.getAtaqueBase(), p.getAtaqueActual(), p.getDefensaBase(),
                     p.getDefensaActual(), p.isDefendiendo(), p.getVelocidadBase(), p.getVelocidadActual(),
-                    p.getRutaSprite(), p.getExperienciaRequerida(), p.getExperienciaActual()
+                    p.getRutaSprite(), p.getExperienciaActual(), p.getExperienciaRequerida()
             ));
         }
         return personajesConvertidos;
