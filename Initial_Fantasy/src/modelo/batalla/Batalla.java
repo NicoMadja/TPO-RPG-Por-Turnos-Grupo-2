@@ -67,13 +67,7 @@ public class Batalla extends Nodo {
         // hay recompensa si ganaron los héroes
         if (gestor.enemigosDerrotados()) {
             party.sumarOro(recompensa.getOro());
-
-            subieronDeNivel = party.distribuirExperiencia(recompensa.getExperiencia());
-
-            // avisamos en el registro quién subió de nivel
-            for (Personaje p : subieronDeNivel) {
-                utils.BitacoraBatalla.registrar(p.getNombre() + " subió a nivel " + p.getNivel() + "!");
-            }
+            party.distribuirExperiencia(recompensa.getExperiencia());
         }
         resetearEstadisticasParty();
     }
@@ -177,7 +171,6 @@ public class Batalla extends Nodo {
     public Entidad getEntidadActual() {return gestor.obtenerEntidadActual();}
     public Recompensa getRecompensa() {return recompensa;}
     public List<Enemigo> getEnemigos() {return enemigos;}
-    public List<Personaje> getSubieronDeNivel() {return subieronDeNivel;}
     public List<Enemigo> getEnemigosVivos() {
         List<Enemigo> vivos = new ArrayList<>();
         for (Enemigo e : enemigos) {

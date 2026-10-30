@@ -17,10 +17,6 @@ public class BitacoraBatalla {
         pendientes.clear();
         return copia;
     }
-    
-    public static void limpiar() {
-        pendientes.clear();
-    }
 
     public static void limpiar() {
         pendientes.clear();
