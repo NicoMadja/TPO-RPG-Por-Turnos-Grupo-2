@@ -172,6 +172,8 @@ public class ControladorJuego implements EscenarioDeNodos {
                 if (estadoGuardado.getInventarioGuardado() != null) {
                     partyJugador.setInventario(estadoGuardado.getInventarioGuardado());
                 }
+                partyJugador.setMonedero(estadoGuardado.getMonederoGuardado());
+
                 // 3. Reconstruir el mapa
                 FabricaMapas fabricaMapas = new FabricaMapas();
 
@@ -181,12 +183,12 @@ public class ControladorJuego implements EscenarioDeNodos {
 
                 Mapa mapaLogico = prefab.crear(partyJugador);
 
-// 4. Restaurar la posición guardada
+                // 4. Restaurar la posición guardada
                 mapaLogico.restaurarNodoActual(
                         estadoGuardado.getIdNodoActual()
                 );
 
-// 5. Crear el controlador una sola vez
+                // 5. Crear el controlador una sola vez
                 controladorMapa = new ControladorMapa(
                         mapaLogico,
                         prefab.getCoordenadasVisuales(),
@@ -195,7 +197,7 @@ public class ControladorJuego implements EscenarioDeNodos {
                         partyJugador
                 );
 
-// 6. Mostrar la partida
+                // 6. Mostrar la partida
                 cambiarPantalla(panelMapa);
 
                 JOptionPane.showMessageDialog(

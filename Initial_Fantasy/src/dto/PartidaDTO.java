@@ -10,35 +10,30 @@ public class PartidaDTO implements Serializable {
     private List<PersonajeDTO> heroesGuardados;
     private int idNodoActual;
     private Inventario inventarioGuardado;
+    private int monederoGuardado;
     private String idMapa;
 
-    public PartidaDTO(
-            List<PersonajeDTO> heroesGuardados,
-            int idNodoActual,
-            Inventario inventario
-    ) {
+    public PartidaDTO(List<PersonajeDTO> heroesGuardados, int idNodoActual, Inventario inventario, int monedero) {
         this.heroesGuardados = heroesGuardados;
         this.idNodoActual = idNodoActual;
         this.inventarioGuardado = inventario;
+        this.monederoGuardado = monedero;
     }
 
     public List<PersonajeDTO> getHeroesGuardados() {
         return heroesGuardados;
     }
-
     public int getIdNodoActual() {
         return idNodoActual;
     }
-
     public Inventario getInventarioGuardado() {
         return inventarioGuardado;
     }
-
     public String getIdMapa() {
         return idMapa;
     }
-
     public void setIdMapa(String idMapa) {
         this.idMapa = idMapa;
     }
+    public int getMonederoGuardado() {return monederoGuardado;}
 }

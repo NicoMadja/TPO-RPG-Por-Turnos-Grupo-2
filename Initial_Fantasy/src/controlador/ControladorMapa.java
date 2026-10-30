@@ -143,7 +143,8 @@ public class ControladorMapa {
             PartidaDTO estadoJuego = new PartidaDTO(
                     heroesDTO,
                     idNodoDondeEstoy,
-                    partyActual.getInventario() // <-- Le pasas la mochila
+                    partyActual.getInventario(),
+                    partyActual.getMonedero()
             );
             estadoJuego.setIdMapa(modeloMapa.getIdMapa());
             repositorio.guardar(estadoJuego);

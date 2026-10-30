@@ -102,13 +102,15 @@ public class Party implements Serializable {
         return monedero >= cantidad;
     }
 
-    public void setInventario(Inventario inventarioCargado) {
-        if (inventarioCargado != null) {
-            this.inventario = inventarioCargado;
-        }
-    }
+
     // --- GETTERS ---
     public List<Personaje> getPersonajes() {return personajes;}
     public Inventario getInventario() {return inventario;}
     public int getMonedero() {return monedero;}
+
+
+    // --- SETTERS ---
+    public void setInventario(Inventario inventarioCargado) {
+        if (inventarioCargado != null) this.inventario = inventarioCargado;}
+    public void setMonedero(int monedero) {this.monedero= monedero;}
 }
