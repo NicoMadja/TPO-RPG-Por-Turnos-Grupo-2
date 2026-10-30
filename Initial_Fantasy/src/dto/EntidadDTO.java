@@ -1,5 +1,6 @@
 package dto;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class EntidadDTO implements Serializable {

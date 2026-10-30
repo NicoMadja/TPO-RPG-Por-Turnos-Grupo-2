@@ -1,4 +1,4 @@
-package vista.pantallas;
+package vista.paneles;
 
 import utils.CargadorImagenes;
 
