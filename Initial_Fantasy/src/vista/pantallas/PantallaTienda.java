@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.List;
 
 public class PantallaTienda extends JPanel {
+
     private static final long serialVersionUID = 1L;
 
     private ControladorTienda controlador;
@@ -19,81 +20,162 @@ public class PantallaTienda extends JPanel {
     private JLabel lblOroActual;
     private JButton btnSalir;
 
+    // Panel central donde se posiciona el catálogo manualmente
+    private JPanel panelCentro;
+
     public PantallaTienda() {
-        // En lugar de null, usamos BorderLayout para que los paneles se acomoden solos al redimensionar
+
         setLayout(new BorderLayout());
 
-        // 1. Cargar fondo
-        ImageIcon iconoFondo = CargadorImagenes.cargar("/recursos/sprites/tienda.png");
+        // ==========================================
+        // FONDO
+        // ==========================================
+
+        ImageIcon iconoFondo =
+                CargadorImagenes.cargar("/recursos/sprites/tienda.png");
+
         if (iconoFondo != null) {
             imagenFondo = iconoFondo.getImage();
         } else {
-            setBackground(new Color(60, 30, 15)); // Color madera por si falla la imagen
+            setBackground(new Color(60, 30, 15));
         }
 
         // ==========================================
-        // PANEL SUPERIOR (Botón Salir y Oro)
+        // PANEL SUPERIOR: ORO
         // ==========================================
+
         JPanel panelNorte = new JPanel(new BorderLayout());
         panelNorte.setOpaque(false);
-        panelNorte.setBorder(BorderFactory.createEmptyBorder(20, 30, 10, 30));
 
-        btnSalir = new JButton("Continuar Viaje");
-        btnSalir.setFont(new Font("SansSerif", Font.BOLD, 16));
-        btnSalir.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        btnSalir.setBackground(new Color(50, 50, 50));
-        btnSalir.setForeground(Color.WHITE);
-        btnSalir.setFocusPainted(false);
+        panelNorte.setBorder(
+                BorderFactory.createEmptyBorder(15, 30, 5, 30)
+        );
 
         lblOroActual = new JLabel("Oro: 0", SwingConstants.RIGHT);
-        lblOroActual.setFont(new Font("SansSerif", Font.BOLD, 24));
+        lblOroActual.setFont(
+                new Font("SansSerif", Font.BOLD, 24)
+        );
         lblOroActual.setForeground(Color.YELLOW);
 
-        panelNorte.add(btnSalir, BorderLayout.WEST);
         panelNorte.add(lblOroActual, BorderLayout.EAST);
 
+        // ==========================================
+        // PANEL CENTRAL
+        // ==========================================
 
-        // ==========================================
-        // PANEL CENTRAL (El Catálogo en Estantes)
-        // ==========================================
-        // Creamos un contenedor que limite el tamaño del catálogo
-        JPanel panelCentro = new JPanel(new GridBagLayout());
+        // Layout null para ubicar el catálogo con coordenadas
+        panelCentro = new JPanel(null);
         panelCentro.setOpaque(false);
 
-        // Grilla de pociones (2x2)
-        panelCatalogo = new JPanel(new GridLayout(2, 2, 40, 40));
+        // ==========================================
+        // CATÁLOGO: CUATRO ESTANTES
+        // ==========================================
+
+        panelCatalogo = new JPanel(new GridLayout(2, 2, 18, 18));
         panelCatalogo.setOpaque(false);
 
-        // Ajustamos el tamaño del panel de pociones para que no choque con el tendero
-        panelCatalogo.setPreferredSize(new Dimension(500, 400));
+        // Tamaño del catálogo
+        panelCatalogo.setSize(850, 400);
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1.0;
-        gbc.anchor = GridBagConstraints.WEST; // Ancla el catálogo a la izquierda
-        gbc.insets = new Insets(0, 50, 0, 0); // Empuja un poco desde el borde izquierdo
+        // Posición inicial: x, y, ancho, alto
+        // Modificá x e y para moverlo sin comprimirlo.
+        panelCatalogo.setBounds(30, 15, 850, 400);
 
-        panelCentro.add(panelCatalogo, gbc);
-
+        panelCentro.add(panelCatalogo);
 
         // ==========================================
-        // PANEL INFERIOR (Inventario)
+        // PANEL INFERIOR: INVENTARIO
         // ==========================================
-        panelInventario = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 0));
+
+        panelInventario = new JPanel(
+                new FlowLayout(FlowLayout.LEFT, 15, 0)
+        );
+
         panelInventario.setOpaque(false);
-        panelInventario.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createLineBorder(Color.WHITE), "Inventario del Grupo",
-                0, 0, new Font("SansSerif", Font.BOLD, 14), Color.WHITE));
 
-        // Lo envolvemos en otro panel para darle márgenes
+        panelInventario.setBorder(
+                BorderFactory.createTitledBorder(
+                        BorderFactory.createLineBorder(
+                                new Color(212, 175, 55)
+                        ),
+                        "Inventario del Grupo",
+                        0,
+                        0,
+                        new Font("SansSerif", Font.BOLD, 14),
+                        Color.WHITE
+                )
+        );
+
+        // ==========================================
+        // BOTÓN CONTINUAR VIAJE
+        // ==========================================
+
+        btnSalir = new JButton("Continuar Viaje");
+
+        btnSalir.setFont(
+                new Font("SansSerif", Font.BOLD, 15)
+        );
+
+        btnSalir.setCursor(
+                new Cursor(Cursor.HAND_CURSOR)
+        );
+
+        btnSalir.setBackground(new Color(55, 28, 16));
+        btnSalir.setForeground(Color.WHITE);
+
+        btnSalir.setOpaque(true);
+        btnSalir.setContentAreaFilled(true);
+        btnSalir.setFocusPainted(false);
+
+        btnSalir.setBorder(
+                BorderFactory.createCompoundBorder(
+                        BorderFactory.createLineBorder(
+                                new Color(212, 175, 55), 2
+                        ),
+                        BorderFactory.createEmptyBorder(
+                                10, 18, 10, 18
+                        )
+                )
+        );
+
+        // ==========================================
+        // ENSAMBLAR PANEL INFERIOR
+        // ==========================================
+
+        JPanel panelInferior = new JPanel(
+                new BorderLayout(15, 0)
+        );
+
+        panelInferior.setOpaque(false);
+
+        panelInferior.add(
+                panelInventario,
+                BorderLayout.CENTER
+        );
+
+        panelInferior.add(
+                btnSalir,
+                BorderLayout.EAST
+        );
+
         JPanel envoltorioSur = new JPanel(new BorderLayout());
         envoltorioSur.setOpaque(false);
-        envoltorioSur.setBorder(BorderFactory.createEmptyBorder(10, 30, 30, 30));
-        envoltorioSur.add(panelInventario, BorderLayout.CENTER);
 
+        envoltorioSur.setBorder(
+                BorderFactory.createEmptyBorder(
+                        10, 30, 30, 30
+                )
+        );
 
-        // Ensamblar
+        envoltorioSur.add(
+                panelInferior,
+                BorderLayout.CENTER
+        );
+
+        // ==========================================
+        // AGREGAR PANELES A LA PANTALLA
+        // ==========================================
+
         add(panelNorte, BorderLayout.NORTH);
         add(panelCentro, BorderLayout.CENTER);
         add(envoltorioSur, BorderLayout.SOUTH);
@@ -101,90 +183,162 @@ public class PantallaTienda extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+
         super.paintComponent(g);
+
         if (imagenFondo != null) {
-            // Dibuja la imagen cubriendo el JFrame, adaptable a la pantalla
-            g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
+            g.drawImage(
+                    imagenFondo,
+                    0,
+                    0,
+                    getWidth(),
+                    getHeight(),
+                    this
+            );
         }
     }
 
     public void setControlador(ControladorTienda controlador) {
+
         this.controlador = controlador;
-        for (java.awt.event.ActionListener al : btnSalir.getActionListeners()) {
+
+        for (java.awt.event.ActionListener al
+                : btnSalir.getActionListeners()) {
             btnSalir.removeActionListener(al);
         }
-        btnSalir.addActionListener(e -> controlador.salir());
+
+        btnSalir.addActionListener(
+                e -> this.controlador.salir()
+        );
     }
 
-    public void actualizarDatos(int oro, List<ConsumibleDTO> catalogo, List<ConsumibleDTO> inventario) {
+    public void actualizarDatos(
+            int oro,
+            List<ConsumibleDTO> catalogo,
+            List<ConsumibleDTO> inventario) {
+
         lblOroActual.setText("Oro: " + oro);
 
         // ==========================================
-        // DIBUJAR CATÁLOGO DE POCIONES
+        // CATÁLOGO DE POCIONES
         // ==========================================
+
         panelCatalogo.removeAll();
 
         for (ConsumibleDTO dto : catalogo) {
-            JButton btnComprar = new JButton();
-            btnComprar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-            // Estilo visual del botón
-            btnComprar.setBackground(new Color(20, 10, 5, 200)); // Fondo oscuro más compacto
-            btnComprar.setBorder(BorderFactory.createLineBorder(new Color(212, 175, 55), 2));
+            JButton btnComprar = new JButton();
+
+            btnComprar.setCursor(
+                    new Cursor(Cursor.HAND_CURSOR)
+            );
+
+            btnComprar.setBackground(new Color(35, 17, 9));
+            btnComprar.setOpaque(true);
+            btnComprar.setContentAreaFilled(true);
             btnComprar.setFocusPainted(false);
 
-            // Cargar y dimensionar el Sprite de la poción
-            if (dto.getSprite() != null && !dto.getSprite().isEmpty()) {
-                ImageIcon iconoOriginal = CargadorImagenes.cargar(dto.getSprite());
-                if (iconoOriginal != null) {
-                    // Escalamos la poción un poco más grande
-                    Image imgEscalada = iconoOriginal.getImage().getScaledInstance(65, 80, Image.SCALE_FAST);
-                    btnComprar.setIcon(new ImageIcon(imgEscalada));
+            btnComprar.setBorder(
+                    BorderFactory.createCompoundBorder(
+                            BorderFactory.createLineBorder(
+                                    new Color(212, 175, 55), 2
+                            ),
+                            BorderFactory.createEmptyBorder(
+                                    5, 5, 5, 5
+                            )
+                    )
+            );
+
+            // Sprite
+            if (dto.getSprite() != null
+                    && !dto.getSprite().isEmpty()) {
+
+                ImageIcon icono =
+                        CargadorImagenes.cargar(dto.getSprite());
+
+                if (icono != null) {
+
+                    Image imagen = icono.getImage()
+                            .getScaledInstance(
+                                    45, 55, Image.SCALE_SMOOTH
+                            );
+
+                    btnComprar.setIcon(new ImageIcon(imagen));
                 }
             }
 
-            // Nombre y Precio debajo
-            btnComprar.setText("<html><center><b>" + dto.getNombre() + "</b><br><font color='#FFD700'>" + dto.getPrecio() + "G</font></center></html>");
-            btnComprar.setVerticalTextPosition(SwingConstants.BOTTOM);
-            btnComprar.setHorizontalTextPosition(SwingConstants.CENTER);
-            btnComprar.setIconTextGap(8);
-            btnComprar.setFont(new Font("SansSerif", Font.PLAIN, 14));
+            // Nombre y precio
+            btnComprar.setText(
+                    "<html><center><b>"
+                            + dto.getNombre()
+                            + "</b><br><font color='#FFD700'>"
+                            + dto.getPrecio()
+                            + "G</font></center></html>"
+            );
+
+            btnComprar.setVerticalTextPosition(
+                    SwingConstants.BOTTOM
+            );
+
+            btnComprar.setHorizontalTextPosition(
+                    SwingConstants.CENTER
+            );
+
+            btnComprar.setIconTextGap(5);
+
+            btnComprar.setFont(
+                    new Font("SansSerif", Font.PLAIN, 12)
+            );
+
             btnComprar.setForeground(Color.WHITE);
 
-            // Evento
-            btnComprar.addActionListener(e -> controlador.procesarCompra(dto.getNombre()));
+            // Evento de compra
+            btnComprar.addActionListener(
+                    e -> controlador.procesarCompra(dto.getNombre())
+            );
 
             panelCatalogo.add(btnComprar);
         }
 
-        // Rellenar espacios vacíos para mantener la grilla estable
-        int espaciosVacios = 4 - catalogo.size();
-        for (int i = 0; i < espaciosVacios; i++) {
-            JPanel slotVacio = new JPanel();
-            slotVacio.setOpaque(false);
-            panelCatalogo.add(slotVacio);
-        }
+        panelCatalogo.revalidate();
+        panelCatalogo.repaint();
 
         // ==========================================
-        // DIBUJAR INVENTARIO DE POCIONES
+        // INVENTARIO DEL GRUPO
         // ==========================================
+
         panelInventario.removeAll();
+
         for (ConsumibleDTO dto : inventario) {
+
             JLabel lblItem = new JLabel(dto.getNombre());
-            lblItem.setFont(new Font("SansSerif", Font.BOLD, 13));
+
+            lblItem.setFont(
+                    new Font("SansSerif", Font.BOLD, 13)
+            );
+
             lblItem.setForeground(Color.WHITE);
 
-            if (dto.getSprite() != null && !dto.getSprite().isEmpty()) {
-                ImageIcon iconItem = CargadorImagenes.cargar(dto.getSprite());
-                if (iconItem != null) {
-                    lblItem.setIcon(new ImageIcon(iconItem.getImage().getScaledInstance(30, 35, Image.SCALE_FAST)));
+            if (dto.getSprite() != null
+                    && !dto.getSprite().isEmpty()) {
+
+                ImageIcon icono =
+                        CargadorImagenes.cargar(dto.getSprite());
+
+                if (icono != null) {
+
+                    Image imagen = icono.getImage()
+                            .getScaledInstance(
+                                    30, 35, Image.SCALE_SMOOTH
+                            );
+
+                    lblItem.setIcon(new ImageIcon(imagen));
                 }
             }
+
             panelInventario.add(lblItem);
         }
 
-        panelCatalogo.revalidate();
-        panelCatalogo.repaint();
         panelInventario.revalidate();
         panelInventario.repaint();
     }

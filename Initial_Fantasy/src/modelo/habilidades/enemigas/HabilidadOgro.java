@@ -8,14 +8,14 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadOgro extends Habilidad {
 
     public HabilidadOgro() {
-        super("Golpe Enfurecido", 0, TipoObjetivo.UN_ENEMIGO);
+        super("Golpe Enfurecido", "aumenta su ataque y defensa en 2 hasta que termine la batalla",0, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override
     public void ejecutar(ContextoAccion contexto) {
         Entidad lanzador = contexto.getOrigen();
 
-        // aumenta su ataque y defensa en 2 hasta que termine la batalla (una sola vez por uso)
+
         lanzador.modificarAtaque(2);
         lanzador.modificarDefensa(2);
 

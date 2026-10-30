@@ -36,7 +36,7 @@ public class Mapa1 implements MapaPrefab {
         Nodo campamento = new Campamento(party);
         Nodo jefeFinal = new Batalla(party, enemigos(new MiniJefe("Demonio", 3),new Ogro("Ogro", 2), new Brujo("Brujo", 3))); // provisorio, hasta que exista JefeFinal
 
-        Mapa mapa = new Mapa(inicio, jefeFinal);
+        Mapa mapa = new Mapa(inicio, jefeFinal,"/recursos/sprites/Mapa1.png","MAPA1");
         mapa.agregarNodo(batalla1);
         mapa.agregarNodo(batalla2);
         mapa.agregarNodo(batalla3);

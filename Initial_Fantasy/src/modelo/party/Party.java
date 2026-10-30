@@ -2,11 +2,13 @@ package modelo.party;
 
 import modelo.entidades.personajes.Personaje;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Party {
+public class Party implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<Personaje> personajes;
     private Inventario inventario;
     private int monedero;
@@ -102,7 +104,11 @@ public class Party {
         return monedero >= cantidad;
     }
 
-
+    public void setInventario(Inventario inventarioCargado) {
+        if (inventarioCargado != null) {
+            this.inventario = inventarioCargado;
+        }
+    }
     // --- GETTERS ---
     public List<Personaje> getPersonajes() {return personajes;}
     public Inventario getInventario() {return inventario;}

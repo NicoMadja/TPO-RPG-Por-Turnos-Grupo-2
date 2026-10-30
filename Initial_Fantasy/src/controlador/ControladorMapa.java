@@ -2,14 +2,22 @@ package controlador;
 
 import dto.ConexionDTO;
 import dto.NodoDTO;
+import dto.PartidaDTO;
+import dto.PersonajeDTO;
+import modelo.entidades.personajes.Personaje;
 import modelo.mundo.mapa.Mapa;
 import modelo.mundo.Nodo;
 import modelo.mundo.EscenarioDeNodos;
+import modelo.party.Party;
 import vista.pantallas.PantallaMapa;
 
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.util.*;
+
+import repositorioPartida.RepositorioPartida;
+import java.io.IOException;
+import javax.swing.JOptionPane;
 
 public class ControladorMapa {
     private Mapa modeloMapa;
@@ -17,16 +25,19 @@ public class ControladorMapa {
     private PantallaMapa vistaMapa;
     private EscenarioDeNodos escenario;
     private Map<Integer, Nodo> diccionarioNodos;
+    private Party partyActual; // Guardaremos la party acá
 
-    // Modificamos el constructor para recibir las coordenadas
-    public ControladorMapa(Mapa modeloMapa, Map<Nodo, Point> coordenadasMapa, PantallaMapa vistaMapa, EscenarioDeNodos escenario) {
+    public ControladorMapa(Mapa modeloMapa, Map<Nodo, Point> coordenadasMapa, PantallaMapa vistaMapa, EscenarioDeNodos escenario, Party partyActual) {
         this.modeloMapa = modeloMapa;
         this.coordenadasMapa = coordenadasMapa;
         this.vistaMapa = vistaMapa;
         this.escenario = escenario;
+        this.partyActual = partyActual; // Inicializamos la party
         this.diccionarioNodos = new HashMap<>();
 
+        vistaMapa.cambiarFondo(modeloMapa.getSprite());
         actualizarVista();
+        vistaMapa.getBtnOpciones().addActionListener(e -> mostrarMenuOpciones());
     }
 
     private void actualizarVista() {
@@ -38,13 +49,12 @@ public class ControladorMapa {
         Map<Nodo, NodoDTO> mapaAuxiliar = new HashMap<>();
         int idVisual = 0;
 
-        // 1. Convertir los Nodos a DTOs
         for (Nodo nodo : modeloMapa.getNodos()) {
             NodoDTO dto = new NodoDTO();
             dto.setId(idVisual);
             dto.setTipo(nodo.getClass().getSimpleName().toUpperCase());
             dto.setEsActual(nodo == modeloMapa.getNodoActual());
-            // Leemos la posición exacta que definió el Prefab para este nodo
+
             Point pos = coordenadasMapa.get(nodo);
             if (pos != null) {
                 dto.setX(pos.x);
@@ -60,7 +70,6 @@ public class ControladorMapa {
             idVisual++;
         }
 
-        // 2. Trazar las líneas (conexiones)
         for (Nodo origen : modeloMapa.getNodos()) {
             for (Nodo destino : modeloMapa.getSucesoresDe(origen)) {
                 ConexionDTO conexion = new ConexionDTO();
@@ -73,6 +82,77 @@ public class ControladorMapa {
         }
 
         vistaMapa.cargarMapa(nodosDTO, conexionesDTO, e -> alHacerClicNodo(e));
+    }
+
+    private void mostrarMenuOpciones() {
+        String[] opciones = {"Guardar Partida", "Volver al Menú", "Cancelar"};
+
+        int seleccion = JOptionPane.showOptionDialog(
+                null,
+                "Opciones de Juego",
+                "Menú",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                opciones,
+                opciones[0]
+        );
+
+        if (seleccion == 0) {
+            guardarJuego();
+        } else if (seleccion == 1) {
+            int confirmar = JOptionPane.showConfirmDialog(
+                    null,
+                    "¿Seguro que quieres salir? El progreso no guardado se perderá.",
+                    "Confirmar",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (confirmar == JOptionPane.YES_OPTION) {
+                escenario.alVolverAlMenu();
+            }
+        }
+    }
+
+    private void guardarJuego() {
+        try {
+            RepositorioPartida repositorio = new RepositorioPartida("partida_guardada.sav");
+
+            // 1. Traducimos los héroes actuales a DTOs
+            List<PersonajeDTO> heroesDTO = new ArrayList<>();
+            for (Personaje p : partyActual.getPersonajes()) {
+                heroesDTO.add(new PersonajeDTO(
+                        p.getNombre(), p.getNivel(), p.getVidaMaxima(), p.getVidaActual(),
+                        p.getManaMaximo(), p.getManaActual(), p.getAtaqueBase(), p.getAtaqueActual(),
+                        p.getDefensaBase(), p.getDefensaActual(), p.isDefendiendo(),
+                        p.getVelocidadBase(), p.getVelocidadActual(), p.getRutaSprite(),
+                        p.getExperienciaActual(), p.getExperienciaRequerida()
+                ));
+            }
+
+            // 2. Buscamos el ID del nodo visual
+            int idNodoDondeEstoy = 0;
+            for (Map.Entry<Integer, Nodo> entry : diccionarioNodos.entrySet()) {
+                if (entry.getValue() == modeloMapa.getNodoActual()) {
+                    idNodoDondeEstoy = entry.getKey();
+                    break;
+                }
+            }
+
+            // 3. Empaquetamos y guardamos (¡DTO puro!)
+            PartidaDTO estadoJuego = new PartidaDTO(
+                    heroesDTO,
+                    idNodoDondeEstoy,
+                    partyActual.getInventario() // <-- Le pasas la mochila
+            );
+            estadoJuego.setIdMapa(modeloMapa.getIdMapa());
+            repositorio.guardar(estadoJuego);
+
+            JOptionPane.showMessageDialog(vistaMapa, "La partida se guardó correctamente.", "Guardado", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(vistaMapa, "Error al guardar: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     private void alHacerClicNodo(ActionEvent e) {

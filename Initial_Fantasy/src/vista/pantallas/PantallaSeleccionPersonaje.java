@@ -52,7 +52,7 @@ public class PantallaSeleccionPersonaje extends JPanel {
 
 
 
-    // El método recibe DTOs
+    // El metodo recibe DTOs
     public void cargarPersonajes(List<PersonajeDTO> heroesDisponibles) {
         panelCuadricula.removeAll();
         personajeSeleccionado.clear();

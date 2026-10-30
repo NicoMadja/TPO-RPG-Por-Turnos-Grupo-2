@@ -8,14 +8,14 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadEsqueleto extends Habilidad {
 
     public HabilidadEsqueleto() {
-        super("Tajo Rapido", 0, TipoObjetivo.UN_ENEMIGO);
+        super("Tajo Rapido", "Daña al héroe y aumenta levemente su velocidad y ataque",0, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override
     public void ejecutar(ContextoAccion contexto) {
         Entidad lanzador = contexto.getOrigen();
 
-        // daña al héroe y aumenta levemente su velocidad y ataque
+
         for (Entidad objetivo : contexto.getObjetivos()) {
             if (!objetivo.estaVivo()) continue;
 

@@ -8,14 +8,14 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadMurcielago extends Habilidad {
 
     public HabilidadMurcielago() {
-        super("Mordida", 0, TipoObjetivo.UN_ENEMIGO);
+        super("Mordida", "Daña poco ignorando la defensa del héroe y se cura lo que quitó",0, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override
     public void ejecutar(ContextoAccion contexto) {
         Entidad lanzador = contexto.getOrigen();
 
-        // daña poco ignorando la defensa del héroe y se cura lo que quitó
+
         for (Entidad objetivo : contexto.getObjetivos()) {
             if (!objetivo.estaVivo()) continue;
 

@@ -7,6 +7,7 @@ import modelo.entidades.Entidad;
 import modelo.entidades.enemigos.Enemigo;
 import modelo.entidades.personajes.Personaje;
 import modelo.batalla.Batalla;
+import modelo.habilidades.Habilidad;
 import vista.pantallas.PantallaBatalla;
 import vista.pantallas.PantallaDerrota;
 import vista.pantallas.PantallaRecompensa;
@@ -33,6 +34,7 @@ public class ControladorBatalla {
     private FaseBatalla fase = FaseBatalla.ELIGIENDO_ACCION;
     private AccionPendiente accionPendiente;
     private String consumiblePendiente;
+    private String mensajeInfo = "Selecciona una accion.";
 
     public ControladorBatalla(Batalla batalla, PantallaBatalla vista, Runnable alVolverAlMapa, Runnable alReiniciarJuego) {
         this.batalla = batalla;
@@ -54,6 +56,7 @@ public class ControladorBatalla {
     public void elegirAtacar() {
         if (fase != FaseBatalla.ELIGIENDO_ACCION) return;
         accionPendiente = AccionPendiente.ATACAR;
+        mensajeInfo = "Selecciona un enemigo para atacar.";
         cambiarFase(FaseBatalla.ELIGIENDO_ENEMIGO);
     }
 
@@ -64,26 +67,54 @@ public class ControladorBatalla {
     }
 
     public void elegirHabilidad() {
-        if (fase != FaseBatalla.ELIGIENDO_ACCION || !batalla.puedeUsarHabilidad()) return;
+        if (fase != FaseBatalla.ELIGIENDO_ACCION
+                || !batalla.puedeUsarHabilidad()) {
+            return;
+        }
 
-        switch (batalla.getEntidadActual().getHabilidad().getTipoObjetivo()) {
+        Habilidad habilidad = batalla.getEntidadActual().getHabilidad();
+
+        switch (habilidad.getTipoObjetivo()) {
+
             case UN_ENEMIGO:
                 accionPendiente = AccionPendiente.HABILIDAD;
+
+                mensajeInfo = habilidad.getNombre()
+                        + "\n\n"
+                        + habilidad.getDescripcion()
+                        + "\n\nSelecciona un enemigo como objetivo."
+                        + "\nCosto de maná: " + habilidad.getCostoMana();
+
                 cambiarFase(FaseBatalla.ELIGIENDO_ENEMIGO);
                 break;
+
             case UN_ALIADO:
                 accionPendiente = AccionPendiente.HABILIDAD;
+
+                mensajeInfo = habilidad.getNombre()
+                        + "\n\n"
+                        + habilidad.getDescripcion()
+                        + "\n\nSelecciona un aliado como objetivo."
+                        + "\nCosto de maná: " + habilidad.getCostoMana();
+
                 cambiarFase(FaseBatalla.ELIGIENDO_ALIADO);
                 break;
-            default: // habilidad de grupo: no hay nada que elegir
+
+            default:
+                mensajeInfo = habilidad.getNombre()
+                        + "\n\n"
+                        + habilidad.getDescripcion();
+
                 batalla.usarHabilidad();
-                pausarYResolver();;
+                pausarYResolver();
+                break;
         }
     }
 
     public void elegirConsumible() {
         if (fase != FaseBatalla.ELIGIENDO_ACCION || batalla.getParty().getInventario().estaVacio()) return;
         accionPendiente = AccionPendiente.CONSUMIBLE;
+        mensajeInfo = "Selecciona un consumible para ver sus efectos y utilizarlo.";
         cambiarFase(FaseBatalla.ELIGIENDO_CONSUMIBLE);
     }
 
@@ -92,6 +123,9 @@ public class ControladorBatalla {
     public void elegirConsumible(String nombreConsumible) {
         if (fase != FaseBatalla.ELIGIENDO_CONSUMIBLE) return;
         consumiblePendiente = nombreConsumible;
+        mensajeInfo = "Consumible seleccionado: "
+                + nombreConsumible
+                + "\n\nSelecciona un aliado para utilizarlo.";
         cambiarFase(FaseBatalla.ELIGIENDO_ALIADO);
     }
 
@@ -102,21 +136,66 @@ public class ControladorBatalla {
         if (fase != FaseBatalla.ELIGIENDO_ENEMIGO || !enemigo(indiceEnemigo).estaVivo()) return;
 
         if (accionPendiente == AccionPendiente.ATACAR) {
+
+            Entidad atacante = batalla.getEntidadActual();
+
+            mensajeInfo = atacante.getNombre()
+                    + " ataca con "
+                    + atacante.getAtaqueActual()
+                    + " de ATQ.";
+
             batalla.atacar(enemigo(indiceEnemigo));
+
         } else {
+
+            Habilidad habilidad = batalla.getEntidadActual().getHabilidad();
+
+            mensajeInfo = habilidad.getNombre()
+                    + "\n"
+                    + habilidad.getDescripcion();
+
             batalla.usarHabilidad(enemigo(indiceEnemigo));
         }
+
         pausarYResolver();
     }
 
     public void elegirAliado(int indiceAliado) {
-        if (fase != FaseBatalla.ELIGIENDO_ALIADO || !aliado(indiceAliado).estaVivo()) return;
+        if (fase != FaseBatalla.ELIGIENDO_ALIADO
+                || !aliado(indiceAliado).estaVivo()) {
+            return;
+        }
+
+        Entidad objetivo = aliado(indiceAliado);
 
         if (accionPendiente == AccionPendiente.CONSUMIBLE) {
-            batalla.usarConsumible(buscarConsumible(consumiblePendiente), aliado(indiceAliado));
-        } else {
-            batalla.usarHabilidad(aliado(indiceAliado));
+
+            mensajeInfo = "Usas "
+                    + consumiblePendiente
+                    + " sobre "
+                    + objetivo.getNombre()
+                    + ".";
+
+            batalla.usarConsumible(
+                    buscarConsumible(consumiblePendiente),
+                    objetivo
+            );
+
+        } else if (accionPendiente == AccionPendiente.HABILIDAD) {
+
+            Habilidad habilidad = batalla.getEntidadActual().getHabilidad();
+
+            mensajeInfo = batalla.getEntidadActual().getNombre()
+                    + " utiliza "
+                    + habilidad.getNombre()
+                    + " sobre "
+                    + objetivo.getNombre()
+                    + ".\n\n"
+                    + habilidad.getDescripcion();
+
+            batalla.usarHabilidad(objetivo);
         }
+
         pausarYResolver();
     }
 
@@ -218,7 +297,9 @@ public class ControladorBatalla {
                 convertirEnemigos(enemigos),
                 convertirConsumibles(consumibles),
                 fase,
-                convertirEntidad(entidadActual));
+                convertirEntidad(entidadActual),
+                mensajeInfo
+        );
     }
 
     // Llama a este metodo cuando detectes que la batalla se ganó

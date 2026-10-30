@@ -1,7 +1,10 @@
 
 package dto;
 
-public class PersonajeDTO extends EntidadDTO{
+import java.io.Serializable;
+
+public class PersonajeDTO extends EntidadDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
 
 
     protected double experienciaActual;
@@ -12,6 +15,7 @@ public class PersonajeDTO extends EntidadDTO{
         this.experienciaActual = experienciaActual;
         this.experienciaRequerida = experienciaRequerida;
     }
+
 
     public double getExperienciaActual() {
         return experienciaActual;

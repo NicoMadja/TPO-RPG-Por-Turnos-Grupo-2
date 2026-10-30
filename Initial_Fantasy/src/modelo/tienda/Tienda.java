@@ -4,9 +4,12 @@ import modelo.consumibles.Consumible;
 import modelo.mundo.EscenarioDeNodos;
 import modelo.mundo.Nodo;
 import modelo.party.Party;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Tienda extends Nodo {
+public class Tienda extends Nodo implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<Consumible> catalogo;
     private Party party;
 

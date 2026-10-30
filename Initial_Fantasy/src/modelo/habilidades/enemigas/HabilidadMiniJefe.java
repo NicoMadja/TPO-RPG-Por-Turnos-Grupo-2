@@ -8,14 +8,14 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadMiniJefe extends Habilidad {
 
     public HabilidadMiniJefe() {
-        super("Irascible",50, TipoObjetivo.UN_ENEMIGO);
+        super("Irascible","Pierde la paciencia, aumentando asi su velocidad y ataque",50, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override
     public void ejecutar(ContextoAccion contexto) {
         Entidad lanzador = contexto.getOrigen();
 
-        //Pierde la paciencia, aumentando asi su velocidad y ataque
+
         int cantidadAtaque = lanzador.getAtaqueActual() * 2;
         int cantidadVelocidad = lanzador.getAtaqueActual() * 2;
         System.out.println(lanzador.getAtaqueActual());

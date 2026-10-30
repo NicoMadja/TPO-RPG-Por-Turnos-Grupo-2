@@ -8,12 +8,12 @@ import modelo.habilidades.TipoObjetivo;
 public class HabilidadBrujo extends Habilidad {
 
     public HabilidadBrujo() {
-        super("Rayo Oscuro", 30, TipoObjetivo.UN_ENEMIGO);
+        super("Rayo Oscuro", "Resta 8 de ataque y 8 de defensa al héroe",30, TipoObjetivo.UN_ENEMIGO);
     }
 
     @Override
     public void ejecutar(ContextoAccion contexto) {
-        // resta 8 de ataque y 8 de defensa al héroe
+
         for (Entidad objetivo : contexto.getObjetivos()) {
             if (!objetivo.estaVivo()) continue;
 

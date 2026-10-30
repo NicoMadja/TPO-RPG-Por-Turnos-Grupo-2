@@ -5,7 +5,10 @@ import modelo.mundo.EscenarioDeNodos;
 import modelo.mundo.Nodo;
 import modelo.party.Party;
 
-public class Campamento extends Nodo {
+import java.io.Serializable;
+
+public class Campamento extends Nodo implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Party party;
 
 

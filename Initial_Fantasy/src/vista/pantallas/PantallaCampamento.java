@@ -8,7 +8,7 @@ public class PantallaCampamento extends JDialog {
 
     public PantallaCampamento(JFrame ventanaPadre, Runnable alDescansar) {
         super(ventanaPadre, "CAMPAMENTO", true); // true = Modal (bloquea el mapa)
-        setSize(450, 380); // Ampliamos un poco el alto para que el sprite luzca bien
+        setSize(550, 500); // Ampliamos un poco el alto para que el sprite luzca bien
         setLocationRelativeTo(ventanaPadre);
         setLayout(new BorderLayout());
         getContentPane().setBackground(new Color(20, 35, 20)); // Fondo verde muy oscuro estilo campamento
@@ -28,7 +28,7 @@ public class PantallaCampamento extends JDialog {
         ImageIcon iconoSprite = CargadorImagenes.cargar("/recursos/sprites/campamento.png");
         if (iconoSprite != null) {
             // Escalamos la imagen manteniendo la nitidez tipo pixel art (SCALE_FAST)
-            Image imagenEscalada = iconoSprite.getImage().getScaledInstance(400, 200, Image.SCALE_FAST);
+            Image imagenEscalada = iconoSprite.getImage().getScaledInstance(450, 290, Image.SCALE_FAST);
             lblSprite.setIcon(new ImageIcon(imagenEscalada));
         } else {
             lblSprite.setText("[ Sprite Campamento No Encontrado ]");
