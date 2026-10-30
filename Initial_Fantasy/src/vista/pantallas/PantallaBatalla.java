@@ -8,10 +8,8 @@ import java.awt.*;
 import javax.swing.*;
 
 public class PantallaBatalla extends JPanel {
-
     private static final long serialVersionUID = 1L;
 
-    // --- VARIABLES DE LA VISTA ---
     private PanelEstadoEntidad panelJugador;
     private PanelEstadoEntidad panelEnemigo;
     private PanelEscenaBatalla panelEscena;
@@ -24,10 +22,10 @@ public class PantallaBatalla extends JPanel {
     private ControladorBatalla controladorBatalla;
 
     public PantallaBatalla() {
-
         setLayout(new BorderLayout(12, 12));
         setBorder(BorderFactory.createEmptyBorder(12, 12, 12, 12));
         setBackground(new Color(22, 26, 38));
+
 
         // --- CABECERA DE LA PANTALLA ---
         JPanel panelNorte = new JPanel(new GridLayout(3, 1, 0, 4));
@@ -46,13 +44,9 @@ public class PantallaBatalla extends JPanel {
         lblOrdenTurnos.setFont(new Font("SansSerif", Font.BOLD, 14));
 
         panelNorte.add(titulo);
-        panelNorte.add(lblOrdenTurnos); // La barra de orden va al medio
+        panelNorte.add(lblOrdenTurnos);
         panelNorte.add(lblTurno);
 
-
-
-        panelNorte.add(titulo);
-        panelNorte.add(lblTurno);
 
         // --- INICIALIZACIÓN DE PANELES ---
         panelJugador = new PanelEstadoEntidad("Jugador");
@@ -76,9 +70,7 @@ public class PantallaBatalla extends JPanel {
     }
 
     public void setControlador(ControladorBatalla controlador) {
-
         this.controladorBatalla = controlador;
-
         panelInfo.setControlador(controlador);
 
         panelAcciones = new PanelAcciones(controlador);
@@ -92,10 +84,10 @@ public class PantallaBatalla extends JPanel {
         for (PersonajeDTO heroe : estado.getHeroes()) {
             panelJugador.actualizar(heroe);
         }
-
         for (EnemigoDTO enemigo : estado.getEnemigos()) {
             panelEnemigo.actualizar(enemigo);
         }
+
         String textoOrden = "Orden de Turnos: " + String.join(" ➔ ", estado.getOrdenTurnos());
         lblOrdenTurnos.setText(textoOrden);
         panelEscena.actualizar(estado, this.controladorBatalla);
@@ -104,11 +96,9 @@ public class PantallaBatalla extends JPanel {
         // --- ACTUALIZAR MENSAJE DE TURNO Y REGISTRO ---
         String mensajeTurno = construirMensajeTurno(estado);
         lblTurno.setText(mensajeTurno);
-
         for (String mensaje : utils.BitacoraBatalla.retirarPendientes()) {
             panelRegistro.agregar(mensaje);
         }
-
         if (panelAcciones != null) {
             panelAcciones.actualizar(estado);
         }
@@ -116,17 +106,10 @@ public class PantallaBatalla extends JPanel {
     }
 
     private String construirMensajeTurno(EstadoBatallaDTO estado) {
-
         EntidadDTO actual = estado.getEntidadActual();
         FaseBatalla fase = estado.getFase();
-
-        if (fase == FaseBatalla.FINALIZADA) {
-            return "¡BATALLA FINALIZADA!";
-        }
-
-        if (actual == null) {
-            return "Iniciando batalla...";
-        }
+        if (fase == FaseBatalla.FINALIZADA) return "¡BATALLA FINALIZADA!";
+        if (actual == null) return "Iniciando batalla...";
 
         String infoEntidad = actual.getNombre()
                 + " [Lv." + actual.getNivel()
@@ -134,29 +117,22 @@ public class PantallaBatalla extends JPanel {
                 + " | DEF: " + actual.getDefensaActual() + "]";
 
         switch (fase) {
-
             case ELIGIENDO_ACCION:
                 return "TURNO DE: " + infoEntidad
                         + " -> Elige una acción";
-
             case ELIGIENDO_ENEMIGO:
                 return actual.getNombre()
                         + ": Selecciona un enemigo para atacar";
-
             case ELIGIENDO_ALIADO:
                 return actual.getNombre()
                         + ": Selecciona un aliado como objetivo";
-
             case ELIGIENDO_CONSUMIBLE:
                 return actual.getNombre()
                         + ": Selecciona un consumible del inventario";
-
             case MOSTRANDO_RESULTADO:
                 return "Resolviendo acción...";
-
             case TURNO_ENEMIGO:
                 return "TURNO ENEMIGO: " + infoEntidad + " pensando...";
-
             default:
                 return "";
         }

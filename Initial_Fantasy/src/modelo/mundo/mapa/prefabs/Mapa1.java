@@ -31,7 +31,7 @@ public class Mapa1 implements MapaPrefab {
         Nodo inicio = new Campamento(party);
         Nodo batalla1 = new Batalla(party, enemigos(new Esqueleto("Esqueleto A", 2), new Esqueleto("Esqueleto B", 1), new Murcielago("Murcielago",1)),false);
         Nodo batalla2 = new Batalla(party, enemigos(new Murcielago("Murcielago A", 2), new Murcielago("Murcielago B", 1)),false);
-        Nodo batalla3 = new Batalla(party, enemigos(new Brujo("Brujo", 2), new Murcielago("Muercilago",2), new Esqueleto("Esqueleto",3)),false);
+        Nodo batalla3 = new Batalla(party, enemigos(new Brujo("Brujo", 2), new Murcielago("Murcielago",2), new Esqueleto("Esqueleto",3)),false);
         Nodo tienda = new Tienda(catalogo(), party);
         Nodo campamento = new Campamento(party);
         Nodo jefeFinal = new Batalla(party, enemigos(new MiniJefe("Demonio", 3),new Esqueleto("Esqueleto", 2), new Brujo("Brujo", 1)),true); // provisorio, hasta que exista JefeFinal

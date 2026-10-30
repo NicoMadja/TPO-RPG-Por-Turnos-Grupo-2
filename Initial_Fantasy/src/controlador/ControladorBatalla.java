@@ -46,10 +46,8 @@ public class ControladorBatalla {
     // --- INICIO ---
     // se llama una vez, con la batalla ya iniciada: si el primer turno es de un enemigo, juega antes que el jugador
     public void iniciar() {
-        batalla.iniciarBatalla();
         resolverTurno();
     }
-
 
     // --- 1) EL JUGADOR ELIGE UNA ACCION (botones del menú) ---
     public void elegirAtacar() {

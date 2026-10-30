@@ -58,6 +58,10 @@ public abstract class Entidad implements Serializable {
 
 
     // --- COMBATE ---
+    public int calcularDanioRecibido(int poderAtaque) {
+        return Math.max(1, poderAtaque - this.defensaActual);
+    }
+
     public void recibirDanio(int danio) {
         this.vidaActual -= danio;
         // para que la vida no baje de 0

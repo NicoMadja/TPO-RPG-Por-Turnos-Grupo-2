@@ -18,8 +18,7 @@ public class HabilidadArquero extends Habilidad {
         for (Entidad objetivo : contexto.getObjetivos()) {
             if (!objetivo.estaVivo()) continue;
 
-            int danioFinal = (lanzador.getAtaqueActual() * 2) - objetivo.getDefensaActual();
-            if (danioFinal < 0) danioFinal = 0;
+            int danioFinal = objetivo.calcularDanioRecibido(lanzador.getAtaqueActual() * 2);
 
             objetivo.recibirDanio(danioFinal);
         }

@@ -19,6 +19,7 @@ public class ControladorTienda {
     }
 
     public void iniciar() {
+        vistaTienda.mostrarMensaje("");
         actualizarPantalla();
     }
 
@@ -34,8 +35,9 @@ public class ControladorTienda {
         }
 
         if (itemABuscar != null) {
-            modeloTienda.comprarObjeto(itemABuscar);
+            boolean comprado = modeloTienda.comprarObjeto(itemABuscar);
             actualizarPantalla();
+            vistaTienda.mostrarMensaje(comprado ? "Compraste " + itemABuscar.getNombre() + "." : "No tenés oro suficiente para " + itemABuscar.getNombre() + ".");
         }
     }
 

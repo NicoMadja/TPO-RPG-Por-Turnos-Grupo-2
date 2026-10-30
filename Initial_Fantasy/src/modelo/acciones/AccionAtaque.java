@@ -22,8 +22,7 @@ public class AccionAtaque extends Accion {
         }
 
         // si no está defendiendo
-        int danioFinal = atacante.getAtaqueActual() - objetivo.getDefensaActual();
-        if (danioFinal < 0) danioFinal = 0;
+        int danioFinal = objetivo.calcularDanioRecibido(atacante.getAtaqueActual());
 
         objetivo.recibirDanio(danioFinal);
         utils.BitacoraBatalla.registrar(atacante.getNombre() + " atacó a " + objetivo.getNombre() + " causando " + danioFinal + " de daño.");

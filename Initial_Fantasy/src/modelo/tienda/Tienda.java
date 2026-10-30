@@ -22,24 +22,19 @@ public class Tienda extends Nodo implements Serializable {
 
 
     // --- METODOS ---
-    public void comprarObjeto(Consumible c) {
+    public boolean comprarObjeto(Consumible c) {
         // primero se verifica que el ítem esté en venta y después se cobra
         if (catalogoContieneElItem(c) && party.gastarOro(c.getPrecio())) {
-            // se agrega al inventario
             party.getInventario().agregarItem(c);
-            System.out.println("Se compró " + c.getNombre() + " con éxito.");
-            // se saca del catalogo
             catalogo.remove(c);
+            return true;
         }
+        return false;
     }
 
     private boolean catalogoContieneElItem(Consumible c) {
         return catalogo.contains(c);
     }
-
-
-    // --- GETTERS ---
-    public List<Consumible> getCatalogo() {return catalogo;}
 
 
     // --- PROCESAR ---
@@ -48,7 +43,8 @@ public class Tienda extends Nodo implements Serializable {
         escenario.alEntrarEnTienda(this);
     }
 
-    public Party getParty() {
-        return party;
-    }
+
+    // --- GETTERS ---
+    public List<Consumible> getCatalogo() {return catalogo;}
+    public Party getParty() {return party;}
 }

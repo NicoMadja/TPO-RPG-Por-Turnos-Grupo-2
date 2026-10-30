@@ -19,7 +19,6 @@ public class HabilidadGuerrero extends Habilidad {
             if (!objetivo.estaVivo()) continue;
 
             int danioFinal = lanzador.getAtaqueActual();
-            if (danioFinal < 0) danioFinal = 0;
 
             objetivo.recibirDanio(danioFinal);
         }
