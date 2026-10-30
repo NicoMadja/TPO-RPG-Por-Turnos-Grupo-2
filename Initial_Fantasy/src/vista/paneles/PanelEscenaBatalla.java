@@ -54,7 +54,7 @@ public class PanelEscenaBatalla extends JPanel {
 
             sprite.actualizar(
                     heroe.getSprite(), heroe.getNombre(), heroe.getVidaActual(), heroe.getVidaMaxima(),
-                    heroe.getManaActual(), heroe.getManaMaximo(), heroe.getNivel(), indiceActual,
+                    heroe.getManaActual(), heroe.getManaMaximo(), heroe.getNivel(),
                     e -> controlador.elegirAliado(indiceActual)
             );
 
@@ -75,7 +75,7 @@ public class PanelEscenaBatalla extends JPanel {
 
             sprite.actualizar(
                     enemigo.getSprite(), enemigo.getNombre(), enemigo.getVidaActual(), enemigo.getVidaMaxima(),
-                    enemigo.getManaActual(), enemigo.getManaMaximo(), enemigo.getNivel(), indiceActual,
+                    enemigo.getManaActual(), enemigo.getManaMaximo(), enemigo.getNivel(),
                     e -> controlador.elegirEnemigo(indiceActual)
             );
 

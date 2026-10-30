@@ -10,13 +10,10 @@ import modelo.mundo.Nodo;
 import modelo.mundo.EscenarioDeNodos;
 import modelo.party.Party;
 import vista.pantallas.PantallaMapa;
-
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.util.*;
-
 import repositorioPartida.RepositorioPartida;
-import java.io.IOException;
 import javax.swing.JOptionPane;
 
 public class ControladorMapa {

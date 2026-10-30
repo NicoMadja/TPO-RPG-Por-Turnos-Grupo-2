@@ -184,9 +184,6 @@ public class Batalla extends Nodo {
     public Recompensa getRecompensa() {return recompensa;}
     public List<Enemigo> getEnemigos() {return enemigos;}
     public List<Personaje> getSubieronDeNivel() {return subieronDeNivel;}
-    public GestorDeTurnos getGestor() {
-        return gestor;
-    }
     public List<String> getOrdenTurnos() {
         return gestor.getOrdenTurnos();
     }

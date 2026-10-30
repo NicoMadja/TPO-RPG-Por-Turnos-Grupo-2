@@ -3,7 +3,6 @@ package vista.pantallas;
 import dto.ConexionDTO;
 import dto.NodoDTO;
 import utils.CargadorImagenes;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -12,20 +11,19 @@ import javax.swing.*;
 
 public class PantallaMapa extends JPanel {
     private static final long serialVersionUID = 1L;
-    private  JLabel lblParty;
     private List<ConexionDTO> conexiones;
     private List<JButton> botonesNodos;
-    private Image imagenFondo; // <-- Aquí guardaremos tu Pixel Art
+    private Image imagenFondo;
     private List<NodoDTO> nodos;
     private JButton btnOpciones;
+
     public PantallaMapa() {
         setLayout(null);
         conexiones = new ArrayList<>();
         botonesNodos = new ArrayList<>();
-
-        btnOpciones = new JButton("⚙ Opciones"); // Usa un emoji o texto
+        btnOpciones = new JButton("⚙ Opciones");
         btnOpciones.setFont(new Font("SansSerif", Font.BOLD, 14));
-        btnOpciones.setBounds(860, 20, 140, 40); // Ajusta la X según el ancho real de tu ventana (ej: 1024 - 160)
+        btnOpciones.setBounds(860, 20, 140, 40);
         btnOpciones.setFocusPainted(false);
         btnOpciones.setBackground(new Color(50, 50, 50));
         btnOpciones.setForeground(Color.WHITE);
@@ -38,9 +36,7 @@ public class PantallaMapa extends JPanel {
         this.conexiones = conexiones;
         this.botonesNodos.clear();
 
-        // Al hacer removeAll() borraste el botón de opciones
         this.removeAll();
-
         // Crear los botones (Nodos)
         for (NodoDTO nodo : nodos) {
             JButton btnNodo = crearBotonNodo(nodo);
@@ -54,18 +50,16 @@ public class PantallaMapa extends JPanel {
                 JLabel lblTu = new JLabel("▼ TÚ ▼", SwingConstants.CENTER);
                 lblTu.setForeground(Color.BLACK);
                 lblTu.setFont(new Font("SansSerif", Font.BOLD, 16));
-
                 lblTu.setBounds(nodo.getX() - 50, nodo.getY() - 65, 100, 20);
                 add(lblTu);
                 setComponentZOrder(lblTu, 0);
             }
         }
 
-        // --- SOLUCIÓN: VOLVER A AGREGAR EL BOTÓN DE OPCIONES ---
-        // Agregamos de nuevo el botón y lo ponemos al frente
+        // agregamos de nuevo el botón y lo ponemos al frente
         if (btnOpciones != null) {
             add(btnOpciones);
-            setComponentZOrder(btnOpciones, 0); // Para que ningún camino ni nodo lo tape
+            setComponentZOrder(btnOpciones, 0);
         }
 
         revalidate();
@@ -74,7 +68,6 @@ public class PantallaMapa extends JPanel {
 
     public void cambiarFondo(String rutaSprite) {
         ImageIcon iconoFondo = CargadorImagenes.cargar(rutaSprite);
-
         if (iconoFondo != null) {
             imagenFondo = iconoFondo.getImage();
         } else {
@@ -85,13 +78,12 @@ public class PantallaMapa extends JPanel {
         repaint();
     }
 
-    // Este metodo nativo se ejecuta automáticamente al redimensionar la ventana
+    // este metodo nativo se ejecuta automáticamente al redimensionar la ventana
     @Override
     public void doLayout() {
         super.doLayout();
         if (nodos == null || botonesNodos == null) return;
 
-        // Resolución base sobre la cual calculaste tus coordenadas exactas (Ej: 1920x1080)
         double anchoBase = 1920.0;
         double altoBase = 1080.0;
 
@@ -99,27 +91,20 @@ public class PantallaMapa extends JPanel {
             NodoDTO dto = nodos.get(i);
             JButton btn = botonesNodos.get(i);
 
-            // Regla de tres simple para escalar la posición
+            // regla de tres simple para escalar la posición
             int xDinamico = (int) ((dto.getX() * getWidth()) / anchoBase);
             int yDinamico = (int) ((dto.getY() * getHeight()) / altoBase);
 
             btn.setBounds(xDinamico - 25, yDinamico - 25, 50, 50);
         }
-        if (lblParty != null) {
-            // Reemplaza 890 y 860 por las coordenadas X e Y originales que le pusiste a tu JLabel
-            int xDinamicoTu = (int) ((890 * getWidth()) / anchoBase);
-            int yDinamicoTu = (int) ((860 * getHeight()) / altoBase);
-
-            lblParty.setBounds(xDinamicoTu, yDinamicoTu, 50, 30);
-        }
     }
 
     private JButton crearBotonNodo(NodoDTO nodo) {
         JButton btn = new JButton();
-        // Tamaño del botón (ajústalo al tamaño de los círculos negros de tu dibujo)
+        // tamaño del botón
         btn.setBounds(nodo.getX() - 25, nodo.getY() - 25, 50, 50);
 
-        // Colores según el tipo de nodo (puedes cambiarlos por íconos luego)
+        // colores según el tipo de nodo
         switch (nodo.getTipo()) {
             case "BATALLA": btn.setBackground(new Color(220, 50, 50)); break;
             case "TIENDA": btn.setBackground(new Color(255, 200, 50)); break;
@@ -138,7 +123,7 @@ public class PantallaMapa extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // 1. Dibuja la imagen estirándola automáticamente al tamaño actual del contenedor
+        // 1. dibujamos la imagen estirándola automáticamente al tamaño actual del contenedor
         if (imagenFondo != null) {
             g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
         } else {
@@ -146,7 +131,7 @@ public class PantallaMapa extends JPanel {
             g.fillRect(0, 0, getWidth(), getHeight());
         }
 
-        // 2. Traza los caminos
+        // 2. trazamos los caminos
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(5));
         g2.setColor(Color.BLACK);

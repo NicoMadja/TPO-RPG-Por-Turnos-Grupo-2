@@ -10,8 +10,6 @@ import javax.swing.*;
 public class PantallaBatalla extends JPanel {
     private static final long serialVersionUID = 1L;
 
-    private PanelEstadoEntidad panelJugador;
-    private PanelEstadoEntidad panelEnemigo;
     private PanelEscenaBatalla panelEscena;
     private PanelRegistro panelRegistro;
     private PanelAcciones panelAcciones;
@@ -49,8 +47,6 @@ public class PantallaBatalla extends JPanel {
 
 
         // --- INICIALIZACIÓN DE PANELES ---
-        panelJugador = new PanelEstadoEntidad("Jugador");
-        panelEnemigo = new PanelEstadoEntidad("Enemigo");
         panelEscena = new PanelEscenaBatalla();
         panelRegistro = new PanelRegistro();
         panelInfo = new PanelInfoInventario();
@@ -81,13 +77,6 @@ public class PantallaBatalla extends JPanel {
     }
 
     public void actualizar(EstadoBatallaDTO estado) {
-        for (PersonajeDTO heroe : estado.getHeroes()) {
-            panelJugador.actualizar(heroe);
-        }
-        for (EnemigoDTO enemigo : estado.getEnemigos()) {
-            panelEnemigo.actualizar(enemigo);
-        }
-
         String textoOrden = "Orden de Turnos: " + String.join(" ➔ ", estado.getOrdenTurnos());
         lblOrdenTurnos.setText(textoOrden);
         panelEscena.actualizar(estado, this.controladorBatalla);
@@ -102,7 +91,6 @@ public class PantallaBatalla extends JPanel {
         if (panelAcciones != null) {
             panelAcciones.actualizar(estado);
         }
-
     }
 
     private String construirMensajeTurno(EstadoBatallaDTO estado) {

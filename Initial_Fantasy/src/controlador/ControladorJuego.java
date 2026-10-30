@@ -11,13 +11,10 @@ import modelo.mundo.EscenarioDeNodos;
 import modelo.mundo.mapa.FabricaMapas;
 import modelo.mundo.mapa.Mapa;
 import modelo.mundo.mapa.MapaPrefab;
-import modelo.mundo.mapa.prefabs.Mapa1;
-import modelo.mundo.mapa.prefabs.Mapa2;
 import modelo.party.Party;
 import modelo.tienda.Tienda;
 import repositorioPartida.RepositorioPartida;
 import vista.pantallas.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -26,8 +23,6 @@ import java.util.List;
 
 public class ControladorJuego implements EscenarioDeNodos {
     private JFrame ventanaPrincipal;
-
-    // Vistas
     private PantallaMenu panelMenu;
     private PantallaSeleccionPersonaje panelSeleccion;
     private PantallaMapa panelMapa;
@@ -116,7 +111,7 @@ public class ControladorJuego implements EscenarioDeNodos {
                 }
             }
 
-            System.out.println("Party armada. Generando Mapa2...");
+            System.out.println("Party armada. Generando Mapa...");
             System.out.println("Héroes enviados al mapa: " + partyJugador.getPersonajes().size());
             // generamos el Prefab y asignamos el Controlador de Mapa
             MapaPrefab prefab = gestorDeJuego.elegirMapaAlAzar();

@@ -1,4 +1,3 @@
-
 package controlador;
 
 import dto.*;
@@ -16,19 +15,17 @@ import java.util.List;
 import javax.swing.*;
 
 public class ControladorBatalla {
+    // tiempo de espera entre turnos enemigos
+    private static final int PAUSA_TURNO_ENEMIGO_MS = 900;
+
     // qué acción eligió el jugador y está esperando que le elijan objetivo
     private enum AccionPendiente {ATACAR, HABILIDAD, CONSUMIBLE}
-
     private final Batalla batalla;
     private final PantallaBatalla vista;
     private Runnable alVolverAlMapa;
     private Runnable alReiniciarJuego;
     private Runnable alGanarJuego;
 
-    // tiempo de espera entre turnos enemigos
-    private static final int PAUSA_TURNO_ENEMIGO_MS = 900;
-
-    // lo que el controlador recuerda entre un clic y el siguiente
     private FaseBatalla fase = FaseBatalla.ELIGIENDO_ACCION;
     private AccionPendiente accionPendiente;
     private String consumiblePendiente;
@@ -285,10 +282,7 @@ public class ControladorBatalla {
         List<Enemigo> enemigos = batalla.getEnemigos();
         List<Consumible> consumibles = batalla.getParty().getInventario().getItems();
 
-        Entidad entidadActual = (batalla.getEntidadActual() != null)
-                ? batalla.getGestor().obtenerEntidadActual()
-                : null;
-        String nombreActual = (batalla.getEntidadActual() != null) ? batalla.getEntidadActual().getNombre() : "";
+        Entidad entidadActual = batalla.getEntidadActual();
         List<String> ordenTurnos = batalla.getOrdenTurnos();
 
         return new EstadoBatallaDTO(

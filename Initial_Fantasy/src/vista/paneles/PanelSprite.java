@@ -11,8 +11,8 @@ public class PanelSprite extends JPanel {
     private JButton btnSprite;
     private JProgressBar barraVida;
     private JProgressBar barraMana;
-    // private JProgressBar barraExperiencia;
     private JLabel lblNivel;
+    // private JProgressBar barraExperiencia;    PARA AGREGAR BARRAS DE EXPERIENCIA
 
     public PanelSprite() {
         setLayout(new BorderLayout());
@@ -36,23 +36,23 @@ public class PanelSprite extends JPanel {
         barraMana.setBackground(Color.DARK_GRAY);
         barraMana.setFont(new Font("SansSerif", Font.BOLD, 10));
 
-        // barraExperiencia = new JProgressBar();
-        // barraExperiencia.setStringPainted(true);
-        // barraExperiencia.setForeground(new Color(250, 215, 0));
-        // barraExperiencia.setBackground(Color.DARK_GRAY);
-        // barraExperiencia.setFont(new Font("SansSerif", Font.BOLD, 10));
+        // barraExperiencia = new JProgressBar();                              PARA AGREGAR BARRAS DE EXPERIENCIA
+        // barraExperiencia.setStringPainted(true);                            PARA AGREGAR BARRAS DE EXPERIENCIA
+        // barraExperiencia.setForeground(new Color(250, 215, 0));             PARA AGREGAR BARRAS DE EXPERIENCIA
+        // barraExperiencia.setBackground(Color.DARK_GRAY);                    PARA AGREGAR BARRAS DE EXPERIENCIA
+        // barraExperiencia.setFont(new Font("SansSerif", Font.BOLD, 10));     PARA AGREGAR BARRAS DE EXPERIENCIA
 
         panelBarras.add(barraVida);
         panelBarras.add(barraMana);
-        // panelBarras.add(barraExperiencia);
+        // panelBarras.add(barraExperiencia);   PARA AGREGAR BARRAS DE EXPERIENCIA
 
-        // Inicializar como JButton y hacerlo invisible
+        // inicializar como JButton y hacerlo invisible
         btnSprite = new JButton("SIN SPRITE");
         btnSprite.setHorizontalAlignment(SwingConstants.CENTER);
-        btnSprite.setContentAreaFilled(false); // Transparente
-        btnSprite.setBorderPainted(false);     // Sin bordes de botón
-        btnSprite.setFocusPainted(false);      // Sin línea punteada al clickear
-        btnSprite.setCursor(new Cursor(Cursor.HAND_CURSOR)); // Muestra la manito al pasar el mouse
+        btnSprite.setContentAreaFilled(false);
+        btnSprite.setBorderPainted(false);
+        btnSprite.setFocusPainted(false);
+        btnSprite.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         // --- PANEL INFERIOR: NIVEL ---
         lblNivel = new JLabel("LV 1", SwingConstants.LEFT);
@@ -65,9 +65,8 @@ public class PanelSprite extends JPanel {
         add(lblNivel, BorderLayout.SOUTH);
     }
 
-    // Agregar el índice y el ActionListener para comunicar el clic al controlador
-    public void actualizar(String rutaSprite, String nombreEntidad, int hpActual, int hpMax, int mpActual, int mpMax, int nivel, int indice, ActionListener listenerClic) {
-
+    // agregamos el índice y el ActionListener para comunicar el clic al controlador
+    public void actualizar(String rutaSprite, String nombreEntidad, int hpActual, int hpMax, int mpActual, int mpMax, int nivel, ActionListener listenerClic) {
         barraVida.setMaximum(hpMax);
         barraVida.setValue(hpActual);
         barraVida.setString(String.valueOf(hpActual));
@@ -76,9 +75,9 @@ public class PanelSprite extends JPanel {
         barraMana.setValue(mpActual);
         barraMana.setString(String.valueOf(mpActual));
 
-        // barraExperiencia.setMaximum((int) xpMax);
-        // barraExperiencia.setValue((int) xpActual);
-        // barraExperiencia.setString(String.valueOf(xpActual));
+        // barraExperiencia.setMaximum((int) xpMax);              PARA AGREGAR BARRAS DE EXPERIENCIA
+        // barraExperiencia.setValue((int) xpActual);             PARA AGREGAR BARRAS DE EXPERIENCIA
+        // barraExperiencia.setString(String.valueOf(xpActual));  PARA AGREGAR BARRAS DE EXPERIENCIA
 
         lblNivel.setText("LV " + nivel);
 
@@ -92,7 +91,7 @@ public class PanelSprite extends JPanel {
             btnSprite.setText(nombreEntidad);
         }
 
-        // Removemos los anteriores para no duplicar eventos si el panel se actualiza
+        // borramos los anteriores para no duplicar eventos si el panel se actualiza
         for (ActionListener al : btnSprite.getActionListeners()) {
             btnSprite.removeActionListener(al);
         }

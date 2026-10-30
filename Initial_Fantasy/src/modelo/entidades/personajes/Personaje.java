@@ -5,7 +5,8 @@ import modelo.habilidades.Habilidad;
 
 public abstract class Personaje extends Entidad {
     protected double experienciaActual;
-    protected double experienciaRequerida; // para subir de nivel
+    protected double experienciaRequerida;
+
 
     // --- CONSTRUCTOR ---
     public Personaje(String nombre, int nivel, int vidaMaxima, int manaMaximo, int ataqueBase, int defensaBase, int velocidadBase, Habilidad habilidad, String rutaSprite) {
@@ -35,29 +36,14 @@ public abstract class Personaje extends Entidad {
         incrementarEstadisticas();
     }
 
-    protected void incrementarEstadisticas() {
-        // modificamos las estadísticas al subir de nivel
-        this.vidaMaxima += 20; // POR AHORA SON VALORES RANDOM
-        this.manaMaximo += 10;
-        this.ataqueBase += 5;
-        this.defensaBase += 5;
-        this.velocidadBase += 2;
-
-        // curamos al personaje al máximo
-        this.vidaActual = this.vidaMaxima;
-        this.manaActual = this.manaMaximo;
-
-        // actualizamos los stats actuales para que reflejen los nuevos bases
-        this.resetearEstadisticas();
-    }
-
-    public void restaurarExperiencia(
-            double experienciaActual,
-            double experienciaRequerida
-    ) {
+    public void restaurarExperiencia(double experienciaActual, double experienciaRequerida) {
         this.experienciaActual = experienciaActual;
         this.experienciaRequerida = experienciaRequerida;
     }
+
+    // cada héroe lo hace a su manera, porque cada uno escala distinto
+    protected abstract void incrementarEstadisticas();
+
 
     // --- GETTERS ---
     public double getExperienciaActual() { return experienciaActual; }

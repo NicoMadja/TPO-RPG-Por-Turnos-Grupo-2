@@ -11,17 +11,13 @@ public class PantallaVictoria extends JPanel {
 
     private Image imagenFondo;
     private JButton btnVolverMenu;
-    private JLabel lblSpriteJefe;
+    // private JLabel lblSpriteJefe;  PARA CUANDO HAYA JEFE DERROTADO
 
     public PantallaVictoria() {
         setLayout(new BorderLayout());
-        setBackground(new Color(20, 20, 30)); // Fondo base por si falla la imagen
-
-        // 1. (Opcional) Puedes cargar un fondo tipo "Castillo iluminado"
+        setBackground(new Color(20, 20, 30));
         ImageIcon iconoFondo = CargadorImagenes.cargar("/recursos/sprites/victoria.png");
-        if (iconoFondo != null) {
-            imagenFondo = iconoFondo.getImage();
-        }
+        if (iconoFondo != null) imagenFondo = iconoFondo.getImage();
 
         // --- PANEL CENTRAL: TEXTO Y SPRITE ---
         JPanel panelCentro = new JPanel();
@@ -30,7 +26,7 @@ public class PantallaVictoria extends JPanel {
 
         JLabel lblVictoria = new JLabel("¡FELICIDADES!");
         lblVictoria.setFont(new Font("SansSerif", Font.BOLD, 52));
-        lblVictoria.setForeground(new Color(255, 215, 0)); // Dorado
+        lblVictoria.setForeground(new Color(255, 215, 0));
         lblVictoria.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel lblSubtitulo = new JLabel("¡Has salvado el reino POO!");
@@ -38,17 +34,15 @@ public class PantallaVictoria extends JPanel {
         lblSubtitulo.setForeground(Color.WHITE);
         lblSubtitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Sprite del jefe derrotado (o un trofeo)
-        lblSpriteJefe = new JLabel();
-        lblSpriteJefe.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // lblSpriteJefe = new JLabel();                              PARA CUANDO HAYA JEFE DERROTADO
+        // lblSpriteJefe.setAlignmentX(Component.CENTER_ALIGNMENT);   PARA CUANDO HAYA JEFE DERROTADO
 
-        // Agregamos un poco de aire
         panelCentro.add(Box.createVerticalGlue());
         panelCentro.add(lblVictoria);
         panelCentro.add(Box.createVerticalStrut(20));
         panelCentro.add(lblSubtitulo);
-        panelCentro.add(Box.createVerticalStrut(40));
-        panelCentro.add(lblSpriteJefe); // El sprite va en medio
+        // panelCentro.add(Box.createVerticalStrut(40));    PARA CUANDO HAYA JEFE DERROTADO
+        // panelCentro.add(lblSpriteJefe);                  PARA CUANDO HAYA JEFE DERROTADO
         panelCentro.add(Box.createVerticalGlue());
 
         // --- PANEL INFERIOR: BOTÓN DE SALIDA ---
@@ -71,26 +65,21 @@ public class PantallaVictoria extends JPanel {
         add(panelInferior, BorderLayout.SOUTH);
     }
 
-    // Dibujamos el fondo si existe
+    // dibujamos el fondo si existe
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         if (imagenFondo != null) {
             g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
         } else {
-            // Un fondo oscuro si no hay imagen
+            // un fondo oscuro si no hay imagen
             g.setColor(new Color(15, 10, 20));
             g.fillRect(0, 0, getWidth(), getHeight());
         }
     }
 
-    /**
-     * El Controlador llama a este método justo antes de mostrar la pantalla
-     * para pasarle el sprite exacto del jefe derrotado y la orden del botón.
-     */
     public void configurarVictoria(Runnable accionVolver) {
-
-        // 2. Limpiar listeners fantasmas y asignar la acción del menú
+        // limpiamos listeners y asignamos la acción del menú
         for (ActionListener al : btnVolverMenu.getActionListeners()) {
             btnVolverMenu.removeActionListener(al);
         }
