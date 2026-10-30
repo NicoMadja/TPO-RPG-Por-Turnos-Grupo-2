@@ -15,19 +15,14 @@ public class PanelEscenaBatalla extends JPanel {
 
     private JPanel contenedorJugadores;
     private JPanel contenedorEnemigos;
-
-    // NUEVA VARIABLE: Para guardar la imagen de fondo
     private Image imagenFondo;
 
     public PanelEscenaBatalla(){
         setLayout(new GridLayout(1, 2, 50, 0));
 
-        // Es MUY importante que el panel sea "opaco" para que pinte el fondo,
-        // o quitar el setOpaque(false) si lo tenías.
+        // panel opaco para que pinte el fondo
         setOpaque(true);
 
-        // NUEVO: Cargar la imagen de fondo usando tu clase utilitaria.
-        // ¡RECUERDA CAMBIAR ESTA RUTA POR EL NOMBRE REAL DE TU IMAGEN DE FONDO!
         ImageIcon iconoFondo = CargadorImagenes.cargar("/recursos/sprites/fondo_castillo.jpg");
         if (iconoFondo != null) {
             imagenFondo = iconoFondo.getImage();
@@ -49,14 +44,12 @@ public class PanelEscenaBatalla extends JPanel {
         contenedorJugadores.removeAll();
         contenedorEnemigos.removeAll();
 
-        // Bucle de héroes con for-each
         int indiceAliadoContador = 0;
         for(PersonajeDTO heroe : estado.getHeroes()){
             PanelSprite sprite = new PanelSprite();
             sprite.setAlignmentX(Component.CENTER_ALIGNMENT);
             sprite.setMaximumSize(new Dimension(140, 220));
 
-            // Guardamos el índice actual en una variable final para poder usarlo en la expresión lambda (el clic)
             final int indiceActual = indiceAliadoContador;
 
             sprite.actualizar(
