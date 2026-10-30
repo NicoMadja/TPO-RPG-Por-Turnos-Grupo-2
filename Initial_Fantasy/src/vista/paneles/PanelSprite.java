@@ -16,7 +16,7 @@ public class PanelSprite extends JPanel {
 
     public PanelSprite() {
         setLayout(new BorderLayout());
-        setPreferredSize(new Dimension(140, 220));
+        setPreferredSize(new Dimension(120, 185));
         setOpaque(false);
 
         // --- PANEL SUPERIOR: BARRAS ---
@@ -83,7 +83,7 @@ public class PanelSprite extends JPanel {
 
         ImageIcon imagen = CargadorImagenes.cargar(rutaSprite);
         if(imagen != null){
-            Image icono = imagen.getImage().getScaledInstance(120, 140, Image.SCALE_FAST);
+            Image icono = imagen.getImage().getScaledInstance(100, 145, Image.SCALE_FAST);
             btnSprite.setIcon(new ImageIcon(icono));
             btnSprite.setText("");
         } else {
