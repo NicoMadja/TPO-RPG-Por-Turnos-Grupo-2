@@ -1,6 +1,5 @@
 package modelo.entidades.personajes;
 
-// Esta clase centraliza la creación de los personajes.
 public class FabricaPersonajes {
 
     // Metodo estatico que devuelve la instancia concreta

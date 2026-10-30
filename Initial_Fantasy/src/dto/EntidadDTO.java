@@ -1,6 +1,5 @@
 package dto;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 public class EntidadDTO implements Serializable {
@@ -44,55 +43,42 @@ public class EntidadDTO implements Serializable {
     public String getNombre() {
         return nombre;
     }
-
     public int getNivel() {
         return nivel;
     }
-
     public int getVidaMaxima() {
         return vidaMaxima;
     }
-
     public int getVidaActual() {
         return vidaActual;
     }
-
     public int getManaMaximo() {
         return manaMaximo;
     }
-
     public int getManaActual() {
         return manaActual;
     }
-
     public int getAtaqueBase() {
         return ataqueBase;
     }
-
     public int getAtaqueActual() {
         return ataqueActual;
     }
-
     public int getDefensaBase() {
         return defensaBase;
     }
-
     public int getDefensaActual() {
         return defensaActual;
     }
-
     public boolean isDefendiendo() {
         return defendiendo;
     }
-
     public int getVelocidadBase() {
         return velocidadBase;
     }
-
     public int getVelocidadActual() {
         return velocidadActual;
     }
-
     public String getSprite(){
         return sprite;
     }

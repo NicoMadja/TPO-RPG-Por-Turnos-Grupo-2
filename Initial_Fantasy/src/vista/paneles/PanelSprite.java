@@ -8,11 +8,10 @@ import utils.CargadorImagenes;
 public class PanelSprite extends JPanel {
     private static final long serialVersionUID = 1L;
 
-    // CAMBIO 1: lblSprite ahora es un JButton
     private JButton btnSprite;
-
     private JProgressBar barraVida;
     private JProgressBar barraMana;
+    // private JProgressBar barraExperiencia;
     private JLabel lblNivel;
 
     public PanelSprite() {
@@ -37,10 +36,17 @@ public class PanelSprite extends JPanel {
         barraMana.setBackground(Color.DARK_GRAY);
         barraMana.setFont(new Font("SansSerif", Font.BOLD, 10));
 
+        // barraExperiencia = new JProgressBar();
+        // barraExperiencia.setStringPainted(true);
+        // barraExperiencia.setForeground(new Color(250, 215, 0));
+        // barraExperiencia.setBackground(Color.DARK_GRAY);
+        // barraExperiencia.setFont(new Font("SansSerif", Font.BOLD, 10));
+
         panelBarras.add(barraVida);
         panelBarras.add(barraMana);
+        // panelBarras.add(barraExperiencia);
 
-        // CAMBIO 2: Inicializar como JButton y hacerlo invisible
+        // Inicializar como JButton y hacerlo invisible
         btnSprite = new JButton("SIN SPRITE");
         btnSprite.setHorizontalAlignment(SwingConstants.CENTER);
         btnSprite.setContentAreaFilled(false); // Transparente
@@ -55,11 +61,11 @@ public class PanelSprite extends JPanel {
         lblNivel.setBorder(BorderFactory.createEmptyBorder(0, 5, 5, 0));
 
         add(panelBarras, BorderLayout.NORTH);
-        add(btnSprite, BorderLayout.CENTER); // Agregamos el botón
+        add(btnSprite, BorderLayout.CENTER);
         add(lblNivel, BorderLayout.SOUTH);
     }
 
-    // CAMBIO 3: Agregar el índice y el ActionListener para comunicar el clic al controlador
+    // Agregar el índice y el ActionListener para comunicar el clic al controlador
     public void actualizar(String rutaSprite, String nombreEntidad, int hpActual, int hpMax, int mpActual, int mpMax, int nivel, int indice, ActionListener listenerClic) {
 
         barraVida.setMaximum(hpMax);
@@ -69,6 +75,10 @@ public class PanelSprite extends JPanel {
         barraMana.setMaximum(mpMax);
         barraMana.setValue(mpActual);
         barraMana.setString(String.valueOf(mpActual));
+
+        // barraExperiencia.setMaximum((int) xpMax);
+        // barraExperiencia.setValue((int) xpActual);
+        // barraExperiencia.setString(String.valueOf(xpActual));
 
         lblNivel.setText("LV " + nivel);
 
@@ -82,7 +92,6 @@ public class PanelSprite extends JPanel {
             btnSprite.setText(nombreEntidad);
         }
 
-        // CAMBIO 4: Asignar la función del clic al botón
         // Removemos los anteriores para no duplicar eventos si el panel se actualiza
         for (ActionListener al : btnSprite.getActionListeners()) {
             btnSprite.removeActionListener(al);

@@ -13,6 +13,7 @@ public class EstadoBatallaDTO {
     private final String mensajeInfo;
     private final List<String> ordenTurnos;
 
+
     public EstadoBatallaDTO(List<PersonajeDTO> heroes, List<EnemigoDTO> enemigos, List<ConsumibleDTO> items, FaseBatalla fase, EntidadDTO EntidadActual, String mensajeInfo, List<String> ordenTurnos) {
         this.heroes = heroes;
         this.enemigos = enemigos;
@@ -23,8 +24,8 @@ public class EstadoBatallaDTO {
         this.ordenTurnos = ordenTurnos;
     }
 
-    // --- GETTERS ---
 
+    // --- GETTERS ---
     public List<PersonajeDTO> getHeroes() {return heroes;}
     public List<EnemigoDTO> getEnemigos() {return enemigos;}
     public List<ConsumibleDTO> getItems() {return items;}
