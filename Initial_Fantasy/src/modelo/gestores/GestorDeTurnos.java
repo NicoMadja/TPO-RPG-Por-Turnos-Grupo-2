@@ -84,4 +84,19 @@ public class GestorDeTurnos {
     public boolean verificarFinBatalla() {
         return personajesDerrotados() || enemigosDerrotados();
     }
+
+    public List<String> getOrdenTurnos() {
+        List<String> orden = new ArrayList<>();
+        // Primero agregamos al que está jugando ahora
+        if (entidadActual != null && entidadActual.estaVivo()) {
+            orden.add(entidadActual.getNombre());
+        }
+        // Luego iteramos sobre los que esperan su turno en la ronda
+        for (Entidad e : turnosDeLaRonda) {
+            if (e.estaVivo()) {
+                orden.add(e.getNombre());
+            }
+        }
+        return orden;
+    }
 }

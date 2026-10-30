@@ -293,6 +293,8 @@ public class ControladorBatalla {
         Entidad entidadActual = (batalla.getEntidadActual() != null)
                 ? batalla.getGestor().obtenerEntidadActual()
                 : null;
+        String nombreActual = (batalla.getEntidadActual() != null) ? batalla.getEntidadActual().getNombre() : "";
+        List<String> ordenTurnos = batalla.getOrdenTurnos();
 
         return new EstadoBatallaDTO(
                 convertirPersonajes(equipo),
@@ -300,7 +302,8 @@ public class ControladorBatalla {
                 convertirConsumibles(consumibles),
                 fase,
                 convertirEntidad(entidadActual),
-                mensajeInfo
+                mensajeInfo,
+                ordenTurnos
         );
     }
 

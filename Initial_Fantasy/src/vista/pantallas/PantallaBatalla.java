@@ -19,7 +19,7 @@ public class PantallaBatalla extends JPanel {
     private PanelAcciones panelAcciones;
     private JPanel panelInferior;
     private PanelInfoInventario panelInfo;
-
+    private JLabel lblOrdenTurnos;
     private JLabel lblTurno;
     private ControladorBatalla controladorBatalla;
 
@@ -30,7 +30,7 @@ public class PantallaBatalla extends JPanel {
         setBackground(new Color(22, 26, 38));
 
         // --- CABECERA DE LA PANTALLA ---
-        JPanel panelNorte = new JPanel(new GridLayout(2, 1, 0, 4));
+        JPanel panelNorte = new JPanel(new GridLayout(3, 1, 0, 4));
         panelNorte.setOpaque(false);
 
         JLabel titulo = new JLabel("BATALLA", SwingConstants.CENTER);
@@ -40,6 +40,16 @@ public class PantallaBatalla extends JPanel {
         lblTurno = new JLabel("Iniciando batalla...", SwingConstants.CENTER);
         lblTurno.setForeground(new Color(255, 215, 0));
         lblTurno.setFont(new Font("SansSerif", Font.BOLD, 18));
+
+        lblOrdenTurnos = new JLabel("", SwingConstants.CENTER);
+        lblOrdenTurnos.setForeground(Color.GREEN);
+        lblOrdenTurnos.setFont(new Font("SansSerif", Font.BOLD, 14));
+
+        panelNorte.add(titulo);
+        panelNorte.add(lblOrdenTurnos); // La barra de orden va al medio
+        panelNorte.add(lblTurno);
+
+
 
         panelNorte.add(titulo);
         panelNorte.add(lblTurno);
@@ -87,7 +97,8 @@ public class PantallaBatalla extends JPanel {
         for (EnemigoDTO enemigo : estado.getEnemigos()) {
             panelEnemigo.actualizar(enemigo);
         }
-
+        String textoOrden = "Orden de Turnos: " + String.join(" ➔ ", estado.getOrdenTurnos());
+        lblOrdenTurnos.setText(textoOrden);
         panelEscena.actualizar(estado, this.controladorBatalla);
         panelInfo.actualizar(estado);
 

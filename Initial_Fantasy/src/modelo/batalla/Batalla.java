@@ -186,6 +186,9 @@ public class Batalla extends Nodo {
         return gestor;
     }
 
+    public List<String> getOrdenTurnos() {
+        return gestor.getOrdenTurnos();
+    }
     // --- PROCESAR ---
     @Override
     public void procesarNodo(EscenarioDeNodos escenario) {
