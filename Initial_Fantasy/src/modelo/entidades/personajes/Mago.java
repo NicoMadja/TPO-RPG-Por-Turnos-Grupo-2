@@ -7,7 +7,7 @@ public class Mago extends Personaje {
     // --- CONSTRUCTOR ---
     public Mago(String nombre) {
         // tiene mucho maná y velocidad
-        super(nombre, 1, 100, 80, 22, 5, 8, new HabilidadMago(), "/recursos/sprites/mago.png");
+        super(nombre, 1, 100, 80, 25, 5, 8, new HabilidadMago(), "/recursos/sprites/mago.png");
     }
 
     // --- PROGRESIÓN ESPECÍFICA ---

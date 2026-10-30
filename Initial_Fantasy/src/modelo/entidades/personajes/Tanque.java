@@ -7,7 +7,7 @@ public class Tanque extends Personaje {
     // --- CONSTRUCTOR ---
     public Tanque(String nombre) {
         // tiene mucha defensa y vida, pero poco ataque y velocidad
-        super(nombre, 1, 180, 20, 14, 16, 10, new HabilidadTanque(), "/recursos/sprites/tanque.png");
+        super(nombre, 1, 200, 20, 18, 16, 10, new HabilidadTanque(), "/recursos/sprites/tanque.png");
     }
 
     // --- PROGRESIÓN ESPECÍFICA ---

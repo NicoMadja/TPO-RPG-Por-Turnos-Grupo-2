@@ -13,7 +13,7 @@ public class Ogro extends Enemigo {
     // --- CONSTRUCTOR ---
     public Ogro(String nombre, int nivel) {
         // el ogro se caracteriza por tener muchísima vida y daño, pero es muy lento y sin maná
-        super(nombre, nivel, 120 + (nivel * 15), 0, 20 + (nivel * 4), 10 + (nivel * 3),
+        super(nombre, nivel, 110 + (nivel * 15), 0, 20 + (nivel * 4), 10 + (nivel * 3),
                 7, new HabilidadOgro(), "/recursos/sprites/ogro.png",
                 80 + (nivel * 15), 60 + (nivel * 5));
     }

@@ -33,7 +33,7 @@ public class PantallaVictoria extends JPanel {
         lblVictoria.setForeground(new Color(255, 215, 0)); // Dorado
         lblVictoria.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel lblSubtitulo = new JLabel("¡Has derrotado al Demonio y salvado el reino!");
+        JLabel lblSubtitulo = new JLabel("¡Has salvado el reino POO!");
         lblSubtitulo.setFont(new Font("SansSerif", Font.PLAIN, 24));
         lblSubtitulo.setForeground(Color.WHITE);
         lblSubtitulo.setAlignmentX(Component.CENTER_ALIGNMENT);

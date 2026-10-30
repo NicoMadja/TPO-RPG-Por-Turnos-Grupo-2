@@ -35,7 +35,7 @@ public class Mapa2 implements MapaPrefab {
         Nodo batalla4 = new Batalla(party, enemigos(new Murcielago("Murcielago A", 3), new Esqueleto("Esqueleto A", 3)),false);
         Nodo tienda = new Tienda(catalogo(), party);
         Nodo campamento = new Campamento(party);
-        Nodo jefeFinal = new Batalla(party, enemigos(new Ogro("Ogro Jefe", 5)),true); // provisorio, hasta que exista JefeFinal
+        Nodo jefeFinal = new Batalla(party, enemigos(new Ogro("Ogro Jefe", 4)),true); // provisorio, hasta que exista JefeFinal
 
         Mapa mapa = new Mapa(inicio, jefeFinal, "/recursos/sprites/Mapa2.png","MAPA2");
         mapa.agregarNodo(batalla1);
