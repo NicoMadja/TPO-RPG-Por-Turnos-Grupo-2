@@ -106,21 +106,17 @@ public class PantallaBatalla extends JPanel {
 
         switch (fase) {
             case ELIGIENDO_ACCION:
-                return "TURNO DE: " + infoEntidad
-                        + " -> Elige una acción";
+                return infoEntidad + ". Elegí una acción";
             case ELIGIENDO_ENEMIGO:
-                return actual.getNombre()
-                        + ": Selecciona un enemigo para atacar";
+                return actual.getNombre() + ": Seleccioná un enemigo para atacar";
             case ELIGIENDO_ALIADO:
-                return actual.getNombre()
-                        + ": Selecciona un aliado como objetivo";
+                return actual.getNombre() + ": Seleccioná un aliado como objetivo";
             case ELIGIENDO_CONSUMIBLE:
-                return actual.getNombre()
-                        + ": Selecciona un consumible del inventario";
+                return actual.getNombre() + ": Seleccioná un consumible del inventario";
             case MOSTRANDO_RESULTADO:
                 return "Resolviendo acción...";
             case TURNO_ENEMIGO:
-                return "TURNO ENEMIGO: " + infoEntidad + " pensando...";
+                return infoEntidad + " pensando...";
             default:
                 return "";
         }
