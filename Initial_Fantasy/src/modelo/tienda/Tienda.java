@@ -30,6 +30,7 @@ public class Tienda extends Nodo implements Serializable {
             return true;
         }
         return false;
+        // boolean para saber si se compró con éxito
     }
 
     private boolean catalogoContieneElItem(Consumible c) {

@@ -37,7 +37,7 @@ public class PantallaMapa extends JPanel {
         this.botonesNodos.clear();
 
         this.removeAll();
-        // Crear los botones (Nodos)
+        
         for (NodoDTO nodo : nodos) {
             JButton btnNodo = crearBotonNodo(nodo);
             btnNodo.setActionCommand(String.valueOf(nodo.getId()));

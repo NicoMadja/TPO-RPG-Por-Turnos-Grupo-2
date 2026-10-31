@@ -13,7 +13,6 @@ import modelo.mundo.Nodo;
 import modelo.mundo.mapa.MapaPrefab;
 import modelo.tienda.Tienda;
 import modelo.party.Party;
-
 import java.awt.*;
 import java.util.*;
 import java.util.List;
@@ -23,7 +22,7 @@ import java.util.List;
 //                         └─> batalla3 ───> campamento ──┘
 public class Mapa2 implements MapaPrefab {
 
-    // Declaramos el mapa de coordenadas para guardar la posición visual
+    // guardamos la posición visual
     private Map<Nodo, Point> coordenadas = new HashMap<>();
 
     @Override
@@ -54,24 +53,21 @@ public class Mapa2 implements MapaPrefab {
         mapa.conectar(campamento, batalla4);
         mapa.conectar(batalla4, jefeFinal);
 
-        // Inicio y primera batalla
+
         coordenadas.put(inicio, new Point(1000, 1000));
         coordenadas.put(batalla1, new Point(1000, 850));
 
-// Bifurcación
         coordenadas.put(batalla2, new Point(700, 650));
         coordenadas.put(batalla3, new Point(1300, 650));
 
-// Ramas de la bifurcación
         coordenadas.put(tienda, new Point(600, 450));
         coordenadas.put(campamento, new Point(1400, 450));
 
-// Unión de las ramas
         coordenadas.put(batalla4, new Point(1000, 300));
 
-// Jefe final
         coordenadas.put(jefeFinal, new Point(1000, 150));
 
+        
         return mapa;
     }
 
@@ -79,8 +75,6 @@ public class Mapa2 implements MapaPrefab {
     public Map<Nodo, Point> getCoordenadasVisuales() {
         return coordenadas;
     }
-
-
 
     private List<Enemigo> enemigos(Enemigo... enemigos) {
         return new ArrayList<>(Arrays.asList(enemigos));

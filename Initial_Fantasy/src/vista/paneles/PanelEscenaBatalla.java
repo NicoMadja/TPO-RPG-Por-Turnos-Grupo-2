@@ -2,7 +2,6 @@ package vista.paneles;
 
 import java.awt.*;
 import javax.swing.*;
-
 import controlador.ControladorBatalla;
 import dto.EnemigoDTO;
 import dto.EstadoBatallaDTO;
@@ -10,7 +9,6 @@ import dto.PersonajeDTO;
 import utils.CargadorImagenes;
 
 public class PanelEscenaBatalla extends JPanel {
-
     private static final long serialVersionUID = 1L;
 
     private JPanel contenedorJugadores;
@@ -19,8 +17,6 @@ public class PanelEscenaBatalla extends JPanel {
 
     public PanelEscenaBatalla(){
         setLayout(new GridLayout(1, 2, 50, 0));
-
-        // panel opaco para que pinte el fondo
         setOpaque(true);
 
         ImageIcon iconoFondo = CargadorImagenes.cargar("/recursos/sprites/fondo_castillo.jpg");
@@ -30,11 +26,11 @@ public class PanelEscenaBatalla extends JPanel {
 
         contenedorJugadores = new JPanel();
         contenedorJugadores.setLayout(new BoxLayout(contenedorJugadores, BoxLayout.Y_AXIS));
-        contenedorJugadores.setOpaque(false); // Estos siguen transparentes para no tapar el fondo
+        contenedorJugadores.setOpaque(false); // estos siguen transparentes para no tapar el fondo
 
         contenedorEnemigos = new JPanel();
         contenedorEnemigos.setLayout(new BoxLayout(contenedorEnemigos, BoxLayout.Y_AXIS));
-        contenedorEnemigos.setOpaque(false); // Estos siguen transparentes para no tapar el fondo
+        contenedorEnemigos.setOpaque(false); // estos siguen transparentes para no tapar el fondo
 
         add(contenedorJugadores);
         add(contenedorEnemigos);
@@ -61,10 +57,10 @@ public class PanelEscenaBatalla extends JPanel {
             contenedorJugadores.add(sprite);
             contenedorJugadores.add(javax.swing.Box.createVerticalStrut(10));
 
-            indiceAliadoContador++; // Aumentamos el índice para el próximo héroe
+            indiceAliadoContador++; // aumentamos el índice para el próximo héroe
         }
 
-        // Bucle de enemigos con for-each
+
         int indiceEnemigoContador = 0;
         for(EnemigoDTO enemigo : estado.getEnemigos()){
             PanelSprite sprite = new PanelSprite();
@@ -82,7 +78,7 @@ public class PanelEscenaBatalla extends JPanel {
             contenedorEnemigos.add(sprite);
             contenedorEnemigos.add(javax.swing.Box.createVerticalStrut(10));
 
-            indiceEnemigoContador++; // Aumentamos el índice para el próximo enemigo
+            indiceEnemigoContador++; // aumentamos el índice para el próximo enemigo
         }
 
         contenedorJugadores.revalidate();
@@ -92,12 +88,12 @@ public class PanelEscenaBatalla extends JPanel {
     }
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g); // Siempre llamar al super primero
+        super.paintComponent(g);
 
-        // Si la imagen cargó correctamente, la dibujamos
+        // si la imagen cargó correctamente, la dibujamos
         if (imagenFondo != null) {
-            // El getWidth() y getHeight() hacen que la imagen se estire
-            // automáticamente para cubrir todo el panel, sin importar el tamaño de la ventana.
+            // el getWidth() y getHeight() hacen que la imagen se estire automáticamente para cubrir todo el panel,
+            //  sin importar el tamaño de la ventana.
             g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
         }
     }

@@ -1,7 +1,6 @@
 package modelo.party;
 
 import modelo.consumibles.Consumible;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,7 @@ public class Inventario implements Serializable {
     public void usarItem(Consumible item, modelo.entidades.Entidad objetivo) {
         if (this.items.contains(item)) {
             item.consumir(objetivo); // efecto de la poción
-            this.items.remove(item); // lo borramos
+            this.items.remove(item);
         }
     }
 

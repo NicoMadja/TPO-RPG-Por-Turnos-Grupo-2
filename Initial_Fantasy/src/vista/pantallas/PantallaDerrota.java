@@ -1,15 +1,16 @@
 package vista.pantallas;
+
 import javax.swing.*;
 import java.awt.*;
+
 public class PantallaDerrota extends JDialog{
 
-    // Recibe una acción lambda que el Controlador inyectará para reiniciar el juego
     public PantallaDerrota(JFrame ventanaPadre, Runnable alReiniciar) {
-        super(ventanaPadre, "BATALLA FINALIZADA", true); // Modal = true
+        super(ventanaPadre, "BATALLA FINALIZADA", true);
         setSize(400, 300);
         setLocationRelativeTo(ventanaPadre);
         setLayout(new BorderLayout());
-        getContentPane().setBackground(new Color(20, 10, 10)); // Fondo oscuro rojizo
+        getContentPane().setBackground(new Color(20, 10, 10));
 
         // --- PANEL CENTRAL: GAME OVER ---
         JPanel panelTextos = new JPanel();

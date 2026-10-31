@@ -2,7 +2,7 @@ package modelo.entidades.personajes;
 
 public class FabricaPersonajes {
 
-    // Metodo estatico que devuelve la instancia concreta
+    // metodo estatico que devuelve la instancia concreta
     public static Personaje crearPersonaje(String nombre) {
         if (nombre == null) {
             return null;

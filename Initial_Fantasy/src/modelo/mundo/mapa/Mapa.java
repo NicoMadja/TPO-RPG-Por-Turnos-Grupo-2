@@ -6,7 +6,6 @@ import modelo.mundo.Nodo;
 import java.io.Serializable;
 import java.util.List;
 
-// un nivel del juego: un grafo dirigido de nodos por el que se avanza solo hacia adelante, del inicio hasta el nodo final
 public class Mapa implements Serializable {
     private static final long serialVersionUID = 1L;
     private final Grafo<Nodo> grafo;
@@ -35,13 +34,14 @@ public class Mapa implements Serializable {
         grafo.agregarVertice(nodo);
     }
 
-    // crea un camino: desde "origen" se puede avanzar hacia "destino"
+    // crea un camino
     public void conectar(Nodo origen, Nodo destino) {
         grafo.agregarArista(origen, destino);
     }
 
     // el mapa está bien armado si desde el inicio se llega a todos los nodos, no hay caminos que vuelvan atrás
-    // y el nodo final es el único en el que se termina (es decir, todos los caminos convergen en él)
+    // y el nodo final es el único en el que se termina (es decir, todos los caminos convergen en él); lo usamos como
+    // verificador de que el mapa está correctamente armado
     public boolean esValido() {
         if (!grafo.alcanzablesDesde(nodoInicial).containsAll(grafo.getVertices())) return false;
         if (grafo.tieneCiclos()) return false;
@@ -84,6 +84,7 @@ public class Mapa implements Serializable {
 
         this.nodoActual = nodos.get(idNodo);
     }
+
     // --- GETTERS ---
     public Nodo getNodoActual() {return nodoActual;}
     public Nodo getNodoInicial() {return nodoInicial;}
@@ -97,5 +98,6 @@ public class Mapa implements Serializable {
         return grafo.getSucesores(nodo);
     }
 
+    // --- SETTERS ---
     public void setIdMapa(String idMapa) {this.idMapa = idMapa;}
 }

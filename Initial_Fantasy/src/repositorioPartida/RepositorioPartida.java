@@ -32,11 +32,4 @@ public class RepositorioPartida {
         File archivo = new File(rutaArchivo);
         return archivo.exists() && !archivo.isDirectory();
     }
-
-    public void borrarPartida() {
-        File archivo = new File(rutaArchivo);
-        if (archivo.exists()) {
-            archivo.delete();
-        }
-    }
 }

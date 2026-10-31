@@ -28,6 +28,7 @@ public class Batalla extends Nodo {
     private List<Personaje> subieronDeNivel = new ArrayList<>();
     private boolean jefeFinal;
 
+
     // --- CONSTRUCTOR ---
     public Batalla(Party party, List<Enemigo> enemigos,boolean jefeFinal) {
         this.party = party;

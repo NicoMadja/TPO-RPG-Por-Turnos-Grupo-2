@@ -18,18 +18,18 @@ import javax.swing.JOptionPane;
 
 public class ControladorMapa {
     private Mapa modeloMapa;
-    private Map<Nodo, Point> coordenadasMapa; // Guardamos el diseño visual
+    private Map<Nodo, Point> coordenadasMapa;
     private PantallaMapa vistaMapa;
     private EscenarioDeNodos escenario;
     private Map<Integer, Nodo> diccionarioNodos;
-    private Party partyActual; // Guardaremos la party acá
+    private Party partyActual;
 
     public ControladorMapa(Mapa modeloMapa, Map<Nodo, Point> coordenadasMapa, PantallaMapa vistaMapa, EscenarioDeNodos escenario, Party partyActual) {
         this.modeloMapa = modeloMapa;
         this.coordenadasMapa = coordenadasMapa;
         this.vistaMapa = vistaMapa;
         this.escenario = escenario;
-        this.partyActual = partyActual; // Inicializamos la party
+        this.partyActual = partyActual;
         this.diccionarioNodos = new HashMap<>();
 
         vistaMapa.cambiarFondo(modeloMapa.getSprite());
@@ -115,7 +115,7 @@ public class ControladorMapa {
         try {
             RepositorioPartida repositorio = new RepositorioPartida("partida_guardada.sav");
 
-            // 1. Traducimos los héroes actuales a DTOs
+            // 1. traducimos los héroes actuales a DTOs
             List<PersonajeDTO> heroesDTO = new ArrayList<>();
             for (Personaje p : partyActual.getPersonajes()) {
                 heroesDTO.add(new PersonajeDTO(
@@ -127,7 +127,7 @@ public class ControladorMapa {
                 ));
             }
 
-            // 2. Buscamos el ID del nodo visual
+            // 2. buscamos el ID del nodo visual
             int idNodoDondeEstoy = 0;
             for (Map.Entry<Integer, Nodo> entry : diccionarioNodos.entrySet()) {
                 if (entry.getValue() == modeloMapa.getNodoActual()) {
@@ -136,7 +136,7 @@ public class ControladorMapa {
                 }
             }
 
-            // 3. Empaquetamos y guardamos (¡DTO puro!)
+            // 3. empaquetamos y guardamos
             PartidaDTO estadoJuego = new PartidaDTO(
                     heroesDTO,
                     idNodoDondeEstoy,

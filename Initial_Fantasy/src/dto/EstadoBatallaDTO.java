@@ -1,9 +1,7 @@
-
 package dto;
 
 import java.util.List;
 
-// Lo que la pantalla de batalla necesita para dibujarse
 public class EstadoBatallaDTO {
     private final List<PersonajeDTO> heroes;
     private final List<EnemigoDTO> enemigos;
@@ -24,15 +22,12 @@ public class EstadoBatallaDTO {
         this.ordenTurnos = ordenTurnos;
     }
 
-
-    // --- GETTERS ---
     public List<PersonajeDTO> getHeroes() {return heroes;}
     public List<EnemigoDTO> getEnemigos() {return enemigos;}
     public List<ConsumibleDTO> getItems() {return items;}
     public FaseBatalla getFase() {return fase;}
     public EntidadDTO getEntidadActual() {return EntidadActual;}
-    public String getMensajeInfo() {
-        return mensajeInfo;}
+    public String getMensajeInfo() {return mensajeInfo;}
     public List<String> getOrdenTurnos() {
         return ordenTurnos;
     }

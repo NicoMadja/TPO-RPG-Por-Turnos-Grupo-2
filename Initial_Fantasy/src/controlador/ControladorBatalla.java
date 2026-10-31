@@ -46,7 +46,7 @@ public class ControladorBatalla {
         resolverTurno();
     }
 
-    // --- 1) EL JUGADOR ELIGE UNA ACCION (botones del menú) ---
+    // 1) EL JUGADOR ELIGE UNA ACCION ---
     public void elegirAtacar() {
         if (fase != FaseBatalla.ELIGIENDO_ACCION) return;
         accionPendiente = AccionPendiente.ATACAR;
@@ -69,7 +69,6 @@ public class ControladorBatalla {
         Habilidad habilidad = batalla.getEntidadActual().getHabilidad();
 
         switch (habilidad.getTipoObjetivo()) {
-
             case UN_ENEMIGO:
                 accionPendiente = AccionPendiente.HABILIDAD;
 
@@ -108,12 +107,12 @@ public class ControladorBatalla {
     public void elegirConsumible() {
         if (fase != FaseBatalla.ELIGIENDO_ACCION || batalla.getParty().getInventario().estaVacio()) return;
         accionPendiente = AccionPendiente.CONSUMIBLE;
-        mensajeInfo = "Selecciona un consumible para ver sus efectos y utilizarlo.";
+        mensajeInfo = "Seleccioná un consumible para ver sus efectos y utilizarlo.";
         cambiarFase(FaseBatalla.ELIGIENDO_CONSUMIBLE);
     }
 
 
-    // --- 2) EL JUGADOR ELIGE UN CONSUMIBLE DEL INVENTARIO ---
+    // 2) EL JUGADOR ELIGE UN CONSUMIBLE DEL INVENTARIO ---
     public void elegirConsumible(String nombreConsumible) {
         if (fase != FaseBatalla.ELIGIENDO_CONSUMIBLE) return;
         consumiblePendiente = nombreConsumible;
@@ -124,13 +123,11 @@ public class ControladorBatalla {
     }
 
 
-    // --- 3) EL JUGADOR ELIGE A QUIEN (clic en un sprite; el índice es la posición en la lista del DTO) ---
-    // los clics fuera de fase o sobre alguien derrotado se ignoran: son parte normal de usar la pantalla
+    // 3) EL JUGADOR ELIGE A QUIEN ---
     public void elegirEnemigo(int indiceEnemigo) {
         if (fase != FaseBatalla.ELIGIENDO_ENEMIGO || !enemigo(indiceEnemigo).estaVivo()) return;
 
         if (accionPendiente == AccionPendiente.ATACAR) {
-
             Entidad atacante = batalla.getEntidadActual();
 
             mensajeInfo = atacante.getNombre()
@@ -141,7 +138,6 @@ public class ControladorBatalla {
             batalla.atacar(enemigo(indiceEnemigo));
 
         } else {
-
             Habilidad habilidad = batalla.getEntidadActual().getHabilidad();
 
             mensajeInfo = habilidad.getNombre()
@@ -159,9 +155,7 @@ public class ControladorBatalla {
                 || !aliado(indiceAliado).estaVivo()) {
             return;
         }
-
         Entidad objetivo = aliado(indiceAliado);
-
         if (accionPendiente == AccionPendiente.CONSUMIBLE) {
 
             mensajeInfo = "Usas "
@@ -176,7 +170,6 @@ public class ControladorBatalla {
             );
 
         } else if (accionPendiente == AccionPendiente.HABILIDAD) {
-
             Habilidad habilidad = batalla.getEntidadActual().getHabilidad();
 
             mensajeInfo = batalla.getEntidadActual().getNombre()
@@ -212,18 +205,17 @@ public class ControladorBatalla {
 
 
     // --- DESPUES DE CADA ACCION ---
-    // define qué sigue: si terminó la batalla, si juega un enemigo (con pausa) o si le toca al jugador
     private void resolverTurno() {
         limpiarSeleccion();
 
         if (batalla.estaFinalizada()) {
             cambiarFase(FaseBatalla.FINALIZADA);
 
-            // Preguntamos a la Batalla/Gestor quién fue aniquilado
+            // preguntamos a la Batalla/Gestor quién fue aniquilado
             if (batalla.hayVictoria()) {
-                procesarVictoria(); // Ganaron los héroes
+                procesarVictoria();
             } else {
-                procesarDerrota(); // ¡GAME OVER!
+                procesarDerrota();
             }
 
         } else if (batalla.esTurnoDeEnemigo()) {
@@ -234,7 +226,7 @@ public class ControladorBatalla {
         }
     }
 
-    // juega UN turno enemigo después de la pausa y vuelve a resolverTurno(), que programa el siguiente si también es de un enemigo
+    // juega un turno enemigo después de la pausa y vuelve a resolverTurno(), que programa el siguiente si también es de un enemigo
     private void programarTurnoEnemigo() {
         Timer pausa = new Timer(PAUSA_TURNO_ENEMIGO_MS, e -> {
             batalla.ejecutarTurnoEnemigo();
@@ -254,7 +246,6 @@ public class ControladorBatalla {
         refrescarVista();
     }
 
-    // --- DE POSICION / NOMBRE A OBJETO DEL MODELO ---
     private Enemigo enemigo(int indice) {
         return batalla.getEnemigos().get(indice);
     }
@@ -263,7 +254,7 @@ public class ControladorBatalla {
         return batalla.getParty().getPersonajes().get(indice);
     }
 
-    // el DTO agrupa los consumibles repetidos por nombre: se usa el primero del inventario que coincida
+    // el DTO agrupa los consumibles repetidos por nombre
     private Consumible buscarConsumible(String nombre) {
         for (Consumible c : batalla.getParty().getInventario().getItems()) {
             if (c.getNombre().equals(nombre)) return c;
@@ -296,7 +287,7 @@ public class ControladorBatalla {
         );
     }
 
-    // Llama a este metodo cuando detectes que la batalla se ganó
+    // llama a este metodo cuando detectes que la batalla se ganó
     private void procesarVictoria() {
 
         // Si es el jefe final, termina el juego.
@@ -307,7 +298,7 @@ public class ControladorBatalla {
             return;
         }
 
-        // Si es una batalla normal, mostramos las recompensas.
+        // si es una batalla normal, mostramos las recompensas
         int oroGanado = batalla.getRecompensa().getOro();
         double xpGanada = batalla.getRecompensa().getExperiencia();
         List<String> mensajesLevelUp = new ArrayList<>();
@@ -315,16 +306,8 @@ public class ControladorBatalla {
             mensajesLevelUp.add(p.getNombre() + " subió al nivel " + p.getNivel() + "!");
         }
 
-        JFrame ventanaPadre =
-                (JFrame) SwingUtilities.getWindowAncestor(vista);
-
-        PantallaRecompensa modal = new PantallaRecompensa(
-                ventanaPadre,
-                xpGanada,
-                oroGanado,
-                mensajesLevelUp,
-                alVolverAlMapa
-        );
+        JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vista);
+        PantallaRecompensa modal = new PantallaRecompensa(ventanaPadre, xpGanada, oroGanado, mensajesLevelUp, alVolverAlMapa);
 
         modal.setVisible(true);
     }
@@ -333,18 +316,12 @@ public class ControladorBatalla {
         if (alReiniciarJuego == null) return;
 
         JFrame ventanaPadre = (JFrame) SwingUtilities.getWindowAncestor(vista);
-
-        PantallaDerrota modal = new PantallaDerrota(ventanaPadre, () -> {
-            alReiniciarJuego.run();
-        });
+        PantallaDerrota modal = new PantallaDerrota(ventanaPadre, () -> {alReiniciarJuego.run();});
         modal.setVisible(true);
     }
 
     private EntidadDTO convertirEntidad(Entidad entidad){
-        // GUARD CLAUSE: Si la entidad es null, retornamos null para evitar el crash
-        if (entidad == null) {
-            return null;
-        }
+        if (entidad == null) return null;
 
         return new EntidadDTO(
                 entidad.getNombre(),
@@ -404,7 +381,7 @@ public class ControladorBatalla {
         limpiarSeleccion();
         cambiarFase(FaseBatalla.MOSTRANDO_RESULTADO); // Refresca la vista y bloquea botones
 
-        // Pausamos 1.5 segundos (1500 ms) para que el jugador lea el mensaje
+        // Pausamos 2 seg para que el jugador lea el mensaje
         Timer pausa = new Timer(2000, e -> {
             resolverTurno();
         });

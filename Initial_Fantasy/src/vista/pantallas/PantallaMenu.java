@@ -13,10 +13,9 @@ public class PantallaMenu extends JPanel {
     private Image imagenFondo;
 
     public PantallaMenu() {
-        // GridBagLayout centra automáticamente los componentes en la pantalla
+        // centramos automáticamente los componentes en la pantalla
         setLayout(new GridBagLayout());
 
-        // Cargamos la imagen de fondo
         ImageIcon iconoFondo = CargadorImagenes.cargar("/recursos/sprites/menu_fondo.jpg");
         if (iconoFondo != null) {
             imagenFondo = iconoFondo.getImage();
@@ -51,7 +50,7 @@ public class PantallaMenu extends JPanel {
         if (imagenFondo != null) {
             g.drawImage(imagenFondo, 0, 0, getWidth(), getHeight(), this);
         } else {
-            // Fondo de respaldo celeste claro por si falla la imagen
+            // fondo de respaldo celeste claro por si falla la imagen
             g.setColor(new Color(173, 216, 230));
             g.fillRect(0, 0, getWidth(), getHeight());
         }

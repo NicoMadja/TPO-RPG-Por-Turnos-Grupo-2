@@ -3,7 +3,6 @@ package modelo.gestores;
 import modelo.entidades.Entidad;
 import modelo.entidades.enemigos.Enemigo;
 import modelo.entidades.personajes.Personaje;
-
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -51,7 +50,7 @@ public class GestorDeTurnos {
     }
 
     private void nuevaRonda() {
-        // primero los héroes: en caso de empate de velocidad, actúan antes
+        // en caso de empate de velocidad, actuan primero los héroes
         List<Entidad> vivos = new ArrayList<>();
         for (Personaje p : personajes) {
             if (p.estaVivo()) vivos.add(p);
@@ -87,11 +86,11 @@ public class GestorDeTurnos {
 
     public List<String> getOrdenTurnos() {
         List<String> orden = new ArrayList<>();
-        // Primero agregamos al que está jugando ahora
+        // primero agregamos al que está jugando ahora
         if (entidadActual != null && entidadActual.estaVivo()) {
             orden.add(entidadActual.getNombre());
         }
-        // Luego iteramos sobre los que esperan su turno en la ronda
+        // después iteramos sobre los que esperan su turno en la ronda
         for (Entidad e : turnosDeLaRonda) {
             if (e.estaVivo()) {
                 orden.add(e.getNombre());

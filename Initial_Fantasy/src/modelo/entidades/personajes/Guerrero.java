@@ -6,7 +6,7 @@ public class Guerrero extends Personaje {
 
     // --- CONSTRUCTOR ---
     public Guerrero(String nombre) {
-        // tiene mucha vida y ataque, pero poco maná
+        // tiene bastante vida y ataque, pero poco maná; es balanceado
         super(nombre, 1, 140, 40, 22, 13, 9, new HabilidadGuerrero(), "/recursos/sprites/guerrero.png");
     }
 

@@ -1,4 +1,5 @@
 package vista.pantallas;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
@@ -6,11 +7,11 @@ import java.util.List;
 public class PantallaRecompensa extends JDialog{
 
     public PantallaRecompensa(JFrame ventanaPadre, double xp, int oro, List<String> mensajesLevelUp, Runnable alContinuar) {
-        super(ventanaPadre, "BATALLA FINALIZADA", true); // true = Modal (bloquea lo de atrás)
+        super(ventanaPadre, "BATALLA FINALIZADA", true);
         setSize(400, 300);
         setLocationRelativeTo(ventanaPadre);
         setLayout(new BorderLayout());
-        getContentPane().setBackground(new Color(24, 24, 24)); // Fondo oscuro
+        getContentPane().setBackground(new Color(24, 24, 24));
 
         // --- PANEL CENTRAL CON LOS TEXTOS ---
         JPanel panelTextos = new JPanel();
@@ -22,15 +23,15 @@ public class PantallaRecompensa extends JDialog{
         lblXp.setForeground(Color.WHITE);
         lblXp.setFont(new Font("SansSerif", Font.BOLD, 18));
         panelTextos.add(lblXp);
-        panelTextos.add(Box.createVerticalStrut(10)); // Espacio
+        panelTextos.add(Box.createVerticalStrut(10));
 
         JLabel lblOro = new JLabel("Oro obtenido: " + oro);
-        lblOro.setForeground(new Color(255, 215, 0)); // Dorado
+        lblOro.setForeground(new Color(255, 215, 0));
         lblOro.setFont(new Font("SansSerif", Font.BOLD, 18));
         panelTextos.add(lblOro);
         panelTextos.add(Box.createVerticalStrut(20));
 
-        // Agregamos un texto por cada personaje que haya subido de nivel
+        // agregamos un texto por cada personaje que haya subido de nivel
         for (String msg : mensajesLevelUp) {
             JLabel lblLvl = new JLabel(msg);
             lblLvl.setForeground(new Color(40, 167, 69)); // Verde
@@ -44,8 +45,8 @@ public class PantallaRecompensa extends JDialog{
         btnContinuar.setFont(new Font("SansSerif", Font.BOLD, 16));
         btnContinuar.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnContinuar.addActionListener(e -> {
-            dispose(); // 1. Cierra el cartel modal
-            if (alContinuar != null) alContinuar.run(); // 2. Ejecuta el viaje de vuelta al mapa
+            dispose(); // 1. cierra el cartel modal
+            if (alContinuar != null) alContinuar.run(); // 2. ejecuta el viaje de vuelta al mapa
         });
 
         JPanel panelSur = new JPanel();

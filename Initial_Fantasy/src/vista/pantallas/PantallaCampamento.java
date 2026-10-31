@@ -7,11 +7,11 @@ import java.awt.*;
 public class PantallaCampamento extends JDialog {
 
     public PantallaCampamento(JFrame ventanaPadre, Runnable alDescansar) {
-        super(ventanaPadre, "CAMPAMENTO", true); // true = Modal (bloquea el mapa)
-        setSize(550, 500); // Ampliamos un poco el alto para que el sprite luzca bien
+        super(ventanaPadre, "CAMPAMENTO", true);
+        setSize(550, 500);
         setLocationRelativeTo(ventanaPadre);
         setLayout(new BorderLayout());
-        getContentPane().setBackground(new Color(20, 35, 20)); // Fondo verde muy oscuro estilo campamento
+        getContentPane().setBackground(new Color(20, 35, 20));
 
         // --- PANEL CENTRAL CON SPRITE Y TEXTOS ---
         JPanel panelContenido = new JPanel();
@@ -19,15 +19,11 @@ public class PantallaCampamento extends JDialog {
         panelContenido.setOpaque(false);
         panelContenido.setBorder(BorderFactory.createEmptyBorder(20, 20, 10, 20));
 
-        // 1. JLabel para mostrar el Sprite del Campamento
+        // 1. JLabel para mostrar el sprite del Campamento
         JLabel lblSprite = new JLabel();
         lblSprite.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        // Cargamos la imagen utilizando tu clase de utilidades
-        // (Asegúrate de guardar tu imagen en src/recursos/sprites/ con este nombre o ajusta la ruta)
         ImageIcon iconoSprite = CargadorImagenes.cargar("/recursos/sprites/campamento.png");
         if (iconoSprite != null) {
-            // Escalamos la imagen manteniendo la nitidez tipo pixel art (SCALE_FAST)
             Image imagenEscalada = iconoSprite.getImage().getScaledInstance(450, 290, Image.SCALE_FAST);
             lblSprite.setIcon(new ImageIcon(imagenEscalada));
         } else {
@@ -36,7 +32,7 @@ public class PantallaCampamento extends JDialog {
         }
 
         panelContenido.add(lblSprite);
-        panelContenido.add(Box.createVerticalStrut(15)); // Espacio entre el sprite y los textos
+        panelContenido.add(Box.createVerticalStrut(15)); // espacio entre el sprite y los textos
 
         // 2. Títulos y descripciones
         JLabel lblTitulo = new JLabel("Has encontrado un campamento", SwingConstants.CENTER);
@@ -59,9 +55,9 @@ public class PantallaCampamento extends JDialog {
         btnDescansar.setCursor(new Cursor(Cursor.HAND_CURSOR));
         btnDescansar.addActionListener(e -> {
             if (alDescansar != null) {
-                alDescansar.run(); // Ejecuta la lógica de curación en el modelo
+                alDescansar.run();
             }
-            dispose(); // Cierra el modal y libera el mapa
+            dispose(); // cierra el modal y libera el mapa
         });
 
         JPanel panelSur = new JPanel();
@@ -69,7 +65,7 @@ public class PantallaCampamento extends JDialog {
         panelSur.setBorder(BorderFactory.createEmptyBorder(0, 0, 20, 0));
         panelSur.add(btnDescansar);
 
-        // Ensamblaje final
+
         add(panelContenido, BorderLayout.CENTER);
         add(panelSur, BorderLayout.SOUTH);
     }

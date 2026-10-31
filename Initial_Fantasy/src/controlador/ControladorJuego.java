@@ -282,7 +282,7 @@ public class ControladorJuego implements EscenarioDeNodos {
         }
     }
 
-    // Metodo para intercambiar los paneles sin abrir ventanas nuevas
+    // metodo para intercambiar los paneles sin abrir ventanas nuevas
     private void cambiarPantalla(JPanel nuevaPantalla) {
         ventanaPrincipal.setContentPane(nuevaPantalla);
         ventanaPrincipal.revalidate();

@@ -17,10 +17,8 @@ public class PanelInfoInventario extends JPanel {
         setLayout(new BorderLayout(10, 10));
         setPreferredSize(new Dimension(220, 0));
         setOpaque(false);
-        setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(Color.WHITE, 2),
-                BorderFactory.createEmptyBorder(10, 10, 10, 10)
-        ));
+        setBorder(BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.WHITE, 2),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)));
 
         lblTitulo = new JLabel("INFO", SwingConstants.CENTER);
         lblTitulo.setForeground(new Color(255, 215, 0));
@@ -60,9 +58,7 @@ public class PanelInfoInventario extends JPanel {
 
         String mensaje = estado.getMensajeInfo();
 
-        if (mensaje == null || mensaje.isBlank()) {
-            mensaje = "Esperando acción...";
-        }
+        if (mensaje == null || mensaje.isBlank()) mensaje = "Esperando acción...";
 
         lblTitulo.setText(obtenerTitulo(estado.getFase()));
         txtInfo.setText(mensaje);
@@ -98,17 +94,11 @@ public class PanelInfoInventario extends JPanel {
     }
 
     private void actualizarInventario(EstadoBatallaDTO estado) {
-
         panelBotonesItems.removeAll();
-
-        if (estado.getFase() != FaseBatalla.ELIGIENDO_CONSUMIBLE) {
-            return;
-        }
+        if (estado.getFase() != FaseBatalla.ELIGIENDO_CONSUMIBLE) return;
 
         for (ConsumibleDTO consumible : estado.getItems()) {
-
             JButton btn = new JButton(consumible.getNombre());
-
             btn.addActionListener(e ->
                     controlador.elegirConsumible(consumible.getNombre())
             );

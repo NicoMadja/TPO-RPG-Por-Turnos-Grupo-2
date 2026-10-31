@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// grafo dirigido y sin pesos: cada vértice conoce a sus sucesores (a dónde se puede ir desde él)
+// grafo dirigido y sin pesos
 public class Grafo<T> {
-    private final Map<T, List<T>> sucesores = new LinkedHashMap<>(); // respeta el orden en que se agregaron
+    private final Map<T, List<T>> sucesores = new LinkedHashMap<>();
 
 
     // --- CONSTRUCCION ---
@@ -47,7 +47,7 @@ public class Grafo<T> {
         return Collections.unmodifiableList(new ArrayList<>(sucesores.keySet()));
     }
 
-    // todos los vértices a los que se puede llegar desde "inicio" (incluido él mismo)
+    // todos los vértices a los que se puede llegar desde inicio (incluido él mismo)
     public Set<T> alcanzablesDesde(T inicio) {
         verificarExiste(inicio);
         Set<T> visitados = new HashSet<>();

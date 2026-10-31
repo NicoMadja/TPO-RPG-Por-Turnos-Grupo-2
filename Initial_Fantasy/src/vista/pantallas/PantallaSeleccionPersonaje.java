@@ -1,7 +1,6 @@
 package vista.pantallas;
 
 import dto.PersonajeDTO;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,9 +49,6 @@ public class PantallaSeleccionPersonaje extends JPanel {
         add(panelSur, BorderLayout.SOUTH);
     }
 
-
-
-    // El metodo recibe DTOs
     public void cargarPersonajes(List<PersonajeDTO> heroesDisponibles) {
         panelCuadricula.removeAll();
         personajeSeleccionado.clear();
@@ -64,8 +60,8 @@ public class PantallaSeleccionPersonaje extends JPanel {
             btnPersonaje.setFont(new Font("SansSerif", Font.BOLD, 16));
             btnPersonaje.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-            // 1. Cargar el sprite desde el DTO
-            String rutaSprite = dto.getSprite(); // Verifica si en tu DTO se llama getSprite() o getRutaSprite()
+            // 1. cargamos el sprite desde el DTO
+            String rutaSprite = dto.getSprite();
             if (rutaSprite != null && !rutaSprite.isEmpty()) {
                 java.net.URL imgUrl = getClass().getResource(rutaSprite);
                 if (imgUrl != null) {
@@ -73,15 +69,15 @@ public class PantallaSeleccionPersonaje extends JPanel {
                 }
             }
 
-            // 2. Posicionar el texto arriba de la imagen (Como en el boceto)
+            // 2. posicionamos el texto arriba de la imagen
             btnPersonaje.setVerticalTextPosition(SwingConstants.TOP);
             btnPersonaje.setHorizontalTextPosition(SwingConstants.CENTER);
-            btnPersonaje.setIconTextGap(15); // Espacio en píxeles entre el nombre y el dibujo
+            btnPersonaje.setIconTextGap(15);
 
             btnPersonaje.addActionListener(e -> {
                 if (btnPersonaje.isSelected()) {
                     if (personajeSeleccionado.size() < 3) {
-                        personajeSeleccionado.add(dto.getNombre()); // Guardas el ID o Nombre
+                        personajeSeleccionado.add(dto.getNombre());
                         personajesSeleccionados.add(dto);
                         btnPersonaje.setBackground(new Color(100, 255, 100));
                     } else {
@@ -100,7 +96,7 @@ public class PantallaSeleccionPersonaje extends JPanel {
         panelCuadricula.repaint();
     }
 
-    // Devuelve los DTOs elegidos
+    // --- GETTERS ---
     public List<PersonajeDTO> getPersonajesSeleccionados() {
         return personajesSeleccionados;
     }

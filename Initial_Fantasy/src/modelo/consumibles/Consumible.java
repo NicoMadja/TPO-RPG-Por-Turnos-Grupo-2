@@ -1,7 +1,6 @@
 package modelo.consumibles;
 
 import modelo.entidades.Entidad;
-
 import java.io.Serializable;
 
 public abstract class Consumible implements Serializable {

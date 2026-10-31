@@ -3,10 +3,8 @@ package vista.paneles;
 import controlador.ControladorBatalla;
 import dto.EstadoBatallaDTO;
 import dto.FaseBatalla;
-
 import javax.swing.*;
 import java.awt.*;
-
 
 public class PanelAcciones extends JPanel {
     private final ControladorBatalla controlador;

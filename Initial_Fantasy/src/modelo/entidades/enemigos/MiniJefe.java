@@ -12,6 +12,7 @@ public class MiniJefe extends Enemigo {
 
     // --- CONSTRUCTOR ---
     public MiniJefe(String nombre, int nivel) {
+        // el minijefe es un enemigo mas avanzado que el resto, es fuerte y usa maná también.
         super(nombre, nivel, 180 + (nivel * 5), 50, 22 + (nivel * 2), 8 + nivel,
                 11 + (nivel * 2), new HabilidadMiniJefe(), "/recursos/sprites/minijefe.png",
                 160 + (nivel * 10), 120 + (nivel * 2));

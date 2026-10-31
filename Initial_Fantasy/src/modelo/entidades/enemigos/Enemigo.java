@@ -12,7 +12,6 @@ public abstract class Enemigo extends Entidad {
     // --- CONSTRUCTOR ---
     public Enemigo(String nombre, int nivel, int vidaMaxima, int manaMaximo, int ataqueBase, int defensaBase, int velocidadBase, Habilidad habilidad, String rutaSprite, double experienciaOtorgada, int oroOtorgado) {
         super(nombre, nivel, vidaMaxima, manaMaximo, ataqueBase, defensaBase, velocidadBase, habilidad, rutaSprite);
-        // recompensas
         this.experienciaOtorgada = experienciaOtorgada;
         this.oroOtorgado = oroOtorgado;
     }
